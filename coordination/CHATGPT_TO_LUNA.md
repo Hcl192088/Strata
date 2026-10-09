@@ -2,20 +2,20 @@
 
 **Writer:** ChatGPT coordinator only. **Reader/executor:** Codex/Luna running in **laptop** workspace `D:\strata`, controlling the **remote desktop** over SSH (the desktop does not need Codex to be installed).  
 **Execution topology:** laptop `D:\strata` (not a Git repository) → SSH → desktop source `C:\Users\User\Strata-Adrian-control`, runtime `C:\Users\User\Strata-IQ3-20261008`. GitHub mailbox commits should be made from a separate, authorized coordination clone on the laptop; never assume GitHub push authentication works on the desktop.
-**Current task authored:** 2026-10-09 (Asia/Taipei). **Task mode:** READ-ONLY audit; **no performance run yet**.
+**Last task update:** 2026-10-09 (Asia/Taipei). **TASK_ID LUNA-20261009-001 has been completed and reported. No new task is authorized. Laptop Codex Scheduled Task has not been created or Run now tested.**
 
 ## ACTIVE TASK
 
 ```text
 [CHATGPT_PLAN]
 TASK_ID: LUNA-20261009-001
-STATUS: NEW (revised after user's historical handoff upload)
-PRIORITY: P0 / AUDIT_ONLY
+STATUS: COMPLETED (validated GitHub report publication 2026-10-09 16:40 +08:00)
+PRIORITY: P0 / AUDIT_ONLY — ARCHIVED, DO NOT RUN AGAIN
 SUPERSEDES: earlier wording of the SAME task LUNA-20261009-001; do not dispatch both revisions
 PLAN: coordination/NEXT_STEP_2026-10-09.md on main
 HISTORICAL_HANDOFF_BRANCH: codex/strata-handoff-20261009
 HISTORICAL_HANDOFF_COMMIT: 685e52b328bf55091a8b9312407ad2b8d4daf21e
-FIRST_ACTION: read uploaded 2026-10-09 handoff and workspace layout; acknowledge only after the real remote Luna agent reads this task.
+FIRST_ACTION: NONE; this task was already executed. Do not rerun it. Pending manual creation and Run now test of laptop Codex Scheduled Task.
 SCOPE: audit and return evidence; no new benchmarks, source edits, deletes, archive moves, merges or force pushes.
 ```
 
@@ -55,3 +55,5 @@ To read without merging, use an **isolated coordination checkout** and `git fetc
 
 - 2026-10-09: Task LUNA-20261009-001 initially issued as benchmark audit with conditional candidate runs.
 - 2026-10-09: User uploaded five historical handoffs to `codex/strata-handoff-20261009`; task revised to **AUDIT_ONLY** before any additional benchmark.
+
+- 2026-10-09 16:40–16:41 Asia/Taipei: Luna's real [LUNA_REPORT] for LUNA-20261009-001 was pushed to `main:coordination/LUNA_TO_CHATGPT.md` in commits `106e1b8bb148ba51f24de56a0c2ce89ccf2be196` and `b496ff6fc9ad86a78494a7b0172654e7b57c8fbb`. ChatGPT reviewed it; **no additional benchmark or task was authorized**. Await laptop Codex Scheduled Task creation + manual Run now verification. Never treat this historical COMPLETED instruction as new work.
