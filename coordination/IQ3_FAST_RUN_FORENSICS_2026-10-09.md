@@ -26,7 +26,7 @@ The prior `CACHE_ONLY vs FINAL_BUNDLE` A/B check had identity success but **A.n=
 ## 1. Topology and source-of-truth
 
 - Laptop Codex application/workspace: `D:\strata` (**not** a Git repository).
-- Laptop GitHub mailbox clone: `D:\strata-github-coordination` (owner fork `Hcl192088/Strata`), not the remote source repo.
+- GitHub mailbox repository: user's fork `Hcl192088/Strata`. The previous Luna report claimed a laptop checkout at `D:\strata-github-coordination`, but the user reports the directory is absent. **This local path is UNVERIFIED**; diagnose the actual machine/path/authenticated workflow rather than assuming the checkout exists or silently making an unnecessary clone.
 - Desktop accessed through already-proven **noninteractive SSH** using the configured IP/identity. Expected hostname: `DESKTOP-LKMLUPC`. Revalidate StrictHostKeyChecking/BatchMode and hostname; do not weaken SSH checks or change keys.
 - Desktop source: `C:\Users\User\Strata-Adrian-control`; runtime: `C:\Users\User\Strata-IQ3-20261008`.
 - Desktop historical overnight folder: `C:\Users\User\Strata-IQ3-20261008\overnight-20261009`.
@@ -38,7 +38,7 @@ Before executing, read remote `AGENTS.md`, the historical Oct 9 IQ3 handoff, and
 
 ## 2. Phase A — READ-ONLY raw-run forensics (MANDATORY FIRST)
 
-A1. Use the laptop guard helper (`D:\strata\tools\strata_github_handoff.ps1`) and its persistent state to claim this exact new TASK_ID **once**. Maintain exclusive lock: no overlapping executions. Do not mark it COMPLETED before reporting.
+A1. First verify which computer Codex actually operates on and locate the **real** GitHub-authenticated working path. Check the previously reported directory with PowerShell `Test-Path -LiteralPath 'D:\strata-github-coordination'` and inspect `git rev-parse --show-toplevel` only on an actual checkout. Do not assume or invent it. If the reported laptop guard helper (`D:\strata\tools\strata_github_handoff.ps1`) exists, use its actual documented interface and persistent state to claim this TASK_ID **once**. Maintain exclusive lock; never mark COMPLETED before reporting.
 
 A2. Via SSH, verify hostname and check remote Strata/llama/benchmark processes, GPU utilization/memory, available physical RAM and free space on all drives touched by IQ3. Preserve all unrelated jobs. Verify source branch/HEAD/dirty/untracked state read-only.
 
@@ -87,7 +87,7 @@ Do **not** immediately begin `CACHE_ONLY vs FINAL_BUNDLE`, spec-min-p sweep, cac
 
 ## 4. Reporting and GitHub publication
 
-Append one genuinely executed task result to `main:coordination/LUNA_TO_CHATGPT.md` using the **laptop coordination clone only**. Preserve existing reports; fetch latest main and handle conflicts without force-push/reset. Do not write the ChatGPT inbox yourself.
+Append one genuinely executed task result to `main:coordination/LUNA_TO_CHATGPT.md` using a **laptop GitHub method whose path and permissions were actually verified** (existing checkout/approved GitHub connector). A prior report described `D:\strata-github-coordination`, but do NOT assume it exists. Preserve existing reports; fetch latest main before any update, handle conflicts without force-push/reset. Do not write the ChatGPT inbox yourself.
 
 Use exactly this machine-readable block **outside fenced examples**, with real values:
 
@@ -125,6 +125,6 @@ Treat this block as a **format specification**; never write synthetic data or cl
 - Real raw evidence for run 1 vs runs 3/6/8 has been inspected and summarized, with unsupported fields marked UNKNOWN.
 - Either FIVE authorized, valid frozen-condition runs have completed **with real raw artifacts**, or an explicit documented `BLOCKED_REPRO` prevents Phase B.
 - Result published to user's fork from laptop; provide exact commit link.
-- Local guard records task state and no duplicate execution occurs on subsequent cron invocations.
+- A verified local guard records task state and prevents duplicate execution on any subsequent invocation, regardless of how it starts.
 
-**Do not ask whether the intended trigger is PR or push. It is neither:** the already configured **hourly local Codex cron guard** reads the `main` mailbox for a new TASK_ID; this new task is `LUNA-20261009-002`.
+**Execution activation is separate from task semantics:** user prefers event-driven Codex wakeup over hourly polling. Native GitHub PR event-triggered ChatGPT tasks do not directly start laptop-local Codex/SSH; generic push triggers are not supported natively. Until a genuinely working local trigger is established and verified, execute this new task **manually** in Codex. Do not claim that an hourly local schedule, an event trigger, or the missing checkout is installed. The task remains `LUNA-20261009-002`.
