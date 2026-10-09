@@ -292,3 +292,64 @@ COVERAGE: Full task-plan Phase 0 evidence review covered the relevant 002/004/00
 
 NEXT_STEP: Await a new explicit plan targeting stage-cache admission/churn instrumentation or a narrowly specified cache policy experiment. Do not promote or rerun any rejected candidate from this task.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-007 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-008
+STATUS: COMPLETED
+TIME_ASIA_TAIPEI: 2026-10-10 00:42:57 +08:00
+EXECUTION_MODE: PHASE0_STAGE_CACHE_TRACE_AND_THREE_PAIRED_CANDIDATE_TESTS
+
+RESOLUTION: Phase 0 traced the active file-tier/stage path, then tested one narrowly scoped isolated candidate. Extending stage-buffer reuse from 3 to 6 layer epochs and from 256 to 512 assemblies passed the plan gate: all three paired deltas were positive and the paired-median decode improvement was +6.56%. The candidate is accepted as the next source candidate, but the production main source and active binary were not changed or merged in this cycle.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (hostname and SSH identity verified)
+REMOTE_ROOT: C:\Users\User\Strata-Adrian
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_BRANCH / HEAD: main / d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_SOURCE_DIRTY_FILES: four pre-existing untracked .codex/handoffs/* files; preserved unchanged
+ISOLATED_SOURCE_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\source-trace
+ISOLATED_BUILD: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\build-trace-cuda
+ISOLATED_CANDIDATE_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\build-trace-cuda\Release\strata.exe
+ISOLATED_CANDIDATE_BINARY_SHA256: 819e22066f2103ea5f9a79fe8f9debe1f3e69f8be67522f308921df22461d963
+ISOLATED_BASELINE_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\strata-baseline-trace.exe
+ISOLATED_BASELINE_BINARY_SHA256: 354a5366b0c98e2e8980cadc0f74681d1e62fb5dbfa7b7d9551a6d51ff9ec7f5
+
+FROZEN_WORKLOAD: prompt_tokens=28912; max_context=100000; output_tokens=1024; same IQ3_XXS model/quant/tokenizer/prompt/sampling/spec/profile identity; spec=6; spec-min-p=0.75; kv=q4_0; kv-resident=20480; expert-cache=3604; pool-workers=9; resident-budget-gib=20; prefill=auto; suffix-draft=3; mtp-max-t=3; pool-affinity=all; adapt-every=3; adapt-swaps=16; adapt-decay=0.60. Environment was STRATA_FETCH_ADMIT=0, STRATA_RESIDENT_HEADROOM_GIB=3, STRATA_ADAPT_IF_MISS=1, STRATA_EXPERT_FILE_CACHE=1, STRATA_PF_FUSED=1, STRATA_LOOKAHEAD=0, plus STRATA_EXPERT_TRACE=1 for both baseline and candidate.
+
+SOURCE_CANDIDATE: isolated-only change to FileExpertSource stage reuse eligibility: kStageAge 3 -> 6 and kStageSeq 256 -> 512. Diagnostic instrumentation was off by default and used identically in both paired binaries. Isolated diff stat was 3 files, 84 insertions and 3 deletions; the product candidate logic is the two reuse-window constants. Source file SHA256: include/strata/core/expert_source.hpp=8d88533e78090c1678143eecce604d6750a43e6d86dc9a9efad81c46b0537aa3; src/core/expert_source.cpp=6451e2c151f24f70d0afeedc5e76f1f4a0b4227d9c12315eecf9c017569a987a; src/program/generate.cpp=69abdc72b2abf562921876cb7220054435156bb892c1eceec99a1e35e1d8c27c.
+
+PHASE0_CAUSAL_TRACE: the static profile/cache was already full at resident=3148/3148. All traced runs reported R4 admission trace attempted=0, refused=0, full=0, quota=0. Therefore R4 cache_refused is a CPU/graph miss aggregate, not ExpertCache::admit refusal in this workload. The active stage path had waits=0, so the measured issue is not stage-fill thread waiting. The trace-on control showed claims=29592, hits=19557, fills=10035, refills=4311, stage_evictions=9779, waits=0, bytes=17760332800; this is whole-process prompt+decode trace. Refill rate was 42.98% of fills and stage replacement was 97.45% of fills. Highest refill layers were 42, 45, 47, 46, 38, 37, 43, 41, 44 and 39. The trace summary's microsecond field was fixed for the candidate runs; existing decode-only file timing remains the comparison metric.
+
+EXTERNAL_RECONNAISSANCE:
+- https://github.com/Niko1221/Strata/issues/831: profile-seeded hybrid admission is relevant in general, but rejected for this run because the current static cache was full and had zero dynamic admission attempts.
+- https://github.com/Niko1221/Strata/issues/369: per-layer cursor/fill issues are already fixed in the current source; not repeated.
+- https://github.com/Niko1221/Strata/pull/1237: pinned stage buffers were inspected; not borrowed because this trace showed no H2D/fill wait signal.
+- spideytznn/Strata: RAMPromotion and ExpertSource residency mechanisms were inspected; no exact transplant identified, and the current trace pointed more directly to stage reuse churn.
+- https://github.com/ggml-org/llama.cpp/discussions/25779: merged explicit-read mechanism was inspected; current Strata already has same-layer dispatch deduplication and nearby-range merging, so no blind port was made.
+
+PAIRED_RESULTS: all six paired runs completed with full decode/file/trace output and no OOM, CUDA error, crash, or validation failure. Candidate is stage reuse 6/512; control is 3/256.
+
+| Pair | Control decode tok/s | Candidate decode tok/s | Delta | Control file MB | Candidate file MB | Control file ms/round | Candidate file ms/round | Control refills -> candidate | Control evictions -> candidate |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 36.43 | 36.69 | +0.71% | 11191.0 | 8797.3 | 7.8 | 6.4 | 5017 -> 3573 | 10682 -> 9199 |
+| 2 | 32.58 | 36.48 | +11.97% | 13542.5 | 7233.9 | 10.2 | 5.6 | 6029 -> 3068 | 12079 -> 8369 |
+| 3 | 34.78 | 37.06 | +6.56% | 10194.8 | 7285.6 | 7.5 | 5.6 | 4404 -> 2954 | 10308 -> 8444 |
+
+SUMMARY_STATISTICS: control median=34.78 tok/s; candidate median=36.69 tok/s; paired median delta=+6.56%; all three deltas positive. Median file-tier MB delta=-28.54%; median refill delta=-32.92%; median stage-eviction delta=-18.08%. Candidate stage_buffers=512 and emitted 1.11 GiB in-use assembled blobs; control stage_buffers=256. Candidate available-RAM readings were 23.33, 23.40 and 23.45 GiB before the fixed 20 GiB resident allocation, with no OOM or process failure. The candidate mechanism moved in the expected direction and crossed the plan's >=3% stable paired gate.
+
+OUTPUT_ROOTS:
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\control-off
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\control-on
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair1-control
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair1-candidate
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair2-control
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair2-candidate
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair3-control
+- C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-optimization-008\pair3-candidate
+
+FINAL_MACHINE_CHECK: no strata process remained after the runs; RTX 4070 reported 605 MiB used, 11406 MiB free, 0% utilization and 41 C; free physical RAM was 25.79 GiB; C: free space was 41.06 GiB; KIOXIA-EXCERIA PRO SSD HealthStatus was Healthy. No process was stopped. The run output roots remain on the remote host; no cleanup was performed.
+
+COVERAGE: Mandatory external references in the active plan were inspected. Relevant active source paths were traced in ExpertCache, FileExpertSource stage claim/fill/read paths, and expert dispatch deduplication; this was not a full repository audit. Phase 0 used two isolated controls (trace off/on) and the candidate validation used three sequential interleaved pairs, six new benchmark processes. All benchmark logs were scanned for decode, file-tier, trace, OOM/error and validation markers; large logs were not pasted wholesale. Remaining blind spots are output quality regression, per-token timing/output identity, and power telemetry; they were not required by this plan and no quality claim is made.
+
+SOURCE_CHANGE: no production source, active binary, model, temperature, remote main branch, or existing dirty file was changed. The accepted candidate remains isolated for the next explicitly authorized promotion/deployment step.
+NEXT_STEP: use the isolated 6/512 candidate as the production-promotion candidate in a separately authorized source/deployment step; do not repeat the rejected lookahead, prefetch, PVM, per-layer-cache, or profile-admission tests without a new causal question.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-008 -->
