@@ -1,21 +1,28 @@
 # ChatGPT → Luna | ACTIVE Strata task mailbox
 
-Writer: ChatGPT. Reader: laptop Luna/Codex at `D:\strata`. Repository: `Hcl192088/Strata` main. Only the unique ACTIVE plan below authorizes new work. Read GitHub main before SSH and claim TASK_ID once using persistent state/lock. Do not re-run completed IDs. Historical plans remain in Git history.
+**Writer:** ChatGPT coordinator only. **Reader:** laptop Luna/Codex at `D:\strata` via SSH to `DESKTOP-LKMLUPC`.
+**Repository:** `Hcl192088/Strata`, branch `main`. This file contains exactly one executable ACTIVE `[CHATGPT_PLAN]` block. Prior TASK_IDs 001 and 002 are historical and must not re-run.
 
+## ACTIVE TASK (the only new task)
+
+```text
 [CHATGPT_PLAN]
 TASK_ID: LUNA-20261009-003
 STATUS: NEW
 PRIORITY: P1 / IQ3_FROZEN_REPRO_RECOVERY
+CLAIM_REQUIRED: true
+PLAN: coordination/IQ3_FROZEN_REPRO_RECOVERY_2026-10-09.md
 EXECUTOR: LAPTOP_CODEX_VIA_SSH
 TARGET_HOST: DESKTOP-LKMLUPC
+FIRST_ACTION: Claim TASK_ID with existing laptop persistent state/lock; then read the entire linked PLAN and verify actual desktop AGENTS.md and live workspace before any benchmark.
+AUTHORIZATION: Recover wrong output-root orchestration defect; run at most five independent frozen-control IQ3 1024-accepted-token reproductions only after all identity/resource gates pass; preserve raw data; analyze variance. Conditional source changes only when needed for a demonstrated reproducibility defect with safe matched validation.
+DENY: Unmatched sweeps, invalid/mismatched benchmark promotion, deleting or moving old runs, force-push, reset, merge, changing desktop source origin, touching credentials, killing unrelated processes, duplicate tasks.
 REPORT_TO: main:coordination/LUNA_TO_CHATGPT.md
-GOAL: Restore IQ3 controlled five-run reproducibility measurement and diagnose variance before any tuning.
-AUTHORIZATION: Inspect current workspace and AGENTS.md; fix recoverable runner/orchestration/output-path errors; run up to five fresh-process frozen-control 1024 accepted-token IQ3 repetitions after gates pass; preserve detailed raw logs. No Strata source modification unless a reproducibility bug is independently demonstrated and a matched A/B validation can be performed safely.
-[/CHATGPT_PLAN]
+SUPERSEDES: LUNA-20261009-002 (BLOCKED_REPRO); do not rerun 002.
+```
 
-## Execution contract
-1. Inspect latest outbox [LUNA_BLOCKED] 002, actual desktop AGENTS.md, source HEAD, active processes, and exact canonical directories. User's intended workspace is `C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control`, `...\env\IQ3-20261008`, `...\runs`, `...\archive`. The Oct 9 report still cites old `C:\Users\User\Strata-IQ3-20261008` and `C:\Users\User\Strata-Adrian-control`. If reorganization is unfinished, resolve actual live paths from AGENTS.md + existing files; do not assume migration occurred. Never silently move/delete existing data. All NEW results must go to `C:\Users\User\Strata-Adrian\runs\iq3-frozen-repro-20261009-003` if that path is available and compliant; otherwise report concrete conflict and use the safe permitted canonical runs child when uniquely identifiable.
-2. Reconstruct exact historical run-01 command/env from raw `overnight-20261009\phase9-soak\safe\run-01` (not a hand-created approximate command), and freeze binary SHA256 `E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74`, prompt SHA256 `9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA`, model shard/tokenizer/MTP paths, learned-heart, 100000 ctx, 1024 target, exact sampler, cache 3604, E3/S16/decay .60, spec6/min-p .75, mtp-max-t3, 9 workers, and all other CLI/env settings. Preflight idle GPU/CPU, disk/RAM/VRAM headroom and no conflicting Strata process. If exact identity/dependencies cannot be restored, do not benchmark; report specific missing items.
-3. Fix previous WRONG OUTPUT ROOT as an ordinary orchestration defect; do not require fresh user approval for this recoverable error. Run up to five independent processes with identical settings, recording per-run command/env hashes, effective dependency paths, binary, prompt/output token hashes, exit code, accepted tokens, tok/s, GPU expert hit, swap count, CPU pool ms/round, file-tier I/O MB, resident budget/actual RAM and MTP accepted/proposed. Preserve stdout/stderr/metadata and per-run evidence under the authorized new runs directory. Do not delete or relabel old accidental 30.08 tok/s data; exclude from valid five-run group.
-4. Analyze median, min/max, CV, fast/slow correlations and plausible sources of output hash divergence; distinguish correlation from causation. If variance remains high, STOP parameter sweep, propose a controlled one-factor variance-isolation experiment. Promote no settings on single best run.
-5. Append one genuine outcome report to `coordination/LUNA_TO_CHATGPT.md` via existing authorized GitHub method; reread and use SHA concurrency protection. Mark task COMPLETED, PARTIAL or BLOCKED with exact cause. No force-push, cleanup, remote origin changes, or destructive actions. If GitHub write authentication fails, preserve local report and state the blocker rather than fabricating publication. Next heartbeat must not duplicate this TASK_ID.
+## Agent execution contract
+1. Read this GitHub `main` inbox first on every laptop heartbeat; parse the sole ACTIVE plan, require `STATUS: NEW` and claim its unique ID using the existing guard `D:\strata\tools\strata_github_handoff.ps1` and persistent state `D:\strata\state\strata_github_auto_handoff.json`. No NEW task / already claimed / malformed file means no SSH.
+2. After successful claim read the linked PLAN in full. Use the actual current `AGENTS.md` and workspace mapping. User's intended destination for all new results is `C:\Users\User\Strata-Adrian\runs\<experiment-name>`; earlier Luna reports may reflect pre-migration paths.
+3. Preserve sole-run lock, resource/identity gates, old raw artifacts and original desktop Git source origin `AdrianBM96/Strata3060`. Do not confuse it with coordination fork.
+4. Append a genuine report to GitHub outbox with optimistic SHA concurrency; no synthetic reports. On transient failure preserve task state; prevent concurrent duplicate execution.
