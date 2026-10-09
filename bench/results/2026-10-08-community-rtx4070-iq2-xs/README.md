@@ -4,6 +4,26 @@
 
 Measured **2026-10-08** by [Hcl192088](https://github.com/Hcl192088), on one consumer GPU with 12 GB installed VRAM and 32 GB DDR4 system RAM. The most interesting result is a **48.23 accepted-decode-tok/s median over five runs** for one adaptive-cache candidate. A separate frozen `CURRENT_BEST` reference is independently pinned at a **47.76 tok/s median over five runs**. Neither number should be interpreted as end-to-end request speed or as a universal hardware ranking.
 
+## Full engine source and reproducibility package
+
+**The benchmark used a modified Adrian-derived Strata engine, not an unmodified official upstream binary.**
+The exact source tree used in the archived run is published in this user's fork as
+[**benchmark-iq2-source-9ec3806**](https://github.com/Hcl192088/Strata/tree/benchmark-iq2-source-9ec3806),
+pinned to Git commit `9ec3806058cf32ab27a55e4377daf7cf0d087dec` (tree
+`90346cf6af4fb642ff7847327e0f3456ed90799a`).
+
+- [**REPRODUCE.md**](REPRODUCE.md) — clone/build/model-preparation/verification/run instructions and exact missing-data list.
+- [**reproduce.py**](reproduce.py) — standard-library SHA-256 input validator and sequential five-run benchmark harness.
+- [**provenance.json**](provenance.json) — immutable source, model/pack/MTP/profile/prompt hashes and original arguments.
+
+**Exact-independent-reproduction qualification:** The original `learned-heart.bin` expert profile
+and 28,912-token `neuro.tokens` prompt are **not publicly included**; their SHA-256
+identities are recorded, and the local archives retain the originals. Therefore
+the published source/build/runner can reproduce the *procedure*, but obtaining an
+identical historical workload and directly reproducing 48.23 tok/s still
+requires those missing input bytes (or a deterministic, hash-matching construction).
+A substitute prompt/profile is a new workload, not a verified reproduction.
+
 ## Hardware
 
 | Item | Recorded value |
