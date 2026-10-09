@@ -16,13 +16,21 @@ pinned to Git commit `9ec3806058cf32ab27a55e4377daf7cf0d087dec` (tree
 - [**reproduce.py**](reproduce.py) — standard-library SHA-256 input validator and sequential five-run benchmark harness.
 - [**provenance.json**](provenance.json) — immutable source, model/pack/MTP/profile/prompt hashes and original arguments.
 
-**Exact-independent-reproduction qualification:** The original `learned-heart.bin` expert profile
-and 28,912-token `neuro.tokens` prompt are **not publicly included**; their SHA-256
-identities are recorded, and the local archives retain the originals. Therefore
-the published source/build/runner can reproduce the *procedure*, but obtaining an
-identical historical workload and directly reproducing 48.23 tok/s still
-requires those missing input bytes (or a deterministic, hash-matching construction).
-A substitute prompt/profile is a new workload, not a verified reproduction.
+**Independent community reproduction:** The original `learned-heart.bin` expert
+profile was generated as a Strata expert-cache profile; the historical file's
+hash remains recorded, but **its bytes are not required to rerun the method**.
+Strata has a built-in, opt-in `--expert-profile-save` feature (in `--serve`
+mode with adaptive-cache settings) and `tools/make_profile.py` for generating
+new profiles from a tester's own workload. The original 28,912-token prompt
+is not redistributed; [`make_local_prompt.py`](make_local_prompt.py)
+constructs a length-matched token-ID input from the reviewer's own local text,
+and [`reproduce.py`](reproduce.py) accepts `--prompt-file` and `--profile`
+overrides.
+
+Different prompt/profile data can change the results. **The published 48.23
+tok/s remains the historical observed five-run median, not a guaranteed
+result for a new workload**. Source/build/test-method reproduction does not
+require publication of a private user's prompt.
 
 ## Hardware
 
