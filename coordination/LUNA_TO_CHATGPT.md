@@ -248,3 +248,47 @@ Original remote evidence:
 
 The existing runner did not assess quality regression, and task 006 did not capture temperature or power telemetry. Those are unresolved measurement limits, not grounds to promote the candidate. The next step is to await a new explicit GitHub plan; do not rerun task 006 or promote worker8 from this evidence.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-006 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261009-007
+STATUS: COMPLETED
+TIME_ASIA_TAIPEI: 2026-10-10T00:10:26+08:00
+EXECUTION_MODE: PHASED_IQ3_HOTPATH_SOURCE_AND_RUNTIME_VALIDATION
+
+RESOLUTION: The authorized 1024-token campaign completed three sequential mechanism candidates and did not promote any candidate. The measured slowdown is consistently associated with higher file-tier traffic and CPU expert-pool time. Page-only lookahead, staged blob prefetch, and disabling Windows PrefetchVirtualMemory all failed the paired speed gate. No production source, active binary, model, temperature, or main source Git state was changed.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (User@100.126.147.41; strict host-key and hostname identity verified)
+REMOTE_ROOT: C:\Users\User\Strata-Adrian
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_SOURCE_AGENTS: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control\AGENTS.md (read)
+REMOTE_BRANCH / HEAD: main / d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_SOURCE_DIRTY_FILES: four pre-existing untracked .codex/handoffs/* files; preserved unchanged
+ISOLATED_SOURCE_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\source-lookahead-stage
+ISOLATED_SOURCE_CHANGE: one-line RouterLookahead warm -> prefetch change, built and tested only in the isolated worktree; not promoted or merged
+
+FROZEN_IDENTITY: All 18 new matched benchmark processes used prompt_tokens=28912, max_context=100000, accepted output_tokens=1024, the same model/quant/tokenizer/sampling/spec/profile identity, and the frozen baseline runtime arguments. Control binary SHA256 was E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74. The isolated source candidate binary SHA256 was 14C4C0CD3F35E26F10DACE3B674B9AE7C5610DB322BA81D8EEA0E75F457A67E3. Prompt SHA256 was 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA.
+
+MEASURED_RESULTS:
+- Phase 1 runtime lookahead: 3 matched pairs, all six valid. Candidate STRATA_LOOKAHEAD=1 paired deltas were -11.18%, -6.39%, +2.07%; median -6.39%. Candidate file-tier MB for the three pairs was 14878.2, 15955.2, 8016.3 versus control 7219.7, 8732.4, 9866.4; candidate CPU pool ms was 34.892, 32.460, 25.382 versus control 24.820, 25.964, 30.338. Decision: reject.
+- Phase 2 isolated source candidate: 3 matched pairs, all six valid. RouterLookahead::run used prefetch instead of warm in the isolated binary. Paired deltas were -16.37%, -2.75%, -4.94%; median -4.94%. Candidate file-tier MB was 19847.3, 10785.0, 15189.5 versus control 8248.8, 8770.9, 14824.7; candidate CPU pool ms was 36.664, 26.337, 34.969 versus control 27.487, 24.688, 34.603. Decision: reject; no source promotion.
+- Phase 3 runtime mechanism control: 3 matched pairs, all six valid. Candidate STRATA_FETCH_PVM=0 paired deltas were -5.92%, -12.73%, -11.40%; median -11.40%. Candidate file-tier MB was 10315.6, 15111.7, 13469.1 versus control 8340.0, 8489.0, 8255.5; candidate CPU pool ms was 31.001, 33.460, 34.287 versus control 27.756, 26.815, 29.109. Decision: reject.
+
+ROOT_CAUSE_EVIDENCE: The prior read-only 15-run analysis measured Pearson r(speed, cpu_pool_ms)=-0.94608 and r(speed, file_tier_MB)=-0.94701. The new matched tests reproduce the same direction: the approximately 30 tok/s rows coincide with high file-tier traffic and higher pool time. The lookahead/prefetch candidates increased or failed to reduce those quantities, so the current evidence supports file-tier/stage-cache traffic or admission/churn as the active slowdown mechanism. The PVM-off result makes PVM hint overhead alone an insufficient root cause. The exact lower-level admission/churn cause remains unresolved; no causal claim beyond these matched measurements is made.
+
+DECISION: No candidate reached the plan's >=3% stable paired improvement gate. No binary or source change was promoted. The best stable reference remains the prior corrected five-run baseline median 35.76 tok/s (LUNA-20261009-002); this task's controls were intentionally interleaved and are not substituted for that reference.
+
+ORIGINAL_REMOTE_EVIDENCE:
+- Phase 1 durable state/results: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\campaign_state.json and C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase1_lookahead_results.json
+- Phase 1 raw run root: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase1-lookahead-1024
+- Phase 2 durable state/results: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase2_prefetch_stage_state.json and C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase2_prefetch_stage_results.json
+- Phase 2 raw run root: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase2-prefetch-stage-1024
+- Phase 2 source worktree/build: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\source-lookahead-stage and C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\build-lookahead-stage
+- Phase 3 durable state/results: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase3_fetch_pvm_state.json and C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase3_fetch_pvm_results.json
+- Phase 3 raw run root: C:\Users\User\Strata-Adrian\runs\iq3-hotpath-optimization-007\phase3-fetch-pvm-1024
+
+PROCESS_AND_STATE_CHECK: Final remote process query found no strata.exe or python.exe process. Main source remained on main at d8bd709; only the four pre-existing handoff files were dirty. No process was stopped.
+
+COVERAGE: Full task-plan Phase 0 evidence review covered the relevant 002/004/005/006 reports and raw command/result identity. The new candidate scope covered all 18 attempted benchmark processes, all 18 valid result.json files, all three 3-pair matched phases, source audit/build evidence, and final process/Git checks. Source inspection covered the relevant ExpertSource warm/prefetch/fill_many, RouterLookahead, and expert_pool_dispatch_multi paths; it was not a full repository audit. Large stdout/stderr logs were not loaded wholesale; runner-produced result.json and machine snapshots were used. Not audited in this cycle: full stderr semantics, per-token output identity/timestamps, quality regression, power/thermal telemetry, and a complete admission/churn causal trace.
+
+NEXT_STEP: Await a new explicit plan targeting stage-cache admission/churn instrumentation or a narrowly specified cache policy experiment. Do not promote or rerun any rejected candidate from this task.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-007 -->
