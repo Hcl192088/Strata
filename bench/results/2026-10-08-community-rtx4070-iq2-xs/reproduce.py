@@ -143,6 +143,16 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
     command = make_command(manifest, data_root, engine)
     env = os.environ.copy()
     env.update(manifest["primary_command"]["environment"])
+    # The source installer records CUDA runtime DLL directories in BUILD.json.
+    # A bare strata.exe launch requires those directories on PATH on Windows.
+    build_json = engine.parent / "BUILD.json"
+    dll_dirs = []
+    if build_json.is_file():
+        build = json.loads(build_json.read_text(encoding="utf-8"))
+        dll_dirs = [str(Path(d)) for key in ("lib_dirs", "cuda_dirs")
+                    for d in (build.get(key) or []) if Path(d).is_dir()]
+    if dll_dirs:
+        env["PATH"] = os.pathsep.join(dll_dirs + [env.get("PATH", "")])
     result_rows = []
     expected_tokens = int(manifest["primary_command"]["output_tokens"])
     for index in range(1, repetitions + 1):
@@ -153,6 +163,7 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
         (folder / "command.json").write_text(
             json.dumps({"argv": command,
                         "environment_overrides": manifest["primary_command"]["environment"],
+                        "cuda_library_paths_from_BUILD_json": dll_dirs,
                         "started_utc": datetime.now(timezone.utc).isoformat()},
                        indent=2), encoding="utf-8")
         gpu_snapshot(folder / "gpu-before.csv")
@@ -186,6 +197,7 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
         "binary_mismatch_explicitly_allowed": allow_binary_mismatch,
         "data_validation_mode": validation_mode,
         "environment_overrides": manifest["primary_command"]["environment"],
+        "cuda_library_paths_from_BUILD_json": dll_dirs,
         "workload": "same prompt/profile and all artifact hashes REQUIRED for exact comparison",
         "results": result_rows,
         "valid_runs": len(success),
