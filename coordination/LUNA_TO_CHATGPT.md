@@ -145,3 +145,59 @@ COVERAGE: Full requested 15-run command/result/candidate summary and identity co
 
 SOURCE_CHANGE: None. No remote source, model, binary, Git state, or process was modified.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-004 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261009-005
+STATUS: PARTIAL
+TIME_ASIA_TAIPEI: 2026-10-09T21:43:06+08:00
+EXECUTION_MODE: PHASED_1024_ONLY_MATCHED_AB
+
+RESOLUTION: The amended owner plan was re-read and applied. The original 4096-output stages were allowed to terminate normally, preserved under the campaign output root, and excluded from the amended 1024-token evidence. Two 1024-token runtime candidates were tested. resident-budget-gib=21 was rejected. pool-workers=8 showed a raw +8.09% paired-median label, but promotion was blocked because the frozen-control sample CV was 9.75%, above the plan's 5% variance gate. No candidate is promoted.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (verified with StrictHostKeyChecking, BatchMode, and hostname checks)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_RUNTIME: C:\Users\User\Strata-Adrian\env\IQ3-20261008
+REMOTE_OUTPUT_ROOT: C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005
+REMOTE_BRANCH / HEAD: main / d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_AGENTS: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control\AGENTS.md read; source AGENTS SHA256 6F10971D9DC14BD7BE42DABF8C83C32BB7BD01894F5A791F0940AEB8E87607CC
+REMOTE_DIRTY_FILES: four pre-existing untracked .codex/handoffs files; preserved unchanged
+PLAN_SHA256: cb29ed13147fd8275899d9b875ce829ab79b6bb0
+INBOX_SHA256: 54298770b85968b21e9b84952299c25cb1d3290a
+OUTBOX_SHA256_BEFORE_APPEND: 27529a5c1f1cd4d7393d28007beab656572a7b1a
+
+FROZEN_IDENTITY: All valid amended-plan runs used binary SHA256 E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74, prompt SHA256 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA, prompt_tokens=28912, max_context=100000, and accepted output_tokens=1024. The tested control kept expert-cache=3604, pool-workers=9, adapt-every=3, adapt-swaps=16, adapt-decay=0.60, spec=6, spec-min-p=0.75, and resident-budget-gib=20 unless the single factor was changed.
+
+RESUME_AND_PROCESS_PROOF: The laptop guard's same-task resume action was exercised after each idle checkpoint. Remote controller locks and read-only process checks prevented replacement launches. Total preserved command.json files under the campaign root: 22; result.json files: 21; one partial raw run without result.json was preserved after an isolated post-run evidence-kind KeyError in the old 4096 controller. At final report checkpoint, remote process count was 0. The 4096 runs are not counted as valid amended-plan controls.
+
+AMENDED_1024_PHASE_RESULTS:
+- H3 resident-budget-gib=21 vs 20, 3 matched pairs, all six valid with exit=0 and decode_tokens=1024.
+  - Control: 35.14, 36.10, 37.54 tok/s; median 36.10.
+  - Candidate: 36.68, 32.55, 31.06 tok/s; median 32.55.
+  - Paired deltas: +4.38%, -9.83%, -17.26%; median delta -9.83%.
+  - Decision: REJECT_OR_HOLD.
+  - Decision path: C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase3-1024\resident-budget-21-vs-20\decision.json
+- H4 pool-workers=8 vs 9, 3 matched pairs, all six valid with exit=0 and decode_tokens=1024.
+  - Control: 32.50, 37.11, 30.80 tok/s; median 32.50; sample CV 9.75%.
+  - Candidate: 35.01, 35.13, 35.25 tok/s; median 35.13.
+  - Raw paired deltas: +7.72%, -5.34%, +14.45%; raw median delta +8.09%.
+  - Decision: REJECT_OR_HOLD because the control CV exceeds the 5% promotion gate; the controller's initial promote label was preserved in decision.controller_original.json and corrected in decision.json.
+  - Decision path: C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase4-1024-pool-workers\pool-workers-8-vs-9\decision.json
+
+REFERENCE: The previously validated 002 five-run 1024-token reference remains median 35.76 tok/s with approximately 1.64% CV. The amended 005 candidate results do not establish a new stable improvement over that reference.
+
+BEST_STABLE_1024_MEDIAN: 35.76 tok/s from the existing validated 002 reference. No 005 candidate was promoted.
+QUALITY: Existing runner does not assess output quality regression; no quality claim is made.
+SOURCE_CHANGE: None. No remote Strata source, model, production binary, origin, branch, Git state, temperature, unrelated process, or unrelated data was changed. Only isolated campaign controllers/metadata were added under the authorized campaign output root; the local handoff guard already contained the minimal resume support.
+
+STOP_REASON: Evidence is sufficient to reject resident-budget=21 and to hold pool-workers=8 pending variance isolation. The amended plan's 1024-only requirement was satisfied for the valid comparison runs. No source-level candidate was justified before resolving control variance.
+RECOMMENDED_NEXT_AUTONOMOUS_CAMPAIGN: Keep output_tokens=1024 and frozen identity. First isolate the control-side runtime/I/O variance that produced 9.75% CV, then independently validate pool-workers=8 with at least three matched pairs before any promotion. Do not treat the raw +8.09% as causal or stable.
+
+COVERAGE: Full command/result/candidate metadata was enumerated for all 22 attempted benchmark processes under the campaign root; 21 completed result.json files were summarized and the one partial raw run was identified and preserved. Per-run stdout/stderr and process snapshots remain at their phase directories; large logs were not loaded wholesale into this report. The runner has no output-token digest or quality evaluator, so token-stream identity and quality remain unverified.
+
+OUTPUT_PATHS:
+- C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\campaign_state.json
+- C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase1-long-output\summary.json (legacy 4096 stage; excluded from amended evidence)
+- C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase3-1024\resident-budget-21-vs-20\decision.json
+- C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase4-1024-pool-workers\pool-workers-8-vs-9\decision.json
+
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-005 -->
