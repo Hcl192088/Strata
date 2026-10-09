@@ -201,3 +201,50 @@ OUTPUT_PATHS:
 - C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005\phase4-1024-pool-workers\pool-workers-8-vs-9\decision.json
 
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-005 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261009-006
+STATUS: COMPLETED
+TIME_ASIA_TAIPEI: 2026-10-09 22:41
+
+## Result
+
+Task 006 completed the authorized fresh-process 1024-token worker-variance validation. No source, binary, model, temperature, or remote Git state was changed. The worker8 candidate is rejected/held; no promotion is authorized.
+
+- Remote host: `DESKTOP-LKMLUPC` (`User@100.126.147.41`)
+- Remote source/worktree: `C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control`
+- Source HEAD: `d8bd709bcb336c604d684dad6ddf83796dac87ac`
+- Remote source worktree: dirty only in four pre-existing untracked `.codex/handoffs/*` files; no task source files changed
+- Remote AGENTS SHA256: `6F10971D9DC14BD7BE42DABF8C83C32BB7BD01894F5A791F0940AEB8E87607CC`
+- Active binary SHA256: `E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74`
+- Workload identity: frozen prompt 28,912 tokens, max context 100,000, accepted output 1,024 tokens, control `pool-workers=9`, candidate `pool-workers=8`
+- Fresh validation: 5 interleaved matched pairs, 10 valid processes total; all 10 outputs passed the 1,024-token validity check
+
+## Measured evidence
+
+Pair results (`control -> candidate`, decode tok/s; candidate delta):
+
+1. `24.83 -> 28.22` (`+13.65%`)
+2. `26.71 -> 27.09` (`+1.42%`)
+3. `22.06 -> 18.97` (`-14.01%`)
+4. `23.36 -> 20.34` (`-12.93%`)
+5. `22.33 -> 16.75` (`-24.99%`)
+
+- Control median: `23.36 tok/s`; sample CV: `8.09%`
+- Candidate median: `20.34 tok/s`; sample CV: `22.86%`
+- Paired median delta: `-12.93%`
+- Historical task 002 baseline median: `35.76 tok/s`
+- Decision: `REJECT_OR_HOLD`
+- Promotion blocked by the variance/historical-reference gate: both CVs exceed 5%, candidate median is below the historical baseline, and paired median delta is negative
+
+Original remote evidence:
+
+- Decision: `C:\Users\User\Strata-Adrian\runs\iq3-variance-continuation-006\phase1-worker8-validation\pool-workers-8-vs-9\decision.json`
+- Phase root: `C:\Users\User\Strata-Adrian\runs\iq3-variance-continuation-006\phase1-worker8-validation`
+- Durable checkpoint: `C:\Users\User\Strata-Adrian\runs\iq3-variance-continuation-006\campaign_state.json`
+- Preserved preflight evidence: `C:\Users\User\Strata-Adrian\runs\iq3-variance-continuation-006\preflight_previous_evidence.json`
+
+## Limits and next step
+
+The existing runner did not assess quality regression, and task 006 did not capture temperature or power telemetry. Those are unresolved measurement limits, not grounds to promote the candidate. The next step is to await a new explicit GitHub plan; do not rerun task 006 or promote worker8 from this evidence.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261009-006 -->
