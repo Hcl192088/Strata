@@ -328,6 +328,11 @@
     "source_code_public_snapshot_available": true,
     "reproduce_script_public": true,
     "independent_exact_reproduction_possible_with_public_files_alone": false,
-    "reproduction_document": "REPRODUCE.md"
+    "reproduction_document": "REPRODUCE.md",
+    "independent_method_reproduction_without_original_prompt_or_profile": true,
+    "prompt_policy": "original prompt is private; generate a 28,912-token personal input with make_local_prompt.py",
+    "profile_policy": "generate your own expert profile using Strata --expert-profile-save in --serve mode or tools/make_profile.py; original hash kept only for history",
+    "local_reproducer_supports_prompt_profile_overrides": true,
+    "method_vs_exact": "source/build/benchmark method comparable; individual tok/s depends on prompt and learned expert profile"
   }
 }
