@@ -26,7 +26,7 @@ The prior `CACHE_ONLY vs FINAL_BUNDLE` A/B check had identity success but **A.n=
 ## 1. Topology and source-of-truth
 
 - Laptop Codex application/workspace: `D:\strata` (**not** a Git repository).
-- GitHub mailbox repository: user's fork `Hcl192088/Strata`. The previous Luna report claimed a laptop checkout at `D:\strata-github-coordination`, but the user reports the directory is absent. **This local path is UNVERIFIED**; diagnose the actual machine/path/authenticated workflow rather than assuming the checkout exists or silently making an unnecessary clone.
+- GitHub mailbox repository: user's fork `Hcl192088/Strata`. **No separate checkout is required.** Codex works from the user's existing laptop `D:\strata` and may use any previously tested authorized GitHub workflow for reading/updating the mailbox; do not create or investigate a second clone.
 - Desktop accessed through already-proven **noninteractive SSH** using the configured IP/identity. Expected hostname: `DESKTOP-LKMLUPC`. Revalidate StrictHostKeyChecking/BatchMode and hostname; do not weaken SSH checks or change keys.
 - Desktop source: `C:\Users\User\Strata-Adrian-control`; runtime: `C:\Users\User\Strata-IQ3-20261008`.
 - Desktop historical overnight folder: `C:\Users\User\Strata-IQ3-20261008\overnight-20261009`.
@@ -38,7 +38,7 @@ Before executing, read remote `AGENTS.md`, the historical Oct 9 IQ3 handoff, and
 
 ## 2. Phase A — READ-ONLY raw-run forensics (MANDATORY FIRST)
 
-A1. First verify which computer Codex actually operates on and locate the **real** GitHub-authenticated working path. Check the previously reported directory with PowerShell `Test-Path -LiteralPath 'D:\strata-github-coordination'` and inspect `git rev-parse --show-toplevel` only on an actual checkout. Do not assume or invent it. If the reported laptop guard helper (`D:\strata\tools\strata_github_handoff.ps1`) exists, use its actual documented interface and persistent state to claim this TASK_ID **once**. Maintain exclusive lock; never mark COMPLETED before reporting.
+A1. Work in the established **laptop `D:\strata`** Codex workspace; use the existing authorized GitHub access. No separate Git checkout is necessary. If the reported laptop guard helper (`D:\strata\tools\strata_github_handoff.ps1`) exists, use its actual documented interface and persistent state to claim this TASK_ID **once**. Maintain exclusive lock; never mark COMPLETED before reporting.
 
 A2. Via SSH, verify hostname and check remote Strata/llama/benchmark processes, GPU utilization/memory, available physical RAM and free space on all drives touched by IQ3. Preserve all unrelated jobs. Verify source branch/HEAD/dirty/untracked state read-only.
 
@@ -87,7 +87,7 @@ Do **not** immediately begin `CACHE_ONLY vs FINAL_BUNDLE`, spec-min-p sweep, cac
 
 ## 4. Reporting and GitHub publication
 
-Append one genuinely executed task result to `main:coordination/LUNA_TO_CHATGPT.md` using a **laptop GitHub method whose path and permissions were actually verified** (existing checkout/approved GitHub connector). A prior report described `D:\strata-github-coordination`, but do NOT assume it exists. Preserve existing reports; fetch latest main before any update, handle conflicts without force-push/reset. Do not write the ChatGPT inbox yourself.
+Append one genuinely executed task result to `main:coordination/LUNA_TO_CHATGPT.md` using the **existing authenticated GitHub workflow** available to Luna/Codex. Do not create or depend on another local clone. Preserve existing reports; fetch latest main before any update, handle conflicts without force-push/reset. Do not write the ChatGPT inbox yourself.
 
 Use exactly this machine-readable block **outside fenced examples**, with real values:
 
