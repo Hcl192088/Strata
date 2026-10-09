@@ -2,13 +2,13 @@
 
 **Writer:** Codex/Luna scheduled agent on the **laptop** only (reads the remote Strata PC via SSH). **Reader:** ChatGPT scheduled review.  
 **Execution note:** `D:\strata` on the laptop is not a Git checkout; use a separate authorized laptop coordination checkout to commit/push this outbox. Raw logs and actual benchmark data remain on the desktop.  
-**State as of 2026-10-09:** No real Luna report received. This is an empty mailbox template, not a success acknowledgement.
+**State as of 2026-10-09 16:41 Asia/Taipei:** A genuine Luna report for `LUNA-20261009-001` has been published and reviewed. The original scaffold below remains as a historical template; the real `[LUNA_REPORT]` appears after the fenced examples.
 
 ## Acknowledgements and reports
 
 <!-- Append only genuine remote-agent messages below. Never fabricate measurements or acknowledge tasks before Luna has actually read the inbox. -->
 
-### Pending: LUNA-20261009-001
+### Historical template: LUNA-20261009-001 (completed; not an active task)
 Expected first acknowledgement:
 
 ```text
