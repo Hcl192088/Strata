@@ -1,0 +1,28 @@
+# IQ3 variance root-cause investigation — LUNA-20261009-004
+
+Owner: ChatGPT coordinator. Executor: laptop Luna/Codex via SSH to DESKTOP-LKMLUPC.
+Primary objective: explain why old frozen run reached 38.69 accepted decode tok/s but newer matched five runs cluster at 35.08–36.51 tok/s, without treating extreme throughput as repeatable.
+
+## 1. State and identity
+- Prior task 002 COMPLETED; new five-run accepted decode tok/s = 36.51, 35.08, 35.76, 35.41, 36.26; median 35.76 and sample CV 1.64%.
+- Older ten runs = 38.69, 36.46, 31.31, 36.41, 32.68, 37.12, 34.58, 31.61, 34.72, 36.52; median 35.565, sample CV 7.08%.
+- Historical frozen configuration was context capacity 100000, 28912 prompt tokens and **1024 accepted output tokens**. The 1024 value is decode output length, NOT context length. Verify the effective flags and actual input counts for both datasets; do not silently conflate capacity with actual occupied context.
+- Stable binary SHA256 E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74; prompt SHA256 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA.
+- Desktop canonical root C:\Users\User\Strata-Adrian; source repo\Strata-Adrian-control, runtime env\IQ3-20261008, results runs\. Read current remote AGENTS.md and inspect real paths. Preserve pre-migration historical files; never move/delete them merely to standardize layout.
+- Existing new five-run raw root: C:\Users\User\Strata-Adrian\runs\LUNA-20261009-002-rerun\phase0-baseline-corrected2\control . Old historical 10-run raw paths should be located from prior 002 report and actual desktop filesystem.
+
+## 2. Phase A — forensic analysis before new benchmark
+1. Claim unique ID via existing laptop guard, retain lock. Authenticate SSH host; read desktop AGENTS.md; inspect current process and filesystem state. First perform **read-only** raw analysis of all 15 runs, not another five-run reproduction.
+2. Reconstruct per-run effective command/env and hashes, binary/model quant/tokenizer/MTP/learned-heart, sampling policy, prompt counts, actual output token hash, accepted-token accounting, effective 100000 context configuration, benchmark runner version, and process state. Explicitly flag any cross-run identity differences. Do not pool mismatched runs as comparable.
+3. Export machine-readable per-run table under new output root C:\Users\User\Strata-Adrian\runs\iq3-variance-root-cause-004 with speed, decode time, output length, rounds, accepted tokens per round, speculative acceptance counts and distribution, GPU expert hit/miss/swaps, CPU pool ms/round and aggregate time, file tier read bytes/time, RAM/VRAM resident and peak, OS or thermal indicators if actually captured, startup order/warm state, output hash and validity. Label missing fields UNKNOWN; preserve links to original raw inputs.
+4. Analyze high 38.69 run versus slow 31.31/31.61 and newer five, focusing on CPU pool latency, file-tier I/O, cache residency/warm-up and sequence differences. Compare within-run distribution if timestamps exist; compute median/range/CV for both cohorts; correlations only where data permits, clearly distinguish from causal effects. Check whether differing output token hashes change token path/expert routing.
+5. Determine what data is absent and a testable single-factor hypothesis with falsification criterion. Existing old runs showed run1 pool 23.641 ms/round, file read 6620.2MB, hit .6417, rounds646 vs run3 pool36.357ms/round, file read17605.7MB, hit .5785, rounds609. Do not make causal claims.
+
+## 3. Phase B — conditional measurement
+- If Phase A resolves cause sufficiently, report and STOP, no additional benchmark. If key information cannot be extracted without an additional measurement, permit **one targeted controlled measurement campaign** only, at most 3 fresh-process 1024-accepted-output-token matched-control runs using frozen settings, with added read-only instrumentation and per-phase CPU/cache/I/O/per-token accepted timestamps. No parameter sweeps or multiple-factor changes. Only instrument source if justified and comparison binary identity explicitly separated; build must use independent path and maintain unmodified baseline.
+- Context-length validity: explicitly verify 100000 context capacity versus actual ~28912 input tokens. If raw analysis indicates inability to generalize across decode progress, propose as NEXT TASK a matched 4096 accepted-output-token soak (do not run it under 004), with blockwise speed for tokens 1–1024, 1025–2048, 2049–3072, 3073–4096, context occupancy, memory and stability. Do not claim 1024 output is 1024 context.
+- Existing environment must be idle; preserve existing jobs, source, logs and models. On uncertain SSH run state, OOM, insufficient RAM/VRAM/disk, differing model/prompt/hash, incorrect accepted-token counts or broken instrumentation, stop and report; do not auto-restart potentially still-running workloads.
+- No optimizer promotion absent matched repeated evidence; safe recoverable wrapper/output path errors can be repaired automatically with audit trail.
+
+## 4. Completion
+Append genuine [LUNA_REPORT] TASK_ID LUNA-20261009-004 to GitHub main:coordination/LUNA_TO_CHATGPT.md using latest blob SHA and authorized account. Include task status, output root, raw provenance, per-run 15-row table or compact statistical summary with artifact paths, resolved/unresolved hypotheses, effective context/output identity, Phase B decision/results, and actionable next experiment including longer decode if necessary. If GitHub write fails preserve report and blocker. Do not create a new task from Luna; ChatGPT is sole inbox writer.
