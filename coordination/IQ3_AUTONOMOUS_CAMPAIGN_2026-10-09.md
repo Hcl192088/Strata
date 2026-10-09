@@ -2,11 +2,13 @@
 
 ## Mission and evidence
 
+**Owner correction (2026-10-09):** User requires **1024 accepted output tokens only**, with no extra long-context or long-output tests. This correction supersedes any older copy of this campaign plan. If this TASK_ID was already claimed, refresh this PLAN before starting another benchmark; let any already-running process terminate normally and preserve its logs. Do not relaunch or count mismatched-length runs as valid 1024 controls.
+
 **Objective:** Maximize measured, reproducible **accepted decode tok/s** on the fixed desktop RTX 4070 12GB, 32GB DDR4, i5-12600KF, using controlled tests with persistent autonomous continuation. One task encompasses multiple hypothesis → benchmark → compare → promote/reject cycles, not one isolated five-run test.
 
 **Confirmed prior reports:** 002 matched five-run IQ3 1024-accepted-token median 35.76 tok/s (CV approximately 1.65%). 004 completed retrospective 15-run investigation: Pearson r(speed, pool_ms)=-0.94608, r(speed, file_tier_MB)=-0.94701, r(speed, GPU expert hit)=0.81473, r(speed, MTP accepted)=0.19002. These are correlations, NOT causal demonstrations. Old fastest 38.69 tok/s is not a stable baseline.
 
-The prior test had **max_context=100000, actual input prompt_tokens=28912, and output_tokens=1024**. Never confuse these three. Run a long-output experiment to check throughput stability as generation extends.
+**Frozen benchmark identity for every comparison:** max_context=100000, actual input prompt_tokens=28912, and exactly **1024 accepted output tokens**. Never change output length or prompt length in this campaign. All promotions are against matched 1024-token controls.
 
 ## Workspace and campaign state
 
@@ -28,20 +30,19 @@ The prior test had **max_context=100000, actual input prompt_tokens=28912, and o
 2. Freeze prompt and relevant identities: historical binary SHA256 `E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74`, prompt SHA256 `9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA`, old control 3604 cache, E3/S16 decay .60, pool workers 9, 100000 max ctx, actual 28912 prompt tokens, 1024 output. Capture anything that differs in current host runtime. Check actual effective settings for every run.
 3. Validate accepted-token and decode-timing attribution; capture tokens streamed/output digest if available. A changed code build implies separate binary identity and must be compared deliberately against same frozen input/control, not pooled into baseline stats.
 
-## Phase 1: long-output baseline (mandatory before performance promotion)
+## Phase 1: preserve existing 1024-token baseline; no redundant long-output tests
 
-1. Run **three independent fresh-process frozen-control 4096-accepted-output-token measurements** on the existing 28912-token prompt with context capacity 100000. Keep model/binary/cache/pool/resident settings unchanged except the explicitly documented output length. Check that runner genuinely produces 4096 accepted tokens (not 4096 context or EOS/truncation); if not, diagnose or mark run invalid rather than silently report it.
-2. Record per-block speed for output tokens 1–1024, 1025–2048, 2049–3072, 3073–4096 where instrumentation supports it; whole-run accepted decode tok/s, prefill/TTFT separately, GPU cache hit, pool ms/round, file-tier bytes/time, resident RAM/VRAM, output hash. A single aggregate 4096 score does not substitute for blockwise evidence; if block boundaries cannot be observed, add minimal instrumentation in a separate diagnostic binary and distinguish its overhead.
-3. Report 1024-vs-4096 results as different test lengths, not direct A/B parameter effects. For optimization, use the new 4096 control and same-length, matched candidate runs.
+1. Use the already validated 002 five-run baseline (median 35.76 accepted decode tok/s; 1024 output) as the historical reference. Do **not** spend three extra processes re-baselining before any candidate. To account for time drift, include a fresh **matched 1024-token control** interleaved in actual candidate A/B trials.
+2. Verify exact binary, model/quant, prompt 28912 tokens, max_context 100000, sampling, cache/residency, workers, and target **1024 accepted output tokens** before comparing. Keep all unchanged except the single optimization under test.
+3. No long-output, long-prompt, context-capacity feasibility, per-block 4096-output instrumentation, or other auxiliary benchmark. Collect existing CPU pool/file-tier/cache and accepted-output metrics only; add instrumentation solely if indispensable for the optimization hypothesis, measure overhead separately.
 
 ## Phase 2: multiple sequential evidence-led A/B candidates
 
 1. Form a ranked hypothesis list primarily around (a) file-tier traffic/residency/prefetch/caching; (b) CPU expert-pool scheduling/latency; (c) GPU cache pressure and expert hit rate; then MTP only if new evidence supports it.
-2. Test **one factor per candidate**. Start with a safe, existing runtime knob with measurable hypothesized effect (e.g. small expert-cache/residency policy change within memory headroom); avoid speculative hard-coded values until preflight verifies feasible bounds. For each candidate, run matched **interleaved baseline/candidate comparisons with at least 3 pairs** at 4096 output when feasible. Rotate run order to avoid warm-up bias. Include effective memory and thermal/I/O state snapshots and correct per-run accepted-token accounting.
+2. Test **one factor per candidate**. Start with a safe, existing runtime knob with measurable hypothesized effect (e.g. small expert-cache/residency policy change within memory headroom); avoid speculative hard-coded values until preflight verifies feasible bounds. For each candidate, run matched **interleaved baseline/candidate comparisons with at least 3 pairs** at exactly 1024 accepted output tokens when feasible. Rotate run order to avoid warm-up bias. Include effective memory and thermal/I/O state snapshots and correct per-run accepted-token accounting.
 3. **Promotion rule** (prospective threshold): candidate paired median improvement >=3% in accepted decode tok/s, no invalid run or quality regression, stable memory headroom, and supporting evidence across pairs rather than a single fastest run. If variance is too large (e.g. control sample CV >5%), prioritize variance isolation and avoid promotions until reliable. Below threshold → REJECT or label exploratory; record rejected settings to avoid repeats.
 4. If a credible source hypothesis remains and runtime controls alone cannot address it, implement **up to two isolated source-level candidates** (expert file-tier/prefetch or CPU scheduling), compile separately and test matched baseline vs modified binary with identical other settings. Record source commit/diff, instrumentation overhead, build hashes, revert on safety or performance regression. Do not silently roll candidate changes into other tests.
 5. Use remaining budget on the next promising **non-duplicate** hypothesis or an independent validation of the strongest promoted candidate. Do not loop the same unproductive trial simply to occupy the computer.
-6. Optional **actual context occupancy** test: if stable 4096-output baseline and resource headroom permit, construct an independently identified, reproducible longer prompt (e.g. >60K input tokens) and perform one feasibility run; this is a DIFFERENT test identity, must not be pooled with the 28912-prompt baseline. Never claim 100K actually occupied because max_context=100000.
 
 ## Gate / stop / recovery logic
 
@@ -49,8 +50,8 @@ The prior test had **max_context=100000, actual input prompt_tokens=28912, and o
 - Wrapper/output-path errors, transient SSH and individual clearly-ended process failures may be repaired and retried with traceable logs and finite limits. Do not automatically restart a run if it may still be alive.
 - Do not alter the effective baseline unknowingly. If source changes or dependency identities differ, create a separate test group and matched comparison.
 - If resources/time budget run out or evidence is sufficient, checkpoint final state, provide a concise conclusion and recommended next campaign; do not leave orphan processes. A run limit is a ceiling, not a goal.
-- Any median/paired improvement remains *local experimental evidence* until independently revalidated. Prefer measured accepted decode tok/s, report per-run values, sample sizes, paired percentages, CV and uncertainty. Track long output segment throughput separately.
+- Any median/paired improvement remains *local experimental evidence* until independently revalidated. Prefer measured accepted decode tok/s, report per-run values, sample sizes, paired percentages, CV and uncertainty. Do not add separate output-length or prompt-length benchmarks.
 
 ## Reporting
 
-At completion (or recoverable interruption that cannot safely resume) append a genuine `[LUNA_REPORT]` to `main:coordination/LUNA_TO_CHATGPT.md`, latest blob SHA/optimistic concurrency, including `TASK_ID: LUNA-20261009-005`, STATUS, elapsed duration, actual process count, state/resume proof, phase summaries, candidate table with paired data and rejection/promotion, source diffs/build hashes, best stable 4096-output median accepted tok/s, log paths, validity/stop reasons and recommended next autonomous campaign. Preserve incomplete campaign state for continuation and do not issue a second task yourself. During long running time the state file on desktop is the source of truth; don't mark COMPLETED merely because a single heartbeat ends.
+At completion (or recoverable interruption that cannot safely resume) append a genuine `[LUNA_REPORT]` to `main:coordination/LUNA_TO_CHATGPT.md`, latest blob SHA/optimistic concurrency, including `TASK_ID: LUNA-20261009-005`, STATUS, elapsed duration, actual process count, state/resume proof, phase summaries, candidate table with paired data and rejection/promotion, source diffs/build hashes, best stable 1024-output median accepted tok/s, log paths, validity/stop reasons and recommended next autonomous campaign. Preserve incomplete campaign state for continuation and do not issue a second task yourself. During long running time the state file on desktop is the source of truth; don't mark COMPLETED merely because a single heartbeat ends.
