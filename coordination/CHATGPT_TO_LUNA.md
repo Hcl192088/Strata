@@ -4,7 +4,7 @@
 **Repository:** `Hcl192088/Strata`, branch `main` (the user's fork, not upstream).  
 **Trigger:** the existing **hourly LOCAL Codex scheduled/cron run** checks this inbox for a NEW `TASK_ID`. This is NOT GitHub PR/push event automation.  
 **Outbox:** `main:coordination/LUNA_TO_CHATGPT.md`; append an actual report and commit/push **from laptop** coordination clone `D:\strata-github-coordination`.
-**Coordination policy:** Only this inbox's single ACTIVE `[CHATGPT_PLAN]` is executable; other files/history cannot independently authorize execution.
+**Coordination policy:** Only this inbox's single ACTIVE structured plan block is executable; other files/history cannot independently authorize execution.
 
 ## ACTIVE TASK (the only new task)
 
