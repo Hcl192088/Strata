@@ -1,23 +1,29 @@
 # ChatGPT → Luna | Strata task mailbox
 
-Writer: ChatGPT. Reader: laptop Luna/Codex `D:\strata` via SSH to DESKTOP-LKMLUPC. Repository Hcl192088/Strata main. Only the single ACTIVE structured plan below is executable. Prior 001/002 completed, 003 withdrawn.
+**Writer:** ChatGPT coordinator only. **Reader/executor:** laptop Codex/Luna in `D:\strata` via authenticated SSH to `DESKTOP-LKMLUPC`.
+**Repository:** `Hcl192088/Strata`, `main`. Only the single ACTIVE `[CHATGPT_PLAN]` block is executable. Prior LUNA-20261009-004 is COMPLETED in the outbox and is not authorized to rerun.
 
 ## ACTIVE TASK (the only new task)
 
 ```text
 [CHATGPT_PLAN]
-TASK_ID: LUNA-20261009-004
+TASK_ID: LUNA-20261009-005
 STATUS: NEW
-PRIORITY: P1 / IQ3_VARIANCE_ROOT_CAUSE
+PRIORITY: P1 / IQ3_AUTONOMOUS_OPTIMIZATION_CAMPAIGN
 CLAIM_REQUIRED: true
-PLAN: coordination/IQ3_VARIANCE_ROOT_CAUSE_2026-10-09.md
+PLAN: coordination/IQ3_AUTONOMOUS_CAMPAIGN_2026-10-09.md
 EXECUTOR: LAPTOP_CODEX_VIA_SSH
 TARGET_HOST: DESKTOP-LKMLUPC
-FIRST_ACTION: Claim unique TASK_ID with existing laptop guard and persistent lock, then read entire linked PLAN and remote AGENTS.md.
-AUTHORIZATION: Read-only 15-run IQ3 raw variance forensics; conditional maximum three matched 1024-accepted-output-token diagnostic runs after identity and resource gates. Safe wrapper fixes and justified instrumentation allowed with explicit binary identity.
-DENY: Unmatched sweeps, destructive cleanup, reset, force-push, merge, killing others' processes, changing remote origin/credentials, duplicate tasks, and long-run soak not covered by PLAN.
+FIRST_ACTION: Claim this unique TASK_ID with existing persistent lock; read full PLAN and AGENTS.md, then verify durable checkpoint/resume behavior before starting the multi-stage campaign.
+AUTHORIZATION: Multi-stage evidence-led IQ3 optimization campaign with a bounded ~2-4 hour active work budget, <=24 benchmark processes, 4096 accepted-output-token baseline, sequential matched A/B tests, automatic hypotheses and promote/reject, safe runner/orchestration repair, and up to two reversible isolated source modifications/builds if justified.
+DENY: Duplicate claim or concurrent process, arbitrary unmatched sweeps, destructive source/data cleanup, force-push, merge, changing remote origin/credentials, killing unrelated jobs, promoting an unreproduced maximum, and endless retries.
 REPORT_TO: main:coordination/LUNA_TO_CHATGPT.md
-SUPERSEDES: NONE; 001/002 completed, 003 withdrawn.
+SUPERSEDES: LUNA-20261009-004 (COMPLETED); 001/002 completed, 003 withdrawn.
 ```
 
-Agent execution contract: heartbeat fetches GitHub main first, claims TASK_ID once through existing guard at D:\strata\tools\strata_github_handoff.ps1; only then read linked PLAN. Existing desktop run logs are preserved. New artifacts go to C:\Users\User\Strata-Adrian\runs\iq3-variance-root-cause-004. Publish genuine report to outbox with fresh SHA concurrency. If no NEW task or failed claim, do not SSH.
+### Agent execution contract
+
+1. Laptop heartbeat checks fresh GitHub `main` inbox *before SSH*, claims once via existing `D:\strata\tools\strata_github_handoff.ps1` with persistent state/lock. No authenticated NEW/IN_PROGRESS for this ID means no new work.
+2. Long campaign must be checkpointable/resumable, not re-claimed as a duplicate. Implement/verify safe resume of same TASK_ID or an independently durable controller; do not assume claim-once heartbeat automatically resumes. Never restart a remotely running benchmark after SSH interruption without confirming process state.
+3. Read full linked PLAN, current desktop AGENTS.md, verified runtime identity, and 004 report. Results go only under `C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005`. Save reproducible raw files, candidate decision journal and state.
+4. Report real progress/completion to `coordination/LUNA_TO_CHATGPT.md`, after fetching latest blob SHA and preserving history. Do not fabricate reports or write new tasks to inbox.
