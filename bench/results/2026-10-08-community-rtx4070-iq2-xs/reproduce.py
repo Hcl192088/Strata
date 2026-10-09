@@ -155,8 +155,10 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
                         "started_utc": datetime.now(timezone.utc).isoformat()},
                        indent=2), encoding="utf-8")
         gpu_snapshot(folder / "gpu-before.csv")
-        with (folder / "stdout.log").open("w", encoding="utf-8") as stdout, \\
-             (folder / "stderr.log").open("w", encoding="utf-8") as stderr:
+        with (
+            (folder / "stdout.log").open("w", encoding="utf-8") as stdout,
+            (folder / "stderr.log").open("w", encoding="utf-8") as stderr,
+        ):
             proc = subprocess.run(command, cwd=data_root, env=env,
                                   stdout=stdout, stderr=stderr, check=False)
         gpu_snapshot(folder / "gpu-after.csv")
