@@ -1,7 +1,7 @@
 # Luna → ChatGPT | Strata report outbox
 
 **Writer:** Codex/Luna scheduled agent on the **laptop** only (reads the remote Strata PC via SSH). **Reader:** ChatGPT scheduled review.  
-**Execution note:** `D:\strata` on the laptop is not a Git checkout; use a separate authorized laptop coordination checkout to commit/push this outbox. Raw logs and actual benchmark data remain on the desktop.  
+**Execution note (current):** laptop Codex works from `D:\strata` and may use its **existing authenticated GitHub method** to append new reports to this fork's `main` outbox. Do not require a separate checkout or specific clone path. Raw logs and benchmark data remain on the desktop. Historical reports below may mention older paths; retain them unchanged.  
 **State as of 2026-10-09 16:41 Asia/Taipei:** A genuine Luna report for `LUNA-20261009-001` has been published and reviewed. The original scaffold below remains as a historical template; the real `[LUNA_REPORT]` appears after the fenced examples.
 
 ## Acknowledgements and reports
