@@ -61,7 +61,8 @@ def expected_files(manifest: dict) -> list[dict]:
 
 
 def verify(manifest: dict, data_root: Path, engine: Path, source: Path | None,
-           mode: str, permit_different_binary: bool) -> tuple[list[str], list[str]]:
+           mode: str, permit_different_binary: bool,
+           overrides: dict[str, Path]) -> tuple[list[str], list[str]]:
     problems, warnings = [], []
     head = git_head(source) if source else None
     if source:
@@ -93,6 +94,9 @@ def verify(manifest: dict, data_root: Path, engine: Path, source: Path | None,
             msg = f"Engine binary SHA-256 mismatch: {digest}"
             (warnings if permit_different_binary else problems).append(msg)
     for item in expected_files(manifest):
+        if (item["path"] == "profiles/learned-heart.bin" and "--expert-profile" in overrides) or \\
+           (item["path"] == "prompts/neuro.tokens" and "--tokens-file" in overrides):
+            continue  # Local profile/prompt are checked separately, without matching historical SHA.
         target = checked_path(data_root, item["path"])
         if not target.is_file():
             problems.append(f"MISSING [{item['role']}]: {target}")
@@ -102,22 +106,38 @@ def verify(manifest: dict, data_root: Path, engine: Path, source: Path | None,
             continue
         if mode == "sha256" and sha256(target) != item["sha256"].upper():
             problems.append(f"SHA256 MISMATCH [{item['role']}]: {target}")
+    for flag, target in overrides.items():
+        if not target.is_file():
+            problems.append(f"OVERRIDE MISSING [{flag}]: {target}")
+    if "--tokens-file" in overrides and overrides["--tokens-file"].is_file():
+        content = overrides["--tokens-file"].read_text(encoding="utf-8")
+        if not re.fullmatch(r"[\\d+\\-,\\s]+", content):
+            problems.append("User prompt must be pretokenized integer IDs (comma/whitespace-separated)")
+        else:
+            count = len(re.findall(r"[-+]?\\d+", content))
+            target_count = int(manifest["primary_command"]["actual_prompt_tokens"])
+            if count != target_count:
+                problems.append(f"Prompt length {count} differs from {target_count} historical input tokens")
     if mode == "size":
         warnings.append("Data file SHA-256 was NOT checked; only sizes were compared")
+    if overrides:
+        warnings.append("Comparable-workload reproduction: custom prompt/profile; NOT an exact historical replay")
     return problems, warnings
 
 
-def make_command(manifest: dict, data_root: Path, engine: Path) -> list[str]:
+def make_command(manifest: dict, data_root: Path, engine: Path,
+                 overrides: dict[str, Path]) -> list[str]:
     original = manifest["primary_command"]["args"]
     command = [str(engine)]
-    path_value = False
+    path_value = None
     for arg in original:
-        if path_value:
-            command.append(str(checked_path(data_root, arg)))
-            path_value = False
+        if path_value is not None:
+            command.append(str(overrides[path_value] if path_value in overrides else
+                               checked_path(data_root, arg)))
+            path_value = None
         else:
             command.append(arg)
-            path_value = arg in PATH_OPTIONS
+            path_value = arg if arg in PATH_OPTIONS else None
     if path_value:
         raise ValueError("Path flag at end of provenance argument vector")
     return command
@@ -138,9 +158,10 @@ def gpu_snapshot(path: Path) -> None:
 
 def run_benchmark(manifest: dict, data_root: Path, engine: Path,
                   output: Path, repetitions: int, source: Path | None,
-                  validation_mode: str, allow_binary_mismatch: bool) -> None:
+                  validation_mode: str, allow_binary_mismatch: bool,
+                  overrides: dict[str, Path]) -> None:
     output.mkdir(parents=True, exist_ok=False)
-    command = make_command(manifest, data_root, engine)
+    command = make_command(manifest, data_root, engine, overrides)
     env = os.environ.copy()
     env.update(manifest["primary_command"]["environment"])
     # The source installer records CUDA runtime DLL directories in BUILD.json.
@@ -198,7 +219,13 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
         "data_validation_mode": validation_mode,
         "environment_overrides": manifest["primary_command"]["environment"],
         "cuda_library_paths_from_BUILD_json": dll_dirs,
-        "workload": "same prompt/profile and all artifact hashes REQUIRED for exact comparison",
+        "comparison_type": "comparable user-supplied workload (not historical exact)" if overrides else
+                           "historical inputs if all file hashes match",
+        "prompt_file_sha256": sha256(overrides["--tokens-file"]) if "--tokens-file" in overrides else
+                              sha256(checked_path(data_root, "prompts/neuro.tokens")),
+        "profile_sha256": sha256(overrides["--expert-profile"]) if "--expert-profile" in overrides else
+                          sha256(checked_path(data_root, "profiles/learned-heart.bin")),
+        "prompt_tokens": int(manifest["primary_command"]["actual_prompt_tokens"]),
         "results": result_rows,
         "valid_runs": len(success),
         "median_accepted_decode_tok_s": statistics.median(success) if success else None,
@@ -228,6 +255,10 @@ def main() -> int:
                    help="Defaults to sha256 for check, size for run (avoid pre-run cache warming)")
     p.add_argument("--allow-binary-mismatch", action="store_true",
                    help="Run a rebuild that differs in bytes; not a byte-identical engine reproduction")
+    p.add_argument("--profile", type=Path,
+                   help="Locally generated expert profile; no historical profile download required")
+    p.add_argument("--prompt-file", type=Path,
+                   help="Your own pretokenized, 28,912-token prompt; historical prompt not required")
     p.add_argument("--runs", type=int, default=5)
     p.add_argument("--out", type=Path, help="New output directory for raw logs (never overwritten)")
     args = p.parse_args()
@@ -236,9 +267,14 @@ def main() -> int:
     data_root, engine = args.data_root.resolve(), args.engine.resolve()
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     mode = args.hash_mode or ("sha256" if args.action == "check" else "size")
+    overrides = {}
+    if args.profile:
+        overrides["--expert-profile"] = args.profile.resolve()
+    if args.prompt_file:
+        overrides["--tokens-file"] = args.prompt_file.resolve()
     problems, warnings = verify(manifest, data_root, engine,
                                  args.source_root.resolve() if args.source_root else None,
-                                 mode, args.allow_binary_mismatch)
+                                 mode, args.allow_binary_mismatch, overrides)
     for line in warnings:
         print("WARNING:", line, file=sys.stderr)
     if problems:
@@ -249,7 +285,7 @@ def main() -> int:
     if args.action == "run":
         run_benchmark(manifest, data_root, engine, args.out.resolve(), args.runs,
                       args.source_root.resolve() if args.source_root else None,
-                      mode, args.allow_binary_mismatch)
+                      mode, args.allow_binary_mismatch, overrides)
     return 0
 
 
