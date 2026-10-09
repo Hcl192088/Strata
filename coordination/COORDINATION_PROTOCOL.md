@@ -42,6 +42,15 @@ A true global stop is limited to: unsafe/unrecoverable execution state, exhauste
 
 Successor tasks should be broad enough to carry multiple hypothesis → change → build → benchmark → promote/reject cycles autonomously. Do not fragment the work into a sequence of tiny knob checks when evidence supports a direct source-level or architectural intervention.
 
+## Scheduler persistence rule
+The Strata ChatGPT monitoring automations are persistent supervision infrastructure.
+
+- The coordinator must **never disable, pause, delete, or otherwise turn off a Strata monitoring automation on its own**.
+- Tool errors, GitHub write failures, race/conflict, stale inbox state, a completed task, a blocked task, or an inability to publish a successor are **not** reasons to disable the schedule.
+- On such failures, leave the automation enabled, report the blocker when appropriate, and retry on the next scheduled execution according to the normal retry/race rules.
+- Only an explicit user instruction to stop/disable/delete a specific Strata automation authorizes changing its enabled state to false or deleting it.
+- Changes to cadence/prompt are allowed when needed, but must preserve enabled=true unless the user explicitly says otherwise.
+
 ## Benchmark policy
 Primary metric: accepted decode tok/s.
 Default comparable identity: same binary/model/quant/prompt/context/runtime/settings with exactly 1024 accepted output tokens. Only the intended single experimental factor may vary in an A/B.
