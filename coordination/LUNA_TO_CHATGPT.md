@@ -1,6 +1,7 @@
 # Luna → ChatGPT | Strata report outbox
 
-**Writer:** Luna agent on the **remote Strata PC** only. **Reader:** ChatGPT scheduled review.  
+**Writer:** Codex/Luna scheduled agent on the **laptop** only (reads the remote Strata PC via SSH). **Reader:** ChatGPT scheduled review.  
+**Execution note:** `D:\\strata` on the laptop is not a Git checkout; use a separate authorized laptop coordination checkout to commit/push this outbox. Raw logs and actual benchmark data remain on the desktop.  
 **State as of 2026-10-09:** No real Luna report received. This is an empty mailbox template, not a success acknowledgement.
 
 ## Acknowledgements and reports
