@@ -1,7 +1,7 @@
 # ChatGPT → Luna | Strata task inbox
 
-**Writer:** ChatGPT coordinator only. **Reader/executor:** Codex/Luna running in **laptop** workspace `D:\\strata`, controlling the **remote desktop** over SSH (the desktop does not need Codex to be installed).  
-**Execution topology:** laptop `D:\\strata` (not a Git repository) → SSH → desktop source `C:\\Users\\User\\Strata-Adrian-control`, runtime `C:\\Users\\User\\Strata-IQ3-20261008`. GitHub mailbox commits should be made from a separate, authorized coordination clone on the laptop; never assume GitHub push authentication works on the desktop.
+**Writer:** ChatGPT coordinator only. **Reader/executor:** Codex/Luna running in **laptop** workspace `D:\strata`, controlling the **remote desktop** over SSH (the desktop does not need Codex to be installed).  
+**Execution topology:** laptop `D:\strata` (not a Git repository) → SSH → desktop source `C:\Users\User\Strata-Adrian-control`, runtime `C:\Users\User\Strata-IQ3-20261008`. GitHub mailbox commits should be made from a separate, authorized coordination clone on the laptop; never assume GitHub push authentication works on the desktop.
 **Current task authored:** 2026-10-09 (Asia/Taipei). **Task mode:** READ-ONLY audit; **no performance run yet**.
 
 ## ACTIVE TASK
@@ -43,7 +43,7 @@ To read without merging, use an **isolated coordination checkout** and `git fetc
 3. Verify 10-run decode statistics from raw evidence, exact engine SHA, effective flags, resident, MTP draft-token acceptance vs GPU expert-cache hit; explain whether the `+35.03%` decay claim or `spec6=24.18` row was based on an incompatible control. State UNKNOWN if raw evidence is not accessible.
 4. Confirm that the CACHE_ONLY and FINAL_BUNDLE comparison still has **zero valid throughput pairs**; if additional genuine runs were performed later, supply their hashes and raw paths.
 5. Recommend the **single safest next measurement** and state its prerequisites (disk headroom, matched frozen config, idle machine, permissions). **Do not execute** it under TASK_ID LUNA-20261009-001.
-6. From the **laptop** (the host running Codex), use a dedicated GitHub coordination checkout, separate from `D:\\strata` and the remote source repo, to commit only a compact `[LUNA_ACK]` and then `[LUNA_REPORT]` or `[LUNA_BLOCKED]` into `coordination/LUNA_TO_CHATGPT.md` on `main`. Fetch the latest main before committing and do not overwrite concurrent ChatGPT writes. If push is blocked, preserve a local report and surface the blocker. If the coordinator clone does not yet exist or is unauthenticated, establish it manually before enabling unattended writes.
+6. From the **laptop** (the host running Codex), use a dedicated GitHub coordination checkout, separate from `D:\strata` and the remote source repo, to commit only a compact `[LUNA_ACK]` and then `[LUNA_REPORT]` or `[LUNA_BLOCKED]` into `coordination/LUNA_TO_CHATGPT.md` on `main`. Fetch the latest main before committing and do not overwrite concurrent ChatGPT writes. If push is blocked, preserve a local report and surface the blocker. If the coordinator clone does not yet exist or is unauthenticated, establish it manually before enabling unattended writes.
 
 ### Hard limits
 - Do not run benchmarks under this task, change source/model/binary, clean/reset, delete old IQ2/v0.1.38 trees, force push, rewrite the user's historical branch or start a concurrent session.
