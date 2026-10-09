@@ -1,6 +1,6 @@
-# Community benchmark (preliminary): Flash-Next IQ2_XS on RTX 4070 12 GB / 32 GB DDR4
+# Community benchmark: Flash-Next IQ2_XS on RTX 4070 12 GB / 32 GB DDR4
 
-**Status: draft; the primary E4/S24 result and frozen reference have now been revalidated against the archived per-run command, summary, stdout, stderr, exit, process, and GPU snapshot files on the test desktop.** The raw logs remain on that desktop and are not published here. This is a benchmark report, not an engine patch.
+**Evidence status: the primary E4/S24 result and frozen reference have now been revalidated against the archived per-run command, summary, stdout, stderr, exit, process, and GPU snapshot files on the test desktop.** The raw logs remain on that desktop and are not published here. This is a benchmark report, not an engine patch.
 
 Measured **2026-10-08** by [Hcl192088](https://github.com/Hcl192088), on one consumer GPU with 12 GB installed VRAM and 32 GB DDR4 system RAM. The most interesting result is a **48.23 accepted-decode-tok/s median over five runs** for one adaptive-cache candidate. A separate frozen `CURRENT_BEST` reference is independently pinned at a **47.76 tok/s median over five runs**. Neither number should be interpreted as end-to-end request speed or as a universal hardware ranking.
 
@@ -12,7 +12,7 @@ Measured **2026-10-08** by [Hcl192088](https://github.com/Hcl192088), on one con
 | CPU | Intel Core i5-12600KF |
 | RAM | 32 GB DDR4-3200 |
 | OS | Windows 11 build 26200 |
-| NVIDIA driver / CUDA runtime | 591.86 / CUDA 13.1 |
+| NVIDIA driver / CUDA compatibility reported by `nvidia-smi` | 591.86 / CUDA 13.1 |
 | Storage, PCIe, power limits | Not yet verified |
 | VRAM telemetry | Runtime reported 5.34 GiB expert cache + 820 MiB MTP allocation + 57.0 MiB verify buffers; the run-boundary `nvidia-smi` snapshots were 662 MiB used / 11,349 MiB free / 12,282 MiB total before and after. No in-run peak `nvidia-smi` sample was saved. |
 
@@ -58,13 +58,13 @@ The runtime memory figures are allocations reported by Strata's stderr, not a si
 - They **do not** establish model-answer quality or a general performance advantage versus another GPU or a newer upstream release.
 - They are **not** evidence that 48 tok/s is a stable minimum: the five-run E4/S24 range was **46.92–49.44 tok/s**.
 
-## Evidence status before this PR is ready for review
+## Evidence status and limitations
 
 1. **Completed for the primary result:** the five E4/S24 raw-record sets and five frozen-reference records were recovered and validated; a sanitized provenance index is included in this directory.
 2. The raw stdout/stderr files are still desktop-local and are not uploaded. Reviewers cannot independently download the original logs from this PR.
 3. The exact prompt bytes are represented by the verified `neuro.tokens` SHA-256 and 28,912 prompt tokens, but the prompt content itself is not redistributed.
 4. The archived telemetry does not contain an in-run peak `nvidia-smi` sample; this report therefore does not claim a total peak VRAM number.
 5. The comparison rows other than E4/S24 and frozen CURRENT_BEST remain historical benchmark records and are not all covered by the new provenance manifest.
-6. Keep benchmarking documentation **separate** from any source-code optimization PR; this PR remains Draft until maintainers accept the evidence boundary.
+6. This is a results-only submission, separate from any source-code optimization PR. The evidence boundary is explicit so maintainers can assess the measurements without additional benchmarking.
 
-The submitted numbers remain a **preliminary community benchmark report**: the primary result is source-pinned and raw-record-validated, but the raw logs are not uploaded and the comparison rows are not all covered by the new manifest. Please review the evidence boundary rather than treating the figures as confirmed upstream benchmarks.
+The submitted numbers are a **community benchmark report with explicit evidence limits**: the primary result is source-pinned and raw-record-validated, but the raw logs are not uploaded and the comparison rows are not all covered by the new manifest. Please review the evidence boundary rather than treating the figures as confirmed upstream benchmarks.
