@@ -64,89 +64,99 @@ mismatch, inspect toolchain/pack provenance rather than claiming an exact run.
 The historical binary's Windows compiler, CUDA toolkit and build flags were
 not captured sufficiently to promise identical executable bytes.
 
-## 3. File layout and non-redistributable / missing evidence
+## 3. Prepare a *local* expert profile and prompt
 
-The public `provenance.json` specifies every expected relative path, byte
-count, and SHA-256 for the two GGUF shards; pack files; tokenizer; MTP tensors;
-expert profile; and pretokenized prompt.
+The original benchmark used `--expert-profile profiles/learned-heart.bin`.
+**This is a Strata expert-cache profile, not an external trained model that
+every tester needs to download.** The pinned source includes two ways to
+create your own profile:
 
-Use **one data root** containing these paths:
+1. **Built-in learning (preferred for a representative workload):** start
+   `strata --serve` with an existing `--expert-profile`, the adaptive tier
+   enabled (`--adapt-every 4 --adapt-swaps 24`), and
+   `--expert-profile-save <path>`. Interact with the server using your
+   usual workload; it writes its learned ranking periodically (default ten
+   minutes) or when you enter `QUIT` in its stdin command interface.
+   The saved file can be loaded via `--expert-profile` during benchmarking.
+   This is an **opt-in feature, not an automatic byproduct** of simply
+   enabling expert caching.
 
-```text
-<data-root>/
-  models/IQ2_XS/<two original GGUF shards>
-  packs/iq2_xs/...
-  mtp/rt/...
-  profiles/learned-heart.bin
-  prompts/neuro.tokens
-```
+2. **One-shot routing trace:** run the source engine with
+   `--dump-routing <trace.bin>` on your own representative prompt, then:
+   ```powershell
+   py -3 .\tools\make_profile.py "D:\my-trace.bin" --reorder --out "D:\my-learned.bin"
+   ```
+   This alternative uses the bundled `data/expert-profile.bin` as the
+   base ranking, moving frequently routed experts to the front.
 
-The setup program may place these resources in a neighboring
-`Strata-data` directory. Place/copy/link the resources so the paths above
-resolve under the selected `--data-root`. Do not inadvertently duplicate the
-large GGUF files if disk space is tight.
+You may also start with the repository's unlearned
+`data/expert-profile.bin` to establish a baseline, without any learning.
+The original **SHA-256 of `learned-heart.bin` remains in provenance.json for
+historical identification**, but publishing the original file is *not*
+necessary for an independent performance experiment.
 
-**Current public evidence boundary:**
-
-| Required to match the *exact historical run* | Public availability |
-| --- | --- |
-| Complete modified engine source at exact commit | **Yes**, pinned source branch above |
-| Model repository + revision and download/preparation code | **Yes** |
-| Full run command and environment | **Yes**, provenance manifest |
-| Per-file hashes and sizes | **Yes**, provenance manifest |
-| Original `learned-heart.bin` expert-cache profile bytes | **Not uploaded** (hash only) |
-| Original 28,912-token `neuro.tokens` prompt bytes | **Not uploaded** (hash only) |
-| Exact prebuilt `strata.exe` bytes | **Not uploaded** (hash only; can rebuild from source) |
-| Original per-run stdout/stderr/command JSON files | **Not uploaded** (retained on test machine) |
-| GPU in-run peak VRAM telemetry | **Not measured** |
-
-The private prompt may include sensitive content; **do not publish or upload it
-without review**. A different prompt or profile can benchmark the same engine
-and hardware but **does not replicate the reported 48.23 tok/s workload**.
-A successful source build plus hardware match is not by itself an exact-speed
-reproduction.
-
-## 4. Validate inputs and run five measurements
-
-The companion [reproduce.py](reproduce.py) requires only Python's standard
-library. It does not download or upload files. Run it from this report's directory
-(or use its full path). Provide the absolute paths to the installed engine and
-the assembled data root.
+**Do not publish the private original prompt.** Instead use your own text
+(e.g. a locally available article or synthetic workload). The included
+[`make_local_prompt.py`](make_local_prompt.py) generates a local
+`neuro.tokens`-compatible token-ID file of **28,912 input tokens**, with no
+network call and without publishing its contents:
 
 ```powershell
-$Data = "D:\strata-iq2-data"
-$Exe = "D:\strata-iq2-source\engine\strata.exe"
 $Src = "D:\strata-iq2-source"
+$Data = "D:\strata-iq2-data"
+$Shard1 = "$Data\models\IQ2_XS\Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf"
+$Profile = "$Src\data\expert-profile.bin"
+$Prompt = "D:\strata-iq2-runs\my-prompt.tokens"
 
-# Full SHA-256 preflight. Run separately from timed benchmarks: hashing
-# ~100 GB immediately beforehand can heat the operating-system disk cache.
-py -3 .\reproduce.py check --data-root $Data --engine $Exe --source-root $Src
-
-# After a controlled cache-state reset, run five sequential processes.
-# Every attempt retains its own stdout/stderr, exit code and GPU snapshots.
-py -3 .\reproduce.py run --data-root $Data --engine $Exe --source-root $Src --runs 5 --out "D:\strata-iq2-runs\repeat01"
+py -3 .\make_local_prompt.py --source-root $Src --gguf $Shard1 --text "D:\my-document.txt" --out $Prompt
 ```
 
-Both actions **stop on missing or mismatched artifacts**. If your locally
-compiled executable has a different binary SHA-256 even though the Git source
-commit matches, you may add `--allow-binary-mismatch`, but that is then a
-**same-source recompile**, not a byte-identical engine run. This distinction
-will be printed and retained in the run output. `run` uses size-only asset
-checks by default so it does not heat all files right before measuring. Use the
-separate full-hash `check` command beforehand.
+To test a learned profile, replace `$Profile` with your own saved profile
+file. **The chosen profile/training workload and prompt affect routing, MTP
+acceptance and decode speed**, so results with different inputs must not be
+presented as exact replays of the 2026-10-08 five-run sequence.
 
-The harness applies *exactly* the CLI argument vector and six environment
-overrides recorded under `primary_command` in `provenance.json`, rather
-than guessing current defaults. It collects:
+The report's `provenance.json` still provides full SHA-256 and file sizes for
+model, pack, tokenizer and MTP assets. The historical binary's exact toolchain
+was not captured. Recompilation may therefore produce a different binary hash.
 
-- `run-XX/command.json`: invoked command and environment overrides
-- `run-XX/stdout.log` / `stderr.log`: full engine telemetry
-- `run-XX/gpu-before.csv` / `gpu-after.csv`: run-boundary snapshots, **not peak VRAM**
-- `run-XX/summary.json`: parsed `decode` line, token count, exit code
-- `report.json`: valid-run count, mean/median/range and historical reference
+## 4. Verify and run five local measurements
 
-All results remain local. The stdout contains token IDs from the full prompt
-and answer and **must be reviewed before public upload**.
+The companion [reproduce.py](reproduce.py) is a Python-standard-library
+validator/harness. It accepts `--profile` and `--prompt-file` overrides so
+no one needs the original private prompt or `learned-heart.bin` bytes.
+Use the exact source commit, model and core launch settings, and your own
+length-matched workload.
+
+```powershell
+$Exe = "$Src\engine\strata.exe"
+
+# Verify matching model/MTP/pack files and the exact source checkout.
+# --allow-binary-mismatch explicitly permits a different binary from recompiling
+# the same source. It will be flagged in the output and is NOT byte-identical.
+py -3 .\reproduce.py check --data-root $Data --engine $Exe --source-root $Src `
+  --profile $Profile --prompt-file $Prompt --allow-binary-mismatch
+
+# Keep cache/warm-up policy consistent across candidate/control experiments.
+# This is a five-run comparable workload, NOT the original prompt replay.
+py -3 .\reproduce.py run --data-root $Data --engine $Exe --source-root $Src `
+  --profile $Profile --prompt-file $Prompt --allow-binary-mismatch `
+  --runs 5 --out "D:\strata-iq2-runs\repeat01"
+```
+
+The full-hash `check` should be a separate preflight; the `run` command
+uses size checks to avoid warming all large files by hashing them immediately
+before a timed run. The runner captures the actual effective commands,
+the prompt/profile SHA-256, original source commit, observed binary hash,
+per-run stdout/stderr/exit, before/after GPU snapshots and the mean/median/range
+of accepted decode throughput. Run-boundary snapshots are **not peak VRAM**.
+Files remain local and logs may contain private token IDs.
+
+**Historical data remain unchanged.** The public report accurately states
+that the historical main run used its own profile and medical-topic prompt
+(28,912 input tokens). Reproducing the *method* requires neither exact file.
+The historical 48.23 tok/s median should be treated as a reference, not an
+exact equality target for a different workload.
 
 ## 5. Comparison rule
 
@@ -162,9 +172,9 @@ median `48.23` tok/s. The frozen E4/S32 reference median is `47.76` tok/s.
 The E4/S24 improvement (`+0.98%`) **did not pass** the original `+1%`
 promotion criterion.
 
-**Before claiming independent exact reproduction**, make the missing prompt and
-profile available (or document a deterministic procedure yielding the same
-SHA-256), match the remaining artifact hashes, capture the build toolchain and
-cache-state rules, and execute this package independently. Until then this is
-a **reproducible source/build/test *procedure* with an explicit original-data
-availability gap**, not a fully independently reproducible benchmark.
+**Reproduction terminology:** A community member with the same hardware
+can rebuild the engine, create their own profile and private length-matched
+prompt, then repeat the five-run **accepted decode tok/s methodology** without
+access to any private user data. Different prompt/profile inputs are a
+**comparable independent test**, not a byte-for-byte replay of the original
+48.23 tok/s result. Report both the measured throughput and the differences.
