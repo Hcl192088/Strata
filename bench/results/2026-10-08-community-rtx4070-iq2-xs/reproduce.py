@@ -137,7 +137,8 @@ def gpu_snapshot(path: Path) -> None:
 
 
 def run_benchmark(manifest: dict, data_root: Path, engine: Path,
-                  output: Path, repetitions: int) -> None:
+                  output: Path, repetitions: int, source: Path | None,
+                  validation_mode: str, allow_binary_mismatch: bool) -> None:
     output.mkdir(parents=True, exist_ok=False)
     command = make_command(manifest, data_root, engine)
     env = os.environ.copy()
@@ -179,7 +180,12 @@ def run_benchmark(manifest: dict, data_root: Path, engine: Path,
     success = [r["accepted_decode_tok_s"] for r in result_rows if r["valid"]]
     report = {
         "source_commit_required": SOURCE_COMMIT,
+        "source_git_head_observed": git_head(source) if source else None,
         "binary_sha256_expected": manifest["source"]["binary_sha256"],
+        "binary_sha256_observed": sha256(engine),
+        "binary_mismatch_explicitly_allowed": allow_binary_mismatch,
+        "data_validation_mode": validation_mode,
+        "environment_overrides": manifest["primary_command"]["environment"],
         "workload": "same prompt/profile and all artifact hashes REQUIRED for exact comparison",
         "results": result_rows,
         "valid_runs": len(success),
@@ -229,7 +235,9 @@ def main() -> int:
         return 2
     print(f"Preflight OK ({mode} data validation)")
     if args.action == "run":
-        run_benchmark(manifest, data_root, engine, args.out.resolve(), args.runs)
+        run_benchmark(manifest, data_root, engine, args.out.resolve(), args.runs,
+                      args.source_root.resolve() if args.source_root else None,
+                      mode, args.allow_binary_mismatch)
     return 0
 
 
