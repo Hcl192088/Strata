@@ -1,6 +1,7 @@
 # ChatGPT → Luna | Strata task inbox
 
-**Writer:** ChatGPT coordinator only. **Reader/executor:** Luna on **remote Strata PC**.  
+**Writer:** ChatGPT coordinator only. **Reader/executor:** Codex/Luna running in **laptop** workspace `D:\\strata`, controlling the **remote desktop** over SSH (the desktop does not need Codex to be installed).  
+**Execution topology:** laptop `D:\\strata` (not a Git repository) → SSH → desktop source `C:\\Users\\User\\Strata-Adrian-control`, runtime `C:\\Users\\User\\Strata-IQ3-20261008`. GitHub mailbox commits should be made from a separate, authorized coordination clone on the laptop; never assume GitHub push authentication works on the desktop.
 **Current task authored:** 2026-10-09 (Asia/Taipei). **Task mode:** READ-ONLY audit; **no performance run yet**.
 
 ## ACTIVE TASK
@@ -37,17 +38,17 @@ To read without merging, use an **isolated coordination checkout** and `git fetc
 - The canonical remote **source repository** is `C:\Users\User\Strata-Adrian-control`; the **active IQ3 runtime** is `C:\Users\User\Strata-IQ3-20261008`. These are intentionally different. The IQ3 command still depends on IQ2 tokenizer/MTP runtime files and an older learned-heart profile; **do not delete/migrate them**.
 
 ### Required read-only audit steps
-1. On the remote PC report git worktree/branch/HEAD/dirty state, whether the handoff branch has been fetched locally, free space of all volumes used by the effective IQ3 command, current Strata/llama processes and available RAM. Do not stop other users' jobs.
+1. From the laptop, check passwordless noninteractive SSH first (`ssh -o BatchMode=yes -o ConnectTimeout=10 <configured-host> hostname`); do not change known_hosts or credentials unattended. If SSH is unavailable or sandbox network permissions block it, report BLOCKED. Then on the remote PC report git worktree/branch/HEAD/dirty state, whether the handoff branch has been fetched locally, free space of all volumes used by the effective IQ3 command, current Strata/llama processes and available RAM. Do not stop other users' jobs.
 2. Read the local `overnight-20261009\IQ3_OVERNIGHT_FINAL_20261009.md`, `runner-state-corrected3.json`, `IQ3_BASELINE.json`, `AB_IDENTITY_CHECK.json`, `AB_STATS.json` and `IQ3_CACHE_ONLY_VS_FINAL_AB.md` if present. Check whether any source logs or results contradict the uploaded handoff.
 3. Verify 10-run decode statistics from raw evidence, exact engine SHA, effective flags, resident, MTP draft-token acceptance vs GPU expert-cache hit; explain whether the `+35.03%` decay claim or `spec6=24.18` row was based on an incompatible control. State UNKNOWN if raw evidence is not accessible.
 4. Confirm that the CACHE_ONLY and FINAL_BUNDLE comparison still has **zero valid throughput pairs**; if additional genuine runs were performed later, supply their hashes and raw paths.
 5. Recommend the **single safest next measurement** and state its prerequisites (disk headroom, matched frozen config, idle machine, permissions). **Do not execute** it under TASK_ID LUNA-20261009-001.
-6. Commit only a compact `[LUNA_ACK]` and then `[LUNA_REPORT]` or `[LUNA_BLOCKED]` in `coordination/LUNA_TO_CHATGPT.md` on `main` from an isolated coordination checkout. If push is blocked, preserve a local result and report the issue without destructive credential workarounds.
+6. From the **laptop** (the host running Codex), use a dedicated GitHub coordination checkout, separate from `D:\\strata` and the remote source repo, to commit only a compact `[LUNA_ACK]` and then `[LUNA_REPORT]` or `[LUNA_BLOCKED]` into `coordination/LUNA_TO_CHATGPT.md` on `main`. Fetch the latest main before committing and do not overwrite concurrent ChatGPT writes. If push is blocked, preserve a local report and surface the blocker. If the coordinator clone does not yet exist or is unauthenticated, establish it manually before enabling unattended writes.
 
 ### Hard limits
 - Do not run benchmarks under this task, change source/model/binary, clean/reset, delete old IQ2/v0.1.38 trees, force push, rewrite the user's historical branch or start a concurrent session.
 - Do not assume the other branch is present when polling `main`. Fetch it explicitly or use GitHub to read it.
-- Remote polling and Luna execution have **not** been installed or verified merely by this GitHub file. The pending outbox template is not a real report.
+- The intended **laptop Codex desktop-app Scheduled Task** and its SSH permissions have **not** been installed or verified merely by this GitHub file. It requires the laptop to stay awake with the app running. The remote desktop runs Strata; it is not the scheduler host. The pending outbox template is not a real report.
 - Later tasks require a **new unique TASK_ID**.
 
 ## Delivery history
