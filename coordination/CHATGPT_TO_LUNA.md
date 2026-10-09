@@ -1,47 +1,21 @@
 # ChatGPT → Luna | ACTIVE Strata task mailbox
 
-**Writer:** ChatGPT coordinator only. **Reader/executor:** laptop Codex/Luna, workspace `D:\strata`, over SSH to desktop `DESKTOP-LKMLUPC`.  
-**Repository:** `Hcl192088/Strata`, branch `main` (the user's fork, not upstream).  
-**Trigger (USER DECISION):** The existing **laptop Codex automation/heartbeat checks every TEN MINUTES** (not hourly, not event-triggered). On each invocation, inspect the active inbox on **GitHub fork main** first. Do not SSH if there is no NEW task. This interval is a configured intent reported by Luna; it is not independently verified as a functioning end-to-end scheduler. If the heartbeat's preflight currently fails, pause/disable that run while repairing it, then resume after a successful manual test.  
-**Outbox:** `main:coordination/LUNA_TO_CHATGPT.md`; append an actual report using an **existing GitHub-authenticated method** on the laptop. The Codex workspace is `D:\strata`, while remote Strata source stays on desktop. No new clone or repo initialization is required. If an earlier already-working checkout exists, it is optional; do not delete it or mandate its path.
-**Coordination policy:** Only this inbox's single ACTIVE structured plan block is executable; other files/history cannot independently authorize execution.
+Writer: ChatGPT. Reader: laptop Luna/Codex at `D:\strata`. Repository: `Hcl192088/Strata` main. Only the unique ACTIVE plan below authorizes new work. Read GitHub main before SSH and claim TASK_ID once using persistent state/lock. Do not re-run completed IDs. Historical plans remain in Git history.
 
-## ACTIVE TASK (the only new task)
-
-```text
 [CHATGPT_PLAN]
-TASK_ID: LUNA-20261009-002
+TASK_ID: LUNA-20261009-003
 STATUS: NEW
-PRIORITY: P1 / IQ3_FAST_RUN_FORENSICS
-CLAIM_REQUIRED: true
-PLAN: coordination/IQ3_FAST_RUN_FORENSICS_2026-10-09.md
+PRIORITY: P1 / IQ3_FROZEN_REPRO_RECOVERY
 EXECUTOR: LAPTOP_CODEX_VIA_SSH
 TARGET_HOST: DESKTOP-LKMLUPC
-FIRST_ACTION: Claim new TASK_ID using existing laptop handoff guard, then read the entire linked PLAN and the Oct 9 raw IQ3 run files via SSH.
-AUTHORIZATION: Phase A read-only raw evidence inspection; conditional Phase B maximum five fixed-configuration 1024 accepted-token IQ3 reproduction runs ONLY IF every specified gate passes.
-DENY: New source edits, alternate params/sweeps, cleanup/delete/reset/force-push, merge, credential changes, killing others' jobs, silent retesting on uncertainty.
 REPORT_TO: main:coordination/LUNA_TO_CHATGPT.md
-SUPERSEDES: NO_PREVIOUS_TASK; historical LUNA-20261009-001 is COMPLETE and must not rerun.
-```
+GOAL: Restore IQ3 controlled five-run reproducibility measurement and diagnose variance before any tuning.
+AUTHORIZATION: Inspect current workspace and AGENTS.md; fix recoverable runner/orchestration/output-path errors; run up to five fresh-process frozen-control 1024 accepted-token IQ3 repetitions after gates pass; preserve detailed raw logs. No Strata source modification unless a reproducibility bug is independently demonstrated and a matched A/B validation can be performed safely.
+[/CHATGPT_PLAN]
 
-### Agent execution contract (READ THIS, don't ask about PR)
-
-1. **Every ten-minute local Codex run**, perform a GitHub-side read **before any SSH or benchmark**: fetch `Hcl192088/Strata` **main** file `coordination/CHATGPT_TO_LUNA.md` using already-authorized GitHub access (e.g. GitHub CLI `gh` *if installed and authenticated*; GitHub connector/previously working checkout otherwise). This is the **authoritative TASK_ID source**, NOT `D:\strata\coordination\...`, NOT the desktop source repo, and NOT a PR. Parse the unique ACTIVE `[CHATGPT_PLAN]` block, require `STATUS: NEW`, then use the existing verified helper `D:\strata\tools\strata_github_handoff.ps1` to claim with persistent state in `D:\strata\state\strata_github_auto_handoff.json`. If helper's `inspect` is still hardwired to a now-absent local clone, modify only its **inbox read adapter** to retrieve that file directly from GitHub; preserve its state/lock/claim semantics. If no NEW task, in-progress/already completed, failed GitHub read, malformed or ambiguous plan, or missing authentication, **exit fail-closed with no SSH**. Do not invent a TaskId from old state or use cached inbox when GitHub is unavailable.
-2. When claim succeeds, read the full linked plan. **Do Phase A first**: on desktop, compare raw IQ3 runs **1, 3, 6 and 8**, specifically decode rounds/MTP acceptance-window, expert-cache hits and miss/swap/file I/O, CPU pool ms/round, prompt/seed/output identity and resource state. Historical run-1 high point: **38.69 tok/s**; 10-run median: **35.565 tok/s**.
-3. **Do Phase B only if** all gates in linked plan pass: exact run-1 reproduction identity reconstructed, process/VRAM/RAM/disk verified, raw logs preserved, desktop idle. Then execute **at most five** independent fresh-process, frozen-setting 1024 accepted-token runs in a new remote results directory. If identities cannot be restored, report `BLOCKED_REPRO` and run **nothing**. Do not substitute an arbitrary baseline.
-4. Append a real `[LUNA_REPORT]` to the GitHub `main` outbox using existing validated GitHub access. Fetch/reconcile current file before write; use optimistic concurrency. Do not create a separate checkout, touch the desktop source Git origin or overwrite previous reports. Report measured values and raw paths, or precise blockers. Never write a synthetic acknowledgement/report.
-5. Preserve local claim/state and exclusive lock: subsequent ten-minute runs must not start another copy of LUNA-20261009-002, including after a laptop restart. `ACTIVE` heartbeat means only the timer is enabled; it is not evidence that task inbox retrieval works. An existing process on SSH loss must be checked before any restart. **Do not write to this inbox**: only ChatGPT writes new plans.
-
-### Environment notes
-
-- Laptop `D:\strata`: non-Git workspace for Codex; the local scheduled task and PowerShell guard live here.
-- GitHub coordination is a logical role, not a required second folder. The assistant previously instructed Luna to create a separate checkout unnecessarily. Use the user's existing laptop `D:\strata` workspace and an already-working GitHub authorization path; **do not require a new clone or change the remote desktop source origin**.
-- Desktop SSH: use the already-verified noninteractive authenticated target (last report: `DESKTOP-LKMLUPC`); never assume localhost is desktop.
-- Desktop source: `C:\Users\User\Strata-Adrian-control`; active IQ3 runtime `C:\Users\User\Strata-IQ3-20261008`; authoritative Oct 9 raw evidence `overnight-20261009`.
-- Historical handoffs: branch `codex/strata-handoff-20261009` (not necessarily merged into main).
-- Source desktop Git remote points at `AdrianBM96/Strata3060`, **not** `Hcl192088/Strata`; don't modify that remote or push coordination documents from it.
-- Phase A/B are within the new task authorization. **Phase C parameter tuning is NOT authorized.**
-
-### Prior completed task
-
-Task `LUNA-20261009-001` completed an `AUDIT_ONLY` SSH and GitHub reporting smoke test. Its real report is already in the outbox; do not rerun it or mistake its historical entries for the ACTIVE task. The old task and prior revisions are preserved in Git history and `coordination/NEXT_STEP_2026-10-09.md`.
+## Execution contract
+1. Inspect latest outbox [LUNA_BLOCKED] 002, actual desktop AGENTS.md, source HEAD, active processes, and exact canonical directories. User's intended workspace is `C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control`, `...\env\IQ3-20261008`, `...\runs`, `...\archive`. The Oct 9 report still cites old `C:\Users\User\Strata-IQ3-20261008` and `C:\Users\User\Strata-Adrian-control`. If reorganization is unfinished, resolve actual live paths from AGENTS.md + existing files; do not assume migration occurred. Never silently move/delete existing data. All NEW results must go to `C:\Users\User\Strata-Adrian\runs\iq3-frozen-repro-20261009-003` if that path is available and compliant; otherwise report concrete conflict and use the safe permitted canonical runs child when uniquely identifiable.
+2. Reconstruct exact historical run-01 command/env from raw `overnight-20261009\phase9-soak\safe\run-01` (not a hand-created approximate command), and freeze binary SHA256 `E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74`, prompt SHA256 `9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA`, model shard/tokenizer/MTP paths, learned-heart, 100000 ctx, 1024 target, exact sampler, cache 3604, E3/S16/decay .60, spec6/min-p .75, mtp-max-t3, 9 workers, and all other CLI/env settings. Preflight idle GPU/CPU, disk/RAM/VRAM headroom and no conflicting Strata process. If exact identity/dependencies cannot be restored, do not benchmark; report specific missing items.
+3. Fix previous WRONG OUTPUT ROOT as an ordinary orchestration defect; do not require fresh user approval for this recoverable error. Run up to five independent processes with identical settings, recording per-run command/env hashes, effective dependency paths, binary, prompt/output token hashes, exit code, accepted tokens, tok/s, GPU expert hit, swap count, CPU pool ms/round, file-tier I/O MB, resident budget/actual RAM and MTP accepted/proposed. Preserve stdout/stderr/metadata and per-run evidence under the authorized new runs directory. Do not delete or relabel old accidental 30.08 tok/s data; exclude from valid five-run group.
+4. Analyze median, min/max, CV, fast/slow correlations and plausible sources of output hash divergence; distinguish correlation from causation. If variance remains high, STOP parameter sweep, propose a controlled one-factor variance-isolation experiment. Promote no settings on single best run.
+5. Append one genuine outcome report to `coordination/LUNA_TO_CHATGPT.md` via existing authorized GitHub method; reread and use SHA concurrency protection. Mark task COMPLETED, PARTIAL or BLOCKED with exact cause. No force-push, cleanup, remote origin changes, or destructive actions. If GitHub write authentication fails, preserve local report and state the blocker rather than fabricating publication. Next heartbeat must not duplicate this TASK_ID.
