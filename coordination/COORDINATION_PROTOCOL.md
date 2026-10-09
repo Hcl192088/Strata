@@ -27,6 +27,21 @@ Scheduled ChatGPT reviewers must compute effective state from **inbox + outbox**
 - use fresh GitHub SHA before writes and abandon the write on a race;
 - keep benchmark identity at 1024 accepted output tokens unless the user explicitly changes it.
 
+## Continuous campaign chaining
+A terminal report for one TASK_ID is **task completion**, not a reason for the Strata optimization program to idle.
+
+When the latest genuine outbox report for the current TASK_ID is `COMPLETED`, `PARTIAL`, or `BLOCKED`, the ChatGPT coordinator must, in the **same review run**, do all of the following unless a true global stop rule applies:
+1. consume that task authorization;
+2. extract the measured result, rejection/promotion, unresolved bottleneck and recommended next hypothesis;
+3. decide the highest-value next experiment or source-level intervention;
+4. create its PLAN and publish exactly one successor TASK_ID immediately after re-reading fresh inbox/outbox SHAs.
+
+Do **not** wait for the user, the next scheduled review, or a manually triggered conversation merely because the previous task finished. The machine should not become idle between normal campaign stages.
+
+A true global stop is limited to: unsafe/unrecoverable execution state, exhausted explicit overall campaign budget, no remaining actionable hypothesis, or the user explicitly asks to stop. A candidate rejection, noisy result, one task reaching its local run limit, or a `PARTIAL` task report is **not** a global stop.
+
+Successor tasks should be broad enough to carry multiple hypothesis → change → build → benchmark → promote/reject cycles autonomously. Do not fragment the work into a sequence of tiny knob checks when evidence supports a direct source-level or architectural intervention.
+
 ## Benchmark policy
 Primary metric: accepted decode tok/s.
 Default comparable identity: same binary/model/quant/prompt/context/runtime/settings with exactly 1024 accepted output tokens. Only the intended single experimental factor may vary in an A/B.
