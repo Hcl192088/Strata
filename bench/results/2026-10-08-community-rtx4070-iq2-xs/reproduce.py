@@ -94,8 +94,8 @@ def verify(manifest: dict, data_root: Path, engine: Path, source: Path | None,
             msg = f"Engine binary SHA-256 mismatch: {digest}"
             (warnings if permit_different_binary else problems).append(msg)
     for item in expected_files(manifest):
-        if (item["path"] == "profiles/learned-heart.bin" and "--expert-profile" in overrides) or \\
-           (item["path"] == "prompts/neuro.tokens" and "--tokens-file" in overrides):
+        if ((item["path"] == "profiles/learned-heart.bin" and "--expert-profile" in overrides) or
+            (item["path"] == "prompts/neuro.tokens" and "--tokens-file" in overrides)):
             continue  # Local profile/prompt are checked separately, without matching historical SHA.
         target = checked_path(data_root, item["path"])
         if not target.is_file():
@@ -111,10 +111,10 @@ def verify(manifest: dict, data_root: Path, engine: Path, source: Path | None,
             problems.append(f"OVERRIDE MISSING [{flag}]: {target}")
     if "--tokens-file" in overrides and overrides["--tokens-file"].is_file():
         content = overrides["--tokens-file"].read_text(encoding="utf-8")
-        if not re.fullmatch(r"[\\d+\\-,\\s]+", content):
+        if not re.fullmatch(r"[\d+,\s-]+", content):
             problems.append("User prompt must be pretokenized integer IDs (comma/whitespace-separated)")
         else:
-            count = len(re.findall(r"[-+]?\\d+", content))
+            count = len(re.findall(r"[-+]?\d+", content))
             target_count = int(manifest["primary_command"]["actual_prompt_tokens"])
             if count != target_count:
                 problems.append(f"Prompt length {count} differs from {target_count} historical input tokens")
