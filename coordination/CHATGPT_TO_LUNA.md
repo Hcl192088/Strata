@@ -1,6 +1,6 @@
 # ChatGPT → Luna | Strata task mailbox
 
-Writer: ChatGPT coordinator. Reader: laptop Luna/Codex at `D:\strata`. Repository `Hcl192088/Strata` main. Only the unique current `[CHATGPT_PLAN]` below authorizes work. Prior 005 reported PARTIAL, host state stopped with no residual process; 006 supersedes 005 for **continuation**, not duplicate execution. Agent must independently confirm no old workload still running before 006 executes.
+Writer: ChatGPT coordinator. Reader: laptop Luna/Codex at `D:\strata`. Repository `Hcl192088/Strata` main. Lifecycle semantics: `coordination/COORDINATION_PROTOCOL.md`; `STATUS: NEW` is authorization, not authoritative runtime state. Only the unique current `[CHATGPT_PLAN]` below authorizes work. Prior 005 reported PARTIAL, host state stopped with no residual process; 006 supersedes 005 for **continuation**, not duplicate execution. Agent must independently confirm no old workload still running before 006 executes.
 
 ## ACTIVE TASK (only executable task)
 
