@@ -14,8 +14,8 @@ CLAIM_REQUIRED: true
 PLAN: coordination/IQ3_AUTONOMOUS_CAMPAIGN_2026-10-09.md
 EXECUTOR: LAPTOP_CODEX_VIA_SSH
 TARGET_HOST: DESKTOP-LKMLUPC
-FIRST_ACTION: Claim this unique TASK_ID with existing persistent lock; read full PLAN and AGENTS.md, then verify durable checkpoint/resume behavior before starting the multi-stage campaign.
-AUTHORIZATION: Multi-stage evidence-led IQ3 optimization campaign with a bounded ~2-4 hour active work budget, <=24 benchmark processes, 4096 accepted-output-token baseline, sequential matched A/B tests, automatic hypotheses and promote/reject, safe runner/orchestration repair, and up to two reversible isolated source modifications/builds if justified.
+FIRST_ACTION: Claim this unique TASK_ID with existing persistent lock; read CURRENT revision of the full PLAN and AGENTS.md, preserve 1024 accepted-output-token identity, then verify durable checkpoint/resume before tests.
+AUTHORIZATION: Multi-stage evidence-led IQ3 optimization campaign with a bounded ~2-4 hour active work budget, <=24 benchmark processes, 1024 accepted-output-token matched baseline/candidate tests only (reuse existing 1024 historical reference; no separate length or context experiments), sequential A/B tests, automatic hypotheses and promote/reject, safe runner/orchestration repair, and up to two reversible isolated source modifications/builds if justified.
 DENY: Duplicate claim or concurrent process, arbitrary unmatched sweeps, destructive source/data cleanup, force-push, merge, changing remote origin/credentials, killing unrelated jobs, promoting an unreproduced maximum, and endless retries.
 REPORT_TO: main:coordination/LUNA_TO_CHATGPT.md
 SUPERSEDES: LUNA-20261009-004 (COMPLETED); 001/002 completed, 003 withdrawn.
@@ -25,5 +25,5 @@ SUPERSEDES: LUNA-20261009-004 (COMPLETED); 001/002 completed, 003 withdrawn.
 
 1. Laptop heartbeat checks fresh GitHub `main` inbox *before SSH*, claims once via existing `D:\strata\tools\strata_github_handoff.ps1` with persistent state/lock. No authenticated NEW/IN_PROGRESS for this ID means no new work.
 2. Long campaign must be checkpointable/resumable, not re-claimed as a duplicate. Implement/verify safe resume of same TASK_ID or an independently durable controller; do not assume claim-once heartbeat automatically resumes. Never restart a remotely running benchmark after SSH interruption without confirming process state.
-3. Read full linked PLAN, current desktop AGENTS.md, verified runtime identity, and 004 report. Results go only under `C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005`. Save reproducible raw files, candidate decision journal and state.
+3. Read full CURRENT linked PLAN before each new campaign stage (including after any amendment), current desktop AGENTS.md, verified runtime identity, and 004 report. Results go only under `C:\Users\User\Strata-Adrian\runs\iq3-autonomous-campaign-005`. Save reproducible raw files, candidate decision journal and state.
 4. Report real progress/completion to `coordination/LUNA_TO_CHATGPT.md`, after fetching latest blob SHA and preserving history. Do not fabricate reports or write new tasks to inbox.
