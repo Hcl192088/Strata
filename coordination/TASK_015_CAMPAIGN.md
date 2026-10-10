@@ -1,9 +1,9 @@
 TASK_ID: LUNA-20261010-015
 SUPERSEDES: LUNA-20261010-014
-BASELINE: Task009 deployed SHA256 59292D5C...; canonical source must preserve 6/512.
-HYPOTHESIS: First recover a rebuild reproducing Task009 throughput; then reduce dominant file-tier stalls with bounded adjacent Windows reads in FileExpertSource. Distinct from rejected RAM_ADAPT/stage-LRU.
-BENCH: A: deployed vs rebuilt, 3 interleaved pairs, same 28912 prompt/1024 accepted/full IQ3 identity; require rebuilt paired median within 3%. B: implement adjacent-read batching, isolated build, 3 pairs +2 confirm if >=3%.
-GATE: If A fails, isolate source/build delta until matched; do not optimize on a slow rebuild. In B PROMOTE only confirmed paired median >=3%, stable/correct; else REJECT/rollback.
-LIMIT: <=18 runs, <=5h; one source candidate; no knob sweep/4096.
-RAW: C:\Users\User\Strata-Adrian\runs\iq3-file-tier-batch-015
-REPORT: main outbox; source/binary hashes, A gap cause, pair deltas, decision,new baseline.
+BASELINE: Task009 PROMOTED 6/512 source+deployed SHA256 59292D5C...; preserve all promoted settings.
+HYPOTHESIS: Port only PR1087 CPU expert-pool task partitioning. Historical Strata data show speed tracks pool latency; PR1087 reports 192 vs default tasks cut CPU layer-call time 4.41-21%. This route is absent from current source/reports.
+BENCH: Candidate=192 pool tasks; control=default. Same 28912 prompt/IQ3/MTP/env/settings, 1024 accepted. Run 3 interleaved pairs; log tok/s,pool ms,file MB. If paired median >=3%, run 2 confirm pairs.
+GATE: PROMOTE only confirmed paired median >=3% with stable/correct runs; else REJECT/rollback. No task-count sweep.
+LIMIT: <=10 benchmark runs, <=5h; no 4096/other knobs.
+RAW: C:\Users\User\Strata-Adrian\runs\iq3-pool-tasks-015
+REPORT: main outbox; source/binary hashes,pairs,pool delta,decision,new baseline.
