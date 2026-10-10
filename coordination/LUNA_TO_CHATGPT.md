@@ -612,3 +612,59 @@ INVALID_WRAPPER_ATTEMPTS: Two pre-launch PowerShell wrapper syntax failures and 
 
 COVERAGE: Fresh GitHub connector snapshot and guard state; locked Task 013 plan; remote hostname/source branch/status; current-best and candidate SHA256; candidate build completion; source restore; six benchmark metadata/logs; targeted decode/speculation/expert-tier/prefill/RAM_ADAPT lines from all six logs. Large logs were not loaded wholesale. Full generated-token semantic equality, complete stderr audit, and a byte-for-byte rebuild provenance comparison were not performed. No deployment, temperature change, process stop, fallback, or unrelated source cleanup was performed.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-013 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-014
+STATUS: REJECT
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-014-decode-lru-campaign-20261010
+TASK_COMMIT_SHA: 7222246f4107f437b2b1e8e49c4acfcd532bb0bd
+PLAN_SHA: 2b99a9757298e713736c9a7a6b55f24457503ad7
+
+## Decision
+
+Rejected the minimal fork-compatible decode-fed stage-LRU candidate. The three interleaved pairs had paired decode deltas of +2.1%, +8.5%, and -3.4%; paired median +2.1% is below the task's >=3% promotion gate. Current-best was preserved and not overwritten.
+
+## Frozen identity
+
+- Host: `DESKTOP-LKMLUPC`
+- Active source: `C:\Users\User\Strata-Adrian-control`
+- Active source HEAD: `ba6e5b5d2fb55597f9dfbfdb58ed33e291dc571e`
+- Active source dirty files: `include/strata/core/expert_source.hpp`, `src/core/expert_source.cpp` (pre-existing canonical 6/512 edits; preserved)
+- Control executable: `C:\Users\User\Strata-Adrian-control-build\strata.exe`
+- Control/current-best SHA256: `59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3`
+- Candidate source worktree: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-014\source-upstream1324`
+- Candidate source branch: `task014-upstream1324`
+- Candidate build: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-014\build-minimal-lru\Release\strata.exe`
+- Candidate SHA256: `B7AEC6832054C4B8BA65C4409415B8073F98D43E73A07D6FB13FFF339A750E60`
+- Candidate change: fork-compatible minimal stage LRU; `STRATA_STAGE_KEEP_MIB=1024`; no active deployment change
+- Prompt file: `C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\neuro.tokens`
+- Prompt SHA256: `9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA`
+- Prompt tokens: 28912
+- Accepted output: 1024
+- Model/pack/MTP/args: same frozen 013 identity; candidate-only environment was `STRATA_STAGE_KEEP_MIB=1024`
+
+## Measured decode results
+
+| Pair | Candidate tok/s | Control tok/s | Delta |
+|---|---:|---:|---:|
+| 01 | 35.04 | 34.31 | +2.1% |
+| 02 | 37.82 | 34.85 | +8.5% |
+| 03 | 36.62 | 37.90 | -3.4% |
+
+Prefill was not used for the gate; it remained workload-identical at 28911 prompt tokens. All six runs exited normally with accepted output 1024. The candidate showed file-tier read variation and no correctness failure was observed in the captured logs, but no correctness claim beyond normal completion is made.
+
+## Raw evidence
+
+BENCHMARK_RAW_PATH: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-014\bench`
+
+`C:\Users\User\Strata-Adrian\runs\iq3-campaign-014\bench`
+
+Logs: `pair-01-candidate.*`, `pair-01-control.*`, `pair-02-candidate.*`, `pair-02-control.*`, `pair-03-candidate.*`, `pair-03-control.*`.
+
+The full upstream #1324 patch did not apply cleanly to this fork; the measured candidate was the isolated minimal fork-compatible patch, not a claim that the upstream patch was reproduced verbatim.
+
+## Next step
+
+Keep current-best SHA `59292D5C...` deployed. Do not promote this candidate. Return to the controller for the next highest-value untested source route; do not repeat this rejected route without a materially different hypothesis.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-014 -->
