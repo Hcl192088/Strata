@@ -668,3 +668,79 @@ The full upstream #1324 patch did not apply cleanly to this fork; the measured c
 
 Keep current-best SHA `59292D5C...` deployed. Do not promote this candidate. Return to the controller for the next highest-value untested source route; do not repeat this rejected route without a materially different hypothesis.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-014 -->
+
+[LUNA_REPORT]
+
+TASK_ID: LUNA-20261010-015
+STATUS: COMPLETED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-015-source-campaign-20261010
+TASK_COMMIT_SHA: e146b54592fa3c2ac8f8c57121d9f6cee01298ef
+TASK_SOURCE_SHA: e146b54592fa3c2ac8f8c57121d9f6cee01298ef
+PLAN_PATH: coordination/TASK_015_CAMPAIGN.md
+PLAN_SHA: 29fb310c843512692280204b43840fcfd5e8cb92
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-cpu-campaign-015
+HOST: DESKTOP-LKMLUPC (User@100.126.147.41)
+
+DECISION
+
+- Current-best unchanged; no candidate promoted.
+- Candidate A (PR1087 pool tasks, isolated worktree) REJECTED: paired decode deltas +8.14%, +2.82%, -13.37%; median +2.82%, below the >=3% gate.
+- Candidate B (fork-aware PR863 Intel P-core gather/AVX-VNNI port, isolated worktree) REJECTED: paired decode deltas -2.90%, +3.20%, +0.05%; median +0.05%, below the >=3% gate. No confirmation pairs were authorized by the plan after the gate failed.
+- Candidate C (per-expert Down pipeline) SKIPPED: A and B logs showed no barrier-idle trigger; every valid run had pool wait-park 0.000 and re-park 0.000 ms/token.
+
+LOCKED BASELINE AND IDENTITY
+
+- Current-best executable: C:\Users\User\Strata-Adrian-control-build\strata.exe
+- Current-best SHA256: 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3
+- Final B candidate executable: C:\Users\User\Strata-Adrian\runs\iq3-pool-tasks-015\build-pr863\Release\strata.exe
+- Final B candidate SHA256: 6242341445934157CE6E343FB7974CF90F1363C7411C7CE78A8BF0BF798BE44B
+- Candidate B was rebuilt after applying the two active Task009 current-best source diffs (include/strata/core/expert_source.hpp and src/core/expert_source.cpp) to the isolated PR863 worktree. A-only src/program/generate.cpp and pool changes were not included in B.
+- Final B build: CUDA enabled, CUDA 13.2.78, MSVC toolset 14.44.35207/14.44.35226, x64, CUDA arch 89, Release, tests off; build exit 0.
+- Final B worktree base HEAD: ba6e5b5d2fb55597f9dfbfdb58ed33e291dc571e; isolated worktree C:\Users\User\Strata-Adrian\runs\iq3-pool-tasks-015\source-pr863.
+
+FROZEN RUN IDENTITY
+
+- Prompt: C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\neuro.tokens
+- Prompt SHA256: 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA
+- Prompt tokens: 28912; output: 1024 accepted tokens
+- Pack: C:\Users\User\Strata-IQ3-20261008\packs\iq3_xxs
+- Native/Ple shards: C:\Users\User\Strata-IQ3-20261008\models\IQ3_XXS\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf and ...-00002-of-00002.gguf
+- MTP: C:\Users\User\Strata-v0.1.34-mtp-test-20261002\mtp\rt
+- Learned profile: C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\learned-heart.bin
+- Args: --spec 6 --spec-min-p 0.75 --max-context 100000 --kv q4_0 --kv-resident 20480 --expert-cache 3604 --pool-workers 9 --prefill auto --stats --max-new 1024 --suffix-draft 3 --resident-budget-gib 20 --mtp-max-t 3 --pool-affinity all --adapt-every 3 --adapt-swaps 16 --adapt-decay 0.60
+- Environment: STRATA_FETCH_ADMIT=0, STRATA_RESIDENT_HEADROOM_GIB=3, STRATA_ADAPT_IF_MISS=1, STRATA_EXPERT_FILE_CACHE=1, STRATA_PF_FUSED=1, STRATA_LOOKAHEAD=0. B did not set STRATA_IQ256_GATHER; PR863 auto-selected the CPU-supported path.
+
+MEASURED RESULTS
+
+Candidate A, raw C:\Users\User\Strata-Adrian\runs\iq3-cpu-campaign-015\phase-a-pool192-v2:
+
+| pair | candidate tok/s | control tok/s | delta | candidate pool ms/token | control pool ms/token | candidate file MB | control file MB |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 36.27 | 33.54 | +8.14% | 28.315 | 30.953 | 9208.5 | 12440.1 |
+| 2 | 35.78 | 34.80 | +2.82% | 30.471 | 29.160 | 11759.4 | 12642.5 |
+| 3 | 29.35 | 33.88 | -13.37% | 34.953 | 33.027 | 21319.5 | 11497.2 |
+
+Candidate B, raw C:\Users\User\Strata-Adrian\runs\iq3-cpu-campaign-015\phase-b-pr863-v2:
+
+| pair | candidate tok/s | control tok/s | delta | candidate pool ms/token | control pool ms/token | candidate file MB | control file MB |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 36.23 | 37.31 | -2.90% | 27.862 | 24.344 | 8872.0 | 6619.4 |
+| 2 | 38.44 | 37.25 | +3.20% | 24.402 | 28.358 | 6698.8 | 7534.4 |
+| 3 | 38.95 | 38.93 | +0.05% | 24.072 | 23.506 | 5942.1 | 6836.3 |
+
+CORRECTNESS AND PROCESS EVIDENCE
+
+- Final B parity executable: C:\Users\User\Strata-Adrian\runs\iq3-pool-tasks-015\build-pr863\Release\iq_avx2_parity.exe; run result `iq_avx2_parity: 0 failures`.
+- On the host, the parity test reported AVX2=1, AVX512=0, and variants `gather+vnni`; all IQ2/IQ3/IQ4/Q2 variant checks were 0 rows differing across 1..8 tokens. Maximum reported relative error was 1.61e-7.
+- All twelve valid A/B campaign runs exited 0, accepted 1024 tokens, and left zero Strata/Llama processes. Current-best was re-hashed after the campaign and remained the exact locked SHA above.
+- The first B attempt in raw `phase-b-pr863-v1` is preserved as invalid evidence: the wrapper incorrectly passed A-only `--pool-tasks 192` to B, and the candidate correctly returned `unknown argument`. It is excluded from all statistics. The wrapper was then corrected and B was rebuilt from the proper baseline before `phase-b-pr863-v2`.
+
+COVERAGE AND REMAINING RISK
+
+- Required campaign coverage: A and B each received 3 interleaved candidate/control pairs under the frozen 28912-token prompt, 1024 output, IQ3_XXS, MTP and environment; 12 valid model runs total, plus the B parity check.
+- Not run: 2 confirmation pairs for either candidate (both failed the first three-pair median gate), C route (no barrier-idle trigger), 4096 prompt, knob sweeps, and promotion/deployment.
+- Raw logs include command identity, binary hashes, stdout/stderr, GPU before/after, process before/after, result JSON, summary JSON, and build logs under C:\Users\User\Strata-Adrian\runs\iq3-cpu-campaign-015. The invalid v1 stage and PR port repair artifacts are retained.
+- Remaining risk: parity proves the isolated CPU kernel variants against their references, but the campaign gate did not prove a >=3% end-to-end improvement; current-best therefore remains the only promoted control.
+
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-015 -->
