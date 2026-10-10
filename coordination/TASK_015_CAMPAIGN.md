@@ -1,9 +1,9 @@
 TASK_ID: LUNA-20261010-015
 SUPERSEDES: LUNA-20261010-014
-BASELINE: Task009 PROMOTED 6/512 source+deployed SHA256 59292D5C...; preserve all promoted settings.
-HYPOTHESIS: Port only PR1087 CPU expert-pool task partitioning. Historical Strata data show speed tracks pool latency; PR1087 reports 192 vs default tasks cut CPU layer-call time 4.41-21%. This route is absent from current source/reports.
-BENCH: Candidate=192 pool tasks; control=default. Same 28912 prompt/IQ3/MTP/env/settings, 1024 accepted. Run 3 interleaved pairs; log tok/s,pool ms,file MB. If paired median >=3%, run 2 confirm pairs.
-GATE: PROMOTE only confirmed paired median >=3% with stable/correct runs; else REJECT/rollback. No task-count sweep.
-LIMIT: <=10 benchmark runs, <=5h; no 4096/other knobs.
-RAW: C:\Users\User\Strata-Adrian\runs\iq3-pool-tasks-015
-REPORT: main outbox; source/binary hashes,pairs,pool delta,decision,new baseline.
+BASELINE: Task009 PROMOTED 6/512 + deployed SHA256 59292D5C...; each PROMOTE becomes next control.
+HYPOTHESIS: CPU pool is dominant. A port PR1087, fixed 192 row tasks. B port PR863 IQ3_XXS-relevant Intel P-core gather/AVX-VNNI only. C only if A/B logs show barrier idle tail >=3% decode wall: port PR733 per-expert Down pipeline. Never repeat 012-014, RAM_ADAPT, stage-LRU, prior prefetch/lookahead/PVM.
+BENCH: Each candidate 3 interleaved pairs; same 28912 prompt/IQ3/MTP/env/settings; 1024 accepted; log tok/s,pool ms,file MB. If paired median >=3%, run 2 confirm pairs, PROMOTE, then stack next.
+GATE: PROMOTE only confirmed paired median >=3%, stable/correct; else REJECT/rollback. Skip C if trigger absent.
+LIMIT: <=30 runs, <=8h, <=3 candidates; no knob sweep/4096.
+RAW: C:\Users\User\Strata-Adrian\runs\iq3-cpu-campaign-015
+REPORT: main outbox; hashes,pairs,decision,new baseline,next route.
