@@ -353,3 +353,42 @@ COVERAGE: Mandatory external references in the active plan were inspected. Relev
 SOURCE_CHANGE: no production source, active binary, model, temperature, remote main branch, or existing dirty file was changed. The accepted candidate remains isolated for the next explicitly authorized promotion/deployment step.
 NEXT_STEP: use the isolated 6/512 candidate as the production-promotion candidate in a separately authorized source/deployment step; do not repeat the rejected lookahead, prefetch, PVM, per-layer-cache, or profile-admission tests without a new causal question.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-008 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-009
+STATUS: PARTIAL
+TIME_ASIA_TAIPEI: 2026-10-10 09:12
+EXECUTION_MODE: CLEAN_FIVE_INTERLEAVED_PAIRS_STAGE_CACHE_6_512
+
+RESULT: Clean validation of the isolated stage-cache candidate completed. The candidate passed the performance gate, but deployment was not performed: the remote-shell approval layer timed out twice during the pre-deployment check. No fallback was used. Main source and the existing target binary were left unchanged.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (User@100.126.147.41; identity verified)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_SOURCE_HEAD: d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_SOURCE_DIRTY: four pre-existing .codex/handoffs/* untracked files only; preserved
+ISOLATED_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\source-clean
+ISOLATED_CHANGE: include/strata/core/expert_source.hpp kStageAge 3->6; src/core/expert_source.cpp kStageSeq 256->512
+BASELINE_BINARY_SHA256: 5f03f4616237f84f7307716134a8fe7be706266387becb5140db49b7e153c59f
+CANDIDATE_BINARY_SHA256: 59292d5ccbcd200bd209ae04ee59e795da979b6affd175c870e673f9ffaecec3
+
+FROZEN_IDENTITY: Same accepted 1024-token IQ3 workload and flags as task 008; trace was explicitly cleared for both binaries. Environment: STRATA_FETCH_ADMIT=0, STRATA_RESIDENT_HEADROOM_GIB=3, STRATA_ADAPT_IF_MISS=1, STRATA_EXPERT_FILE_CACHE=1, STRATA_PF_FUSED=1, STRATA_LOOKAHEAD=0, STRATA_EXPERT_TRACE=. Temperature was not changed.
+
+PAIRED_RESULTS (control -> candidate tok/s; decode delta; file-MB delta; file-read-ms delta; blob-read delta; CPU-pool-call delta):
+1. 35.37 -> 37.93; +7.24%; -35.24%; -36.00%; -14.09%; -15.30%
+2. 35.72 -> 38.07; +6.58%; -30.15%; -35.21%; -18.38%; -9.49%
+3. 37.13 -> 35.55; -4.26%; +5.00%; +3.28%; +37.60%; +9.17%
+4. 31.93 -> 37.31; +16.85%; -51.36%; -53.04%; -25.68%; -26.71%
+5. 36.98 -> 39.01; +5.49%; -18.37%; -30.19%; +11.58%; -22.17%
+PAIRED_MEDIANS: decode +6.58%; file-tier traffic -30.15%; file-read time -35.21%; blob reads -14.09%; CPU pool-call time -15.30%. Pair 3 regressed; this is a positive median with run-to-run variance, not a claim that every run improves.
+
+VALIDITY: 10/10 runs returned successfully; all 10 had a 1024-token decode line and exactly 1024 output tokens; all 10 captured six 1/2/3/4/5/6-token verification windows with upload/sync no error; unexpected fatal/crash/abort/CUDA/invalid/failed/unknown errors 0/10. The only out-of-memory text was the expected page-locking refusal followed by working-set minimum plus VirtualLock.
+MEMORY: Candidate resident RAM 19.49-20.00 GiB vs control 19.32-20.00 GiB; maximum paired increase +0.17 GiB. No memory regression was observed in this sample.
+RAW_LOGS: local D:\strata\work\task009_pair1_control.stdout.log through task009_pair5_candidate.stderr.log; remote C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\pair*-{control,candidate}\.
+
+DEPLOYMENT: Existing target verified as C:\Users\User\Strata-Adrian-control-build\strata.exe, SHA256 e67eb500c2f43b0e75d3956a17ba71c425830b6d56e2c7c5c7a96559cdeefa74; alternate source-tree Release target absent. Last successful process check before the deployment attempt returned no strata.exe or python.exe. No backup or replacement copy was executed; the existing target is not claimed to contain the candidate. Deployment smoke verification and automatic rollback remain unfinished.
+
+UPSTREAM_CONTEXT: Reused predecessor reconnaissance: Niko issues #831 and #369, PR #1237, spideytznn/Strata plan_ram_promotions, and llama.cpp discussion #25779. Rejected lookahead/PVM candidates were not repeated; no fresh upstream refetch in this cycle.
+COVERAGE: 10/10 requested clean runs and all 20 raw logs were parsed for throughput, file-tier traffic, pool latency, resident RAM, output length, verification windows, and unexpected errors. Main source and dirty-file scope were inspected. Live deployment verification, fresh upstream refetch, and final hardware telemetry were not completed because the remote-shell approval layer timed out.
+CONTROLLER: no strata.exe or python.exe in the last successful process check; no process was intentionally stopped.
+NEXT_ACTION: Resume from the preserved candidate binary/worktree; re-check backup path, then backup -> copy -> SHA verify -> one independent deployed smoke run, with copy-back rollback on any verification failure. Do not repeat the 10 pairs unless checkpoint or target changed.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-009 -->
