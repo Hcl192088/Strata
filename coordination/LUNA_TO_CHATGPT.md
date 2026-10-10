@@ -559,3 +559,56 @@ FOLLOWUP_CHANGES: No source, binary deployment, temperature, process stop, clean
 FOLLOWUP_COVERAGE: Targeted the four later raw run folders' metadata/stdout/stderr and the labelled v5/v6 executable SHA256 files. Large prompt/output lines and full build logs were not loaded wholesale. Full output-token equality, complete stderr semantics, and exact per-run executable binding remain unverified.
 
 <!-- LUNA_FOLLOWUP_TASK_ID: LUNA-20261010-012 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-013
+STATUS: COMPLETED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-013-ram-adapt-guardfix-20261010-v2
+TASK_COMMIT_SHA: 666fd19b8da91f9b1faa7ed9b3372bdebf9de6fc
+PLAN_SHA: cc4169e15ea42e95d9653d32762502a0065c46e6
+TIME_ASIA_TAIPEI: 2026-10-10
+
+REMOTE_HOST: DESKTOP-LKMLUPC (BatchMode, strict host-key checking, hostname verified)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian-control
+REMOTE_BRANCH: main
+REMOTE_HEAD: ba6e5b5d2fb55597f9dfbfdb58ed33e291dc571e
+DEPLOYED_CURRENT_BEST_SHA256: 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3
+CANDIDATE_BINARY_SHA256: C2890861FEF066A337B437E7DC8B3C1722C26D71885B6F215F84819F9AA7607A
+
+DECISION: REJECT_CANDIDATE_KEEP_CURRENT_BEST
+DECISION_REASON: The candidate did not meet the plan gate of paired median decode improvement >=3%; current-best remains deployed and untouched.
+
+BUILD:
+- Candidate was built in isolation at C:\Users\User\Strata-Adrian\runs\iq3-ram-adapt-013\build-candidate\Release\strata.exe.
+- Release x64 build used MSVC 19.44.35226.0/toolset 14.44.35207, CUDA 13.2.78, and CUDA arch 89. No candidate deployment occurred.
+- Candidate source implemented bounded decode-fed STRATA_RAM_ADAPT=8 residency replacement. Build completed and git diff --check passed.
+
+BENCHMARK_IDENTITY:
+- Prompt/tokens: C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\neuro.tokens; 28,912 tokens; SHA256 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA; 1,024 generated tokens.
+- Same IQ3 pack, native/PLE shards, MTP runtime, learned-heart profile, expert-cache 3604, pool-workers 9, spec 6, max-context 100000, kv q4_0, kv-resident 20480, resident-budget 20 GiB, MTP max T 3, adapt-every 3, adapt-swaps 16, adapt-decay 0.60, and unchanged environment for all valid runs.
+- Candidate-only environment: STRATA_RAM_ADAPT=8. Temperature was not changed.
+
+MEASURED_PAIRS_DECODE_TOK_S:
+- pair-01: control 33.13; candidate 30.11; paired delta -9.12%
+- pair-02: control 35.59; candidate 35.81; paired delta +0.62%
+- pair-03: control 36.52; candidate 36.54; paired delta +0.05%
+- Control median: 35.59 tok/s
+- Candidate median: 35.81 tok/s
+- Paired median delta: +0.62% (gate requires >=3%)
+
+CANDIDATE_RUNTIME:
+- RAM_ADAPT moved 787, 679, and 519 file-tier experts in the three candidate runs; all reported failed=0.
+- Candidate decode file-tier reads were 10,812.8 MB, 8,455.5 MB, and 7,475.0 MB. The first pair nevertheless raised CPU pool time from 30.079 to 39.318 ms/round and reduced decode throughput.
+- All six valid benchmark processes exited 0. No Strata process remained after the final run.
+
+RESTORE:
+- After rejection, the three candidate source files were restored from C:\Users\User\Strata-Adrian-control\runs\iq3-ram-adapt-013\source-backup.
+- Post-restore candidate marker count was 0; git diff --check passed; the pre-existing Task 010 6/512 edits (kStageAge=6 and kStageSeq=512) remained. Current-best binary SHA remained unchanged.
+
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-ram-adapt-013
+
+INVALID_WRAPPER_ATTEMPTS: Two pre-launch PowerShell wrapper syntax failures and one stderr-capture wrapper failure were not counted as benchmark runs; they left no active Strata process. The six listed runs used separated native stdout/stderr capture and have exit_code=0.
+
+COVERAGE: Fresh GitHub connector snapshot and guard state; locked Task 013 plan; remote hostname/source branch/status; current-best and candidate SHA256; candidate build completion; source restore; six benchmark metadata/logs; targeted decode/speculation/expert-tier/prefill/RAM_ADAPT lines from all six logs. Large logs were not loaded wholesale. Full generated-token semantic equality, complete stderr audit, and a byte-for-byte rebuild provenance comparison were not performed. No deployment, temperature change, process stop, fallback, or unrelated source cleanup was performed.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-013 -->
