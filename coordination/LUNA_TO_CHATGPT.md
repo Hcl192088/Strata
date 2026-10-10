@@ -424,3 +424,31 @@ Controller state: no `strata.exe` or `python.exe` process was present in the las
 
 Next action: publish this completed report once through the guard, then run the final inspect. Do not rebuild, redeploy, or repeat the 10 paired runs unless the checkpoint or target changes.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-009 -->
+
+[LUNA_BLOCKED]
+TASK_ID: LUNA-20261010-010
+STATUS: BLOCKED
+TASK_SOURCE: main
+TASK_BRANCH: main
+TASK_COMMIT_SHA: 6708ad5ec3a8f9b2960a76958c582a7e50b94a2d
+PLAN_SHA: fe0d0379e6193f1cced650634d05a1da849be662
+TIME_ASIA_TAIPEI: 2026-10-10
+
+REMOTE_HOST: DESKTOP-LKMLUPC (SSH BatchMode and strict host-key identity verified)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_HEAD: d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_DIRTY_FILES: the four pre-existing .codex/handoffs/* files plus the two Task 010 source files listed below; unrelated files preserved
+
+PHASE_0: The authoritative source initially contained kStageAge=3 and kStageSeq=256. The exact validated Task 009 patch was applied with unique-anchor checks only: include/strata/core/expert_source.hpp now has kStageAge=6 and src/core/expert_source.cpp now has kStageSeq=512. Existing deployed control binary C:\Users\User\Strata-Adrian-control-build\strata.exe remained SHA256 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3.
+
+BLOCKER_LAYER: BUILD_TOOLCHAIN
+BLOCKER: cmake --build C:\Users\User\Strata-Adrian-control-build --config Release --parallel 8 failed before compilation because the configured generator is NMake Makefiles and the remote execution environment returned `no such file or directory` while invoking `nmake -f Makefile /nologo`. `where nmake`, `where ninja`, `where msbuild`, and `where cl` found no executable. Therefore the source-to-binary canonicalization could not be reproduced in this cycle.
+
+BENCHMARK_RAW_PATH: NONE
+BENCHMARK: No new process was started because Phase 0 build reproduction failed; no benchmark, source-level churn candidate, deployment, temperature change, or process stop was performed.
+REMOTE_PROCESS_CHECK: final tasklist queries found no strata.exe or python.exe process.
+SOURCE_CHANGE: Only the authorized 6/512 synchronization was written to the two authoritative source files; no churn policy or other optimization was attempted. The source changes remain uncommitted pending a valid build/toolchain check.
+NEXT_STEP: Resume only after the existing remote build toolchain can invoke the configured NMake build, or after a new explicit plan authorizes a different build procedure. Do not start Phase 1 or benchmarks before a successful 6/512 canonical build is verified.
+
+COVERAGE: Read the locked Task 010 plan, remote AGENTS.md, both candidate source paths, remote Git HEAD/status, source diff/check, configured CMake build directory, build failure output, existing binary SHA256, GPU state, and final process state. Did not run Phase 1 source inspection, benchmarks, upstream fetch, deployment, or full repository audit because the required Phase 0 build gate failed.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-010 -->
