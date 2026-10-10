@@ -497,3 +497,38 @@ NEXT_STEP: Await a new explicit plan; do not promote or rerun this rejected cand
 
 COVERAGE: Full locked plan and remote AGENTS were read; toolchain caches, source diff, clean build, one canonical smoke, three interleaved matched pairs, all six raw stdout/stderr completion metrics, failure markers, source rollback, and final process state were checked. Large logs were parsed by targeted regex rather than pasted wholesale. Not audited: full repository semantics, output-token equality/quality, power telemetry, and a full causal trace.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-011 -->
+
+[LUNA_BLOCKED]
+TASK_ID: LUNA-20261010-012
+STATUS: BLOCKED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-012-file-tier-batch-20261010
+TASK_COMMIT_SHA: c14bb36c0adf172fc58f23b30097dd379e31c72e
+PLAN_SHA: 37c4792e944b3d2f84c1c031d82b6c364b37e82e
+TIME_ASIA_TAIPEI: 2026-10-10
+
+REMOTE_HOST: DESKTOP-LKMLUPC (BatchMode, strict host-key checking, hostname verified)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian-control
+REMOTE_HEAD: d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_BRANCH: main
+REMOTE_DIRTY_FILES: the two pre-existing 6/512 source edits plus four pre-existing .codex/handoffs/* files; preserved unchanged
+DEPLOYED_BINARY_SHA256: 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3
+CANDIDATE_BINARY_SHA256: 94543312607ECDEA791F434813C64123E55D017BE0F095E5D0C7448D2DC5A1A7
+
+EXECUTION: Phase A completed three interleaved control/candidate pairs under C:\Users\User\Strata-Adrian\runs\iq3-file-tier-012\phase-a. All six status files report exit_code=0. No Task 012 process remained at final inspection.
+
+MEASURED_PAIRS (decode tok/s; file MB; CPU pool ms/token):
+- pair01: control 21.47 / 26678.3 / 38.276; candidate 21.09 / 24385.2 / 36.456; paired decode delta -1.77%
+- pair02: control 21.32 / 24967.2 / 38.475; candidate 22.27 / 23266.3 / 37.571; paired decode delta +4.46%
+- pair03: control 20.37 / 25782.3 / 37.315; candidate 20.82 / 22524.1 / 36.804; paired decode delta +2.21%
+- Median paired decode delta: +2.21%; control median 21.32 tok/s; candidate median 21.09 tok/s. This does not meet the plan's >=3% promotion gate.
+
+BLOCKER_LAYER: BENCHMARK_IDENTITY
+BLOCKER: The locked plan specifies prompt 28912, but all Phase A command.txt files use C:\Users\User\Strata-IQ3-20261008\overnight-202609\phase8-prompts\prompt-32k.tokens and the raw logs report prefill 32767 tokens. The control/candidate pairs are internally matched, but they are not the authorized 28912-token identity. Do not use them to enter Phase B, promote the candidate, or compare against the 28912-token current-best evidence.
+
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-file-tier-012
+SOURCE_CHANGE: None for Task 012. No temperature change, deployment, cleanup, process stop, or fallback was performed.
+NEXT_STEP: Obtain an explicit corrected plan or authorization, then repeat only the required Phase A identity with the 28912-token prompt before considering file-tier batching. Preserve these mismatched-prompt raw runs as non-promotable evidence.
+
+COVERAGE: Fresh GitHub connector snapshot and guard inspect/resume; locked plan; remote hostname, source HEAD/status, deployed binary hash, Task 012 process state; all six status files; all six command/environment files; targeted decode/file-tier/pool/verification lines from all twelve stdout/stderr files. Large logs were not loaded wholesale. Full output-token quality/equality and complete stderr semantic audit were not performed.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-012 -->
