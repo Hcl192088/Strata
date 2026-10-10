@@ -452,3 +452,48 @@ NEXT_STEP: Resume only after the existing remote build toolchain can invoke the 
 
 COVERAGE: Read the locked Task 010 plan, remote AGENTS.md, both candidate source paths, remote Git HEAD/status, source diff/check, configured CMake build directory, build failure output, existing binary SHA256, GPU state, and final process state. Did not run Phase 1 source inspection, benchmarks, upstream fetch, deployment, or full repository audit because the required Phase 0 build gate failed.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-010 -->
+
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-011
+STATUS: COMPLETED
+TIME_ASIA_TAIPEI: 2026-10-10 12:29:27 +08:00
+EXECUTION_MODE: BUILD_RECOVERY_AND_STAGE_CHURN_VALIDATION
+
+RESULT: The Task 010 6/512 source state was rebuilt successfully with the recovered Visual Studio generator/toolchain. The clean canonical smoke passed, then the scoped second-chance stage-churn candidate was tested in an isolated build. The candidate did not meet the performance gate and was rolled back; no candidate binary was deployed.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (SSH BatchMode, strict host-key checking, and hostname identity verified)
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
+REMOTE_BRANCH / HEAD: main / d8bd709bcb336c604d684dad6ddf83796dac87ac
+REMOTE_DIRTY_FILES: four pre-existing untracked .codex/handoffs/* files; preserved unchanged
+TASK_SOURCE_BRANCH: main
+TASK_COMMIT_SHA: fd7893d6f2a74cc272d3df34fa794b039e31df64
+PLAN_SHA: 66f284b2caaf9d3b9e5e5dc08d2c43758d635eb5
+
+TOOLCHAIN_RECOVERY: The old configured NMake build was not usable from the noninteractive shell. Task 009 CMakeCache and vswhere identified Visual Studio 17 2022 BuildTools 17.14.37216.2, MSVC 14.44.35207, CUDA 13.2.78, and CUDA architecture 89. A new isolated Visual Studio 17 2022/x64 build was configured with CMAKE_CUDA_ARCHITECTURES=89 and built successfully.
+CANONICAL_BUILD: C:\Users\User\Strata-Adrian\runs\iq3-build-recovery-stage-churn-011\build-canonical-cuda
+CANONICAL_BINARY_SHA256: 94543312607ECDEA791F434813C64123E55D017BE0F095E5D0C7448D2DC5A1A7
+CANONICAL_SMOKE_RAW: C:\Users\User\Strata-Adrian\runs\iq3-build-recovery-stage-churn-011\canonical-smoke
+CANONICAL_SMOKE: exit 0; prefill 32767 tokens at 1003.69 tok/s; decode exactly 1024 tokens at 20.91 tok/s; verification windows completed without CUDA/correctness failure.
+
+FROZEN_IDENTITY: prompt_tokens=28912; max_context=100000; output_tokens=1024; IQ3_XXS pack and two native GGUF shards; existing learned-heart profile; spec=6; spec-min-p=0.75; kv=q4_0; kv-resident=20480; expert-cache=3604; pool-workers=9; prefill=auto; resident-budget-gib=20; mtp-max-t=3; adapt-every=3; adapt-swaps=16; adapt-decay=0.60. Environment and temperature were unchanged.
+STAGE_CHURN_CANDIDATE: Added a bounded second-chance reference bit on top of eligible LRU for FileExpertSource staged blobs. The candidate source was built separately; candidate binary SHA256 3B8DAD89080E09DDF570F311C0DEAB49261C0C0F43AE4F5D32CEFC23F96EAC22.
+ISOLATED_CANDIDATE_BUILD: C:\Users\User\Strata-Adrian\runs\iq3-build-recovery-stage-churn-011\build-stage-churn-candidate
+
+PAIRED_RESULTS (decode tok/s; candidate delta):
+- pair01: control 21.96 -> candidate 21.60 (-1.64%); prefill 943.51 -> 1004.77 tok/s.
+- pair02: control 21.85 -> candidate 21.92 (+0.32%); prefill 963.51 -> 986.19 tok/s.
+- pair03: control 21.76 -> candidate 21.85 (+0.41%); prefill 953.14 -> 1016.28 tok/s.
+- Candidate/control median decode: 21.85 / 21.85 tok/s; median paired decode delta approximately +0.32%.
+- Decision: REJECTED. The plan requires median decode improvement >=3%; no confirmation pairs were run.
+
+BENCHMARK_RAW_ROOT: C:\Users\User\Strata-Adrian\runs\iq3-build-recovery-stage-churn-011\matched-pairs
+BENCHMARK_RAW_CONTENT: six interleaved run directories, each with stdout.log, stderr.log, command.txt, and status.txt; all six contained a decode line for exactly 1024 tokens.
+VALIDITY: No CUDA error, mismatch, assert, abort, segmentation, device-side, or illegal-memory marker was found. The known nonfatal resident-mode page-locking refusal appeared in all runs and each run completed normally. No strata process remained after the campaign.
+
+SOURCE_AFTER_ROLLBACK: The candidate-only stage_ref change was removed. Verified remote git diff contains only the pre-existing Task 010 synchronization: kStageAge=6 and kStageSeq=512. No production source commit, active binary deployment, model, benchmark identity, temperature, or unrelated process was changed.
+ACTIVE_DEPLOYMENT: unchanged; the isolated canonical/candidate binaries were not copied to C:\Users\User\Strata-Adrian-control-build.
+NEXT_STEP: Await a new explicit plan; do not promote or rerun this rejected candidate.
+
+COVERAGE: Full locked plan and remote AGENTS were read; toolchain caches, source diff, clean build, one canonical smoke, three interleaved matched pairs, all six raw stdout/stderr completion metrics, failure markers, source rollback, and final process state were checked. Large logs were parsed by targeted regex rather than pasted wholesale. Not audited: full repository semantics, output-token equality/quality, power telemetry, and a full causal trace.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-011 -->
