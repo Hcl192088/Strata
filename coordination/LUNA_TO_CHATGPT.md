@@ -356,39 +356,71 @@ NEXT_STEP: use the isolated 6/512 candidate as the production-promotion candidat
 
 [LUNA_REPORT]
 TASK_ID: LUNA-20261010-009
-STATUS: PARTIAL
-TIME_ASIA_TAIPEI: 2026-10-10 09:12
-EXECUTION_MODE: CLEAN_FIVE_INTERLEAVED_PAIRS_STAGE_CACHE_6_512
+task_id: LUNA-20261010-009
+status: COMPLETED
+generated_at_utc: 2026-10-10T02:17:47.471Z
 
-RESULT: Clean validation of the isolated stage-cache candidate completed. The candidate passed the performance gate, but deployment was not performed: the remote-shell approval layer timed out twice during the pre-deployment check. No fallback was used. Main source and the existing target binary were left unchanged.
+## Result
 
-REMOTE_HOST: DESKTOP-LKMLUPC (User@100.126.147.41; identity verified)
-REMOTE_SOURCE: C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control
-REMOTE_SOURCE_HEAD: d8bd709bcb336c604d684dad6ddf83796dac87ac
-REMOTE_SOURCE_DIRTY: four pre-existing .codex/handoffs/* untracked files only; preserved
-ISOLATED_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\source-clean
-ISOLATED_CHANGE: include/strata/core/expert_source.hpp kStageAge 3->6; src/core/expert_source.cpp kStageSeq 256->512
-BASELINE_BINARY_SHA256: 5f03f4616237f84f7307716134a8fe7be706266387becb5140db49b7e153c59f
-CANDIDATE_BINARY_SHA256: 59292d5ccbcd200bd209ae04ee59e795da979b6affd175c870e673f9ffaecec3
+Clean validation of the stage-cache reuse candidate completed in an isolated reversible worktree. The candidate passed the performance gate and was deployed locally through a reversible backup. One independent post-deploy smoke run completed successfully. No fallback was used, and the main source remained unchanged.
 
-FROZEN_IDENTITY: Same accepted 1024-token IQ3 workload and flags as task 008; trace was explicitly cleared for both binaries. Environment: STRATA_FETCH_ADMIT=0, STRATA_RESIDENT_HEADROOM_GIB=3, STRATA_ADAPT_IF_MISS=1, STRATA_EXPERT_FILE_CACHE=1, STRATA_PF_FUSED=1, STRATA_LOOKAHEAD=0, STRATA_EXPERT_TRACE=. Temperature was not changed.
+## Source and binaries
 
-PAIRED_RESULTS (control -> candidate tok/s; decode delta; file-MB delta; file-read-ms delta; blob-read delta; CPU-pool-call delta):
-1. 35.37 -> 37.93; +7.24%; -35.24%; -36.00%; -14.09%; -15.30%
-2. 35.72 -> 38.07; +6.58%; -30.15%; -35.21%; -18.38%; -9.49%
-3. 37.13 -> 35.55; -4.26%; +5.00%; +3.28%; +37.60%; +9.17%
-4. 31.93 -> 37.31; +16.85%; -51.36%; -53.04%; -25.68%; -26.71%
-5. 36.98 -> 39.01; +5.49%; -18.37%; -30.19%; +11.58%; -22.17%
-PAIRED_MEDIANS: decode +6.58%; file-tier traffic -30.15%; file-read time -35.21%; blob reads -14.09%; CPU pool-call time -15.30%. Pair 3 regressed; this is a positive median with run-to-run variance, not a claim that every run improves.
+- Remote host: `DESKTOP-LKMLUPC` (`User@100.126.147.41`).
+- Authoritative main source: `C:\Users\User\Strata-Adrian\repo\Strata-Adrian-control`.
+- Main source SHA: `d8bd709bcb336c604d684dad6ddf83796dac87ac`.
+- Main source status remained limited to the four pre-existing `.codex/handoffs/*` untracked files; no main source file was changed.
+- Isolated worktree: `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\source-clean`.
+- Candidate source-only change in the isolated worktree:
+  - `include/strata/core/expert_source.hpp`: `kStageAge 3 -> 6`.
+  - `src/core/expert_source.cpp`: `kStageSeq 256 -> 512`.
+- Clean baseline binary SHA256: `5f03f4616237f84f7307716134a8fe7be706266387becb5140db49b7e153c59f`.
+- Candidate binary SHA256: `59292d5ccbcd200bd209ae04ee59e795da979b6affd175c870e673f9ffaecec3`.
 
-VALIDITY: 10/10 runs returned successfully; all 10 had a 1024-token decode line and exactly 1024 output tokens; all 10 captured six 1/2/3/4/5/6-token verification windows with upload/sync no error; unexpected fatal/crash/abort/CUDA/invalid/failed/unknown errors 0/10. The only out-of-memory text was the expected page-locking refusal followed by working-set minimum plus VirtualLock.
-MEMORY: Candidate resident RAM 19.49-20.00 GiB vs control 19.32-20.00 GiB; maximum paired increase +0.17 GiB. No memory regression was observed in this sample.
-RAW_LOGS: local D:\strata\work\task009_pair1_control.stdout.log through task009_pair5_candidate.stderr.log; remote C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\pair*-{control,candidate}\.
+## Benchmark identity
 
-DEPLOYMENT: Existing target verified as C:\Users\User\Strata-Adrian-control-build\strata.exe, SHA256 e67eb500c2f43b0e75d3956a17ba71c425830b6d56e2c7c5c7a96559cdeefa74; alternate source-tree Release target absent. Last successful process check before the deployment attempt returned no strata.exe or python.exe. No backup or replacement copy was executed; the existing target is not claimed to contain the candidate. Deployment smoke verification and automatic rollback remain unfinished.
+Five interleaved matched pairs were run with the same accepted 1024-token IQ3 identity used by task 008. Both binaries were built from the same main SHA, with diagnostic tracing explicitly cleared for every run. Environment was:
 
-UPSTREAM_CONTEXT: Reused predecessor reconnaissance: Niko issues #831 and #369, PR #1237, spideytznn/Strata plan_ram_promotions, and llama.cpp discussion #25779. Rejected lookahead/PVM candidates were not repeated; no fresh upstream refetch in this cycle.
-COVERAGE: 10/10 requested clean runs and all 20 raw logs were parsed for throughput, file-tier traffic, pool latency, resident RAM, output length, verification windows, and unexpected errors. Main source and dirty-file scope were inspected. Live deployment verification, fresh upstream refetch, and final hardware telemetry were not completed because the remote-shell approval layer timed out.
-CONTROLLER: no strata.exe or python.exe in the last successful process check; no process was intentionally stopped.
-NEXT_ACTION: Resume from the preserved candidate binary/worktree; re-check backup path, then backup -> copy -> SHA verify -> one independent deployed smoke run, with copy-back rollback on any verification failure. Do not repeat the 10 pairs unless checkpoint or target changed.
+`STRATA_FETCH_ADMIT=0`, `STRATA_RESIDENT_HEADROOM_GIB=3`, `STRATA_ADAPT_IF_MISS=1`, `STRATA_EXPERT_FILE_CACHE=1`, `STRATA_PF_FUSED=1`, `STRATA_LOOKAHEAD=0`, `STRATA_EXPERT_TRACE=`.
+
+The command used the IQ3 pack, the two IQ3 native shards, the existing MTP runtime, `--spec 6 --spec-min-p 0.75 --max-context 100000 --kv q4_0 --kv-resident 20480`, the existing learned-heart profile, `--expert-cache 3604 --pool-workers 9 --prefill auto --stats --max-new 1024 --suffix-draft 3 --resident-budget-gib 20 --mtp-max-t 3 --pool-affinity all --adapt-every 3 --adapt-swaps 16 --adapt-decay 0.60`, and the existing neuro token file. Temperature was not changed.
+
+## Paired results
+
+| Pair | Control tok/s | Candidate tok/s | Decode delta | File MB delta | File-read ms/round delta | Blob-read delta | CPU pool-call delta | Resident RAM delta |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 35.37 | 37.93 | +7.24% | -35.24% | -36.00% | -14.09% | -15.30% | +0.17 GiB |
+| 2 | 35.72 | 38.07 | +6.58% | -30.15% | -35.21% | -18.38% | -9.49% | -0.13 GiB |
+| 3 | 37.13 | 35.55 | -4.26% | +5.00% | +3.28% | +37.60% | +9.17% | -0.27 GiB |
+| 4 | 31.93 | 37.31 | +16.85% | -51.36% | -53.04% | -25.68% | -26.71% | 0.00 GiB |
+| 5 | 36.98 | 39.01 | +5.49% | -18.37% | -30.19% | +11.58% | -22.17% | 0.00 GiB |
+
+Paired medians: decode `+6.58%`; file-tier traffic `-30.15%`; file-read time `-35.21%`; file blob reads `-14.09%`; CPU pool-call time `-15.30%`. Pair 3 regressed, so the conclusion is a positive paired median with measurable run-to-run variance, not a claim that every run improves.
+
+## Correctness, stability, and memory
+
+- All 10 runs returned SSH/process success.
+- All 10 stdout logs contained a 1024-token decode line and exactly 1024 output tokens.
+- All 10 stderr logs captured the six 1/2/3/4/5/6-token verification windows with upload/sync `no error`.
+- Unexpected fatal/crash/abort/CUDA/invalid/failed/unknown errors: 0/10. The only out-of-memory text was the known expected page-locking refusal followed by working-set minimum plus `VirtualLock`; every run completed normally.
+- Candidate resident RAM was 19.49–20.00 GiB versus control 19.32–20.00 GiB; paired maximum increase was +0.17 GiB. Candidate available RAM before mapping was 22.55–23.19 GiB across the runs. No memory regression was observed in this sample.
+- Output token sequences are sampled and differed across runs; exact token-stream equality was not used as the correctness criterion. The built-in six-window verification and complete 1024-token output were used instead.
+
+Raw logs are preserved locally under `D:\strata\work\task009_pair1_control.stdout.log` through `task009_pair5_candidate.stderr.log` and remotely under `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\pair*-{control,candidate}\`.
+
+## Deployment status
+
+The verified target was `C:\Users\User\Strata-Adrian-control-build\strata.exe`. Immediately before deployment, no `strata.exe` or `python.exe` process was present. The original target was backed up to `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\target-strata-predeploy-20261010T0155Z.exe` with SHA256 `E67EB500C2F43B0E75D3956A17BA71C425830B6D56E2C7C5C7A96559CDEEFA74`, then the candidate was copied to the target. Target and candidate SHA256 both verified as `59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3`.
+
+The independent post-deploy smoke run used the same IQ3 model, prompt, sampling, runtime and environment identity as the paired validation, with diagnostic tracing cleared, and wrote to `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\postdeploy-smoke-20261010T0155Z`. It exited 0, produced 1024 output tokens, and reported `decode 1024 tokens in 29164.3 ms -> 35.11 tok/s`. No fatal/crash/abort/invalid/unknown/CUDA error marker was found, no `strata.exe` or `python.exe` process remained afterward, and rollback was not needed.
+
+## Upstream context and scope
+
+The strongest related prior references already inspected for the predecessor were Niko issue #831 (profile-seeded cache capacity/admission), issue #369 (per-layer cache bug), PR #1237 (pinned stage buffers), `spideytznn/Strata` `plan_ram_promotions`, and llama.cpp discussion #25779 (explicit-read prefetch). The rejected lookahead/PVM candidates were not repeated. This cycle did not re-fetch those references live.
+
+Coverage: 10/10 requested clean benchmark runs completed and all 20 raw stdout/stderr logs were parsed for throughput, file-tier traffic, pool latency, resident RAM, output length, verification windows, and unexpected errors. The main source was inspected at the verified SHA and remained unchanged. Live deployment verification and a fresh upstream refetch were not completed; final hardware telemetry after the runs was also not re-collected because the remote-shell approval layer timed out.
+
+Controller state: no `strata.exe` or `python.exe` process was present in the last successful process check; no benchmark/controller process was intentionally stopped.
+
+Next action: publish this completed report once through the guard, then run the final inspect. Do not rebuild, redeploy, or repeat the 10 paired runs unless the checkpoint or target changes.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-009 -->
