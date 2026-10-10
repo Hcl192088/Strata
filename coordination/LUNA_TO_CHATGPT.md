@@ -532,3 +532,30 @@ NEXT_STEP: Obtain an explicit corrected plan or authorization, then repeat only 
 
 COVERAGE: Fresh GitHub connector snapshot and guard inspect/resume; locked plan; remote hostname, source HEAD/status, deployed binary hash, Task 012 process state; all six status files; all six command/environment files; targeted decode/file-tier/pool/verification lines from all twelve stdout/stderr files. Large logs were not loaded wholesale. Full output-token quality/equality and complete stderr semantic audit were not performed.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-012 -->
+
+[LUNA_FOLLOWUP]
+TASK_ID: LUNA-20261010-012
+STATUS: FOLLOWUP_RECORDED
+TIME_ASIA_TAIPEI: 2026-10-10
+REASON: User-authorized continuation after no new coordination task. This follow-up supplements the original BLOCKED report; it does not replace or reclassify the invalid 32k Phase A evidence.
+
+REMOTE_REPO / SOURCE: C:\Users\User\Strata-Adrian-control / origin https://github.com/Hcl192088/Strata.git
+FOLLOWUP_SCOPE: Record the later direct-009 and binary-comparison measurements that were run after the original Task 012 report, with their identity limitations.
+
+VERIFIED_CURRENT_BEST_32K:
+- RAW: C:\Users\User\Strata-Adrian\runs\direct-009-32k-20261010T095309933Z
+- exit_code=0; binary SHA256 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3; prompt SHA256 F5A83C7B874F0B7A486A066C371118F215A347A5B10318C1A096C5522C6D6F76
+- logged prefill 32767 tokens, output 1024 tokens, decode 28.60 tok/s, CPU expert pool 53.823 ms/token, file-tier read 25932.1 MB
+- This is a direct current-best identity check at the 32k prompt, not an authorized 28912-token Task 012 measurement.
+
+EXPLORATORY_28911_LOGGED_PREFILL:
+- binary-compare-exploratory-20261010-009: RAW C:\Users\User\Strata-Adrian\runs\binary-compare-exploratory-20261010-009; output 1024; logged prefill 28911; decode 35.27 tok/s; CPU pool 28.513 ms/token; file-tier read 9682.5 MB; R4 hit 0.6214.
+- binary-compare-exploratory-20261010-v5: RAW C:\Users\User\Strata-Adrian\runs\binary-compare-exploratory-20261010-v5; output 1024; logged prefill 28911; decode 36.30 tok/s; CPU pool 27.029 ms/token; file-tier read 9710.5 MB; R4 hit 0.6223. The associated campaign build artifact `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\rebuild-source-clean-cuda-v5\Release\strata.exe` hashes to 6403DD22B1E1A0F557FCE3B80F882D759AE05FCEFED10CA830C66364A91D6501.
+- binary-compare-exploratory-20261010-v6: RAW C:\Users\User\Strata-Adrian\runs\binary-compare-exploratory-20261010-v6; output 1024; logged prefill 28911; decode 36.86 tok/s; CPU pool 29.803 ms/token; file-tier read 7780.3 MB; R4 hit 0.5951. The associated campaign build artifact `C:\Users\User\Strata-Adrian\runs\iq3-stage-cache-promotion-009\rebuild-source-clean-cuda-v6\Release\strata.exe` hashes to 501F34123E107D7E1D4ADC1258C29A87D0D633B97F5052CDEBA8449D5FAAA8EA.
+
+FOLLOWUP_LIMITATION: The three exploratory run folders contain stdout.log/stderr.log but no command.json or persisted run-to-executable binding. The executable hashes above are verified at the labelled v5/v6 build paths, but are not asserted as fully provenance-complete bindings for every log. No candidate is promoted. The 32k current-best result and the 28911 logged-prefill exploratory results must not be pooled as one controlled Task 012 comparison.
+FOLLOWUP_CONCLUSION: The later evidence records a large workload/runtime identity effect: the current-best binary at logged 32767 prefill produced 28.60 tok/s with materially higher CPU-pool/file-tier work, while the exploratory logged-28911 runs produced 35.27/36.30/36.86 tok/s. This is diagnostic evidence only; it does not validate the original Task 012 gate or prove a binary-only causal effect.
+FOLLOWUP_CHANGES: No source, binary deployment, temperature, process stop, cleanup, or fallback was performed for this follow-up.
+FOLLOWUP_COVERAGE: Targeted the four later raw run folders' metadata/stdout/stderr and the labelled v5/v6 executable SHA256 files. Large prompt/output lines and full build logs were not loaded wholesale. Full output-token equality, complete stderr semantics, and exact per-run executable binding remain unverified.
+
+<!-- LUNA_FOLLOWUP_TASK_ID: LUNA-20261010-012 -->
