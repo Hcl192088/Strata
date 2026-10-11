@@ -1159,3 +1159,78 @@ The candidate was built in an isolated worktree with only this source change: al
 - No full candidate A/B, promotion, rollback, or benchmark claim was made.
 - No relevant Strata/Luna process remained after validation.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-021 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261011-022
+STATUS: BLOCKED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-022-tail-skip-isolated-20261011
+TASK_COMMIT_SHA: ceec34c41dbf18310afdce5aa368f24d57a42016
+PLAN_PATH: coordination/TASK_022_CAMPAIGN.md
+PLAN_SHA: c58c9ed75175cdde120f12e9bf93ecee2e42c2b5
+TIME_ASIA_TAIPEI: 2026-10-11
+
+DECISION: BLOCKED_BEFORE_TAIL_SKIP_BY_SKIP0_PARITY_GATE
+
+SUMMARY
+
+- Task022's authorized tail-skip hypothesis was not performance-tested. The mandatory skip0 preflight did not establish token parity with the 018 current-best control, so the harness stopped before STRATA_ROUTE_TAIL_SKIP=7.
+- No candidate was promoted, deployed, copied into canonical, or used to infer a tail-skip improvement. Current-best remains the 018 binary.
+- The preflight also exposed a reproducibility issue in the gate itself: the same 018 current-best binary produced different output-token SHA256 values in two otherwise equivalent control runs. The command records contain no explicit --seed or --temp argument; no temperature or seed setting was changed.
+
+REMOTE IDENTITY
+
+- HOST: DESKTOP-LKMLUPC (User@100.126.147.41; hostname verified)
+- CANONICAL_SOURCE: C:\Users\User\Strata-Adrian-control
+- CANONICAL_BRANCH / HEAD: main / e26d5538b450ebf57942697f96242927dacfab77
+- CANONICAL_STATUS: pre-existing untracked .codex/handoffs/* and runs/ only; preserved unchanged
+- ISOLATED_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022\source-tail-skip
+- ISOLATED_BASE: e26d5538b450ebf57942697f96242927dacfab77
+- ISOLATED_DIRTY_FILES: include/strata/core/expert_source.hpp, src/core/expert_source.cpp, src/program/generate.cpp; git diff --check passed
+- No relevant strata, llama, or benchmark process remained in the final read-only tasklist check.
+
+BUILD IDENTITY
+
+- CONFIG: Release, NMake Makefiles, CUDA enabled, CUDA architecture 89
+- TOOLCHAIN: Visual Studio 17.14.31 / MSVC toolset 14.44.35207 / compiler 19.44.35226.0 / CUDA 13.2.78
+- LLAMACPP_DEPENDENCY_COMMIT: 3cf03257f219afbe7334045ff7c6a06ac68c627d (same in 018 and candidate dependency trees)
+- CURRENT_BEST_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-018\build-direct-slot-index\strata.exe
+- CURRENT_BEST_SHA256: 662C7E6103B29538EAF530FB2657BE0C384730F76D9805987695327C11967D71
+- REBUILT_CANDIDATE_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022\build-tail-skip\strata.exe
+- REBUILT_CANDIDATE_SHA256: 5AF5A933EDD3C3344826516A1C9546467C64A4ECA366F49FAC09511D801D9E97
+- An earlier candidate built against the unmodified e26 stage-cache shape was 83D2DE9533E657182E50F45F75F2A8B3ED6C1C0A984239958CA1E12786AE2096; it is retained only as failed preliminary evidence.
+- The candidate source includes the isolated upstream tail-skip port plus the source-shape adjustment tested against the 018 worktree; canonical source was never changed.
+
+FROZEN BENCHMARK IDENTITY
+
+- Prompt: C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\neuro.tokens
+- Prompt SHA256: 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA
+- Prompt tokens: 28,912; accepted output: 1,024
+- IQ3_XXS pack/native/PLE, MTP runtime, max-context 100000, spec 6, kv q4_0, kv-resident 20480, expert-cache 3604, pool-workers 9, resident-budget-gib 20, MTP max 3, adaptive every 3/swaps 16/decay 0.60, and learned-heart profile were held constant.
+- Environment: STRATA_FETCH_ADMIT=0, STRATA_RESIDENT_HEADROOM_GIB=3, STRATA_ADAPT_IF_MISS=1, STRATA_EXPERT_FILE_CACHE=1, STRATA_PF_FUSED=1, STRATA_LOOKAHEAD=0. No temperature change.
+
+PARITY EVIDENCE
+
+- Raw benchmark root: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022
+- Initial preflight: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022\stage-a-parity. Candidate 83D2: 32.76 tok/s and 13,564.7 MB file reads; control 662C: 37.47 tok/s and 6,793.5 MB. Both accepted 1,024 and exited cleanly, but output-token SHA256 differed.
+- Rebuilt preflight: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022\stage-a-parity-rebuilt\summary.json. Candidate 5AF5: 36.91 tok/s, pool 25.575 ms/token, file reads 7,908.5 MB. Control 662C: 36.12 tok/s, pool 29.188 ms/token, file reads 8,797.3 MB. Both were VALID, exit=0, accepted_tokens=1024, residual_process_count=0, and first-logit KL=0, but output-token SHA256 differed: candidate 98BECF3E1A62397F71F8815C9D9362F89D2D3B0797DA0C9807A49ADDE4A0CE47 versus control C9B9C150B7880DD6144810078F8773E1B11702C0851279B5EEF14B296D170AC7.
+- The earlier control output SHA256 was A61B281E7CE50595B0B4D2B3DCB99AF726BB8F6D6D23A3AC54EE3FDE2599388F under the same 662C binary in the initial preflight. This control-to-control difference means exact token parity is not a reliable gate without an explicit deterministic sampling identity.
+- STRATA_ROUTE_TAIL_SKIP=7 was not run. tail_experts/tail_skipped are therefore unmeasured, not zero.
+
+COMMAND / ENVIRONMENT PROVENANCE
+
+- Both preflight arms used the task harness common command recorded in each raw command.json: same model shards, MTP, profile, prompt, --spec 6, --spec-min-p 0.75, --max-context 100000, --kv-resident 20480, --expert-cache 3604, --pool-workers 9, --max-new 1024, --resident-budget-gib 20 and adaptive settings above.
+- Candidate skip0 explicitly set STRATA_ROUTE_TAIL_SKIP=0; the control did not set that variable. Both arms removed the PcieAuto/fraction override variables before launch; logs reported the fixed PCIe default 0.55. No PcieAuto experiment was run.
+
+COVERAGE / LIMITATIONS
+
+- Verified through the fresh @GitHub connector snapshot: main inbox/outbox, 15 coordination/task-* heads, exact Task022 branch plan and plan SHA. The locked task identity was preserved.
+- Remote coverage included strict host identity, canonical source HEAD/status, isolated source status/diff check, CMake cache comparison, dependency commit, candidate/control SHA256, both parity summaries, both command/result JSON files, accepted-token counts, pool/file metrics, first-logit KL and final process-name check.
+- Large stdout/stderr/build logs were not loaded wholesale; only structured result summaries and targeted identity/performance lines were used. Generated-token semantic equality beyond the recorded SHA values was not audited.
+
+NEXT STEP
+
+Keep the 018 current-best binary unchanged. A future task must define a deterministic sampling identity (or replace the exact token-parity gate with a justified numerical/quality gate) before another tail-skip A/B; do not treat the 36.91 versus 36.12 single-run difference as evidence of an improvement.
+
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-022
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-022 -->
