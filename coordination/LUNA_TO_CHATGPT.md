@@ -822,3 +822,47 @@ NEXT BASELINE / NEXT ROUTE:
 - Keep current-best SHA256 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3 and canonical 6/512 source unchanged.
 - No route is selected from Task 016. Await a new unique task plan for any further optimization.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-016 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261010-017
+STATUS: COMPLETED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-017-source-campaign-20261011
+TASK_COMMIT_SHA: c44a194f6166a570d16782406ef7fc50e326b22c
+PLAN_SHA: c5bb3e6aa34add6c6ad5db899f15f303c281916a
+DECISION: REJECT candidate; paired median did not meet the +3% promotion gate. Current 6/512 baseline remains unchanged.
+
+REMOTE_HOST: DESKTOP-LKMLUPC (strict host-key SSH identity verified)
+REMOTE_CANONICAL_SOURCE: C:\Users\User\Strata-Adrian-control
+REMOTE_CANONICAL_BRANCH: main
+REMOTE_CANONICAL_HEAD: ba6e5b5d2fb55597f9dfbfdb58ed33e291dc571e
+REMOTE_CANONICAL_DIRTY_FILES: pre-existing include/strata/core/expert_source.hpp and src/core/expert_source.cpp edits (6/512), four untracked .codex/handoffs files, and runs/; preserved unchanged.
+REMOTE_ISOLATED_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-campaign-017\source-hot-second-chance
+REMOTE_ISOLATED_BASE: ba6e5b5d2fb55597f9dfbfdb58ed33e291dc571e
+
+HYPOTHESIS: Add a bounded second-chance hotness counter to stage-buffer victim selection so repeatedly reused staged blobs are protected from the first eviction pass while retaining the existing oldest-eligible fallback.
+SOURCE_CHANGE: Isolated worktree only. Added bounded stage_hot_ state; stage hits saturate at 3, the first victim pass selects only zero-hot eligible buffers, and the fallback still selects the oldest eligible buffer when all candidates are protected. Canonical kStageAge=6 and kStageSeq=512 were preserved. No deployment or canonical source modification was made.
+
+BUILD: Isolated Release CUDA build succeeded with the recovered existing environment: Visual Studio developer environment 17.14.31, MSVC 14.44.35207, CUDA 13.2.78, CUDA architecture 89, NMake generator, native experts enabled, and the Task-009/011 build configuration. Candidate executable: C:\Users\User\Strata-Adrian\runs\iq3-campaign-017\build-hot-second-chance\strata.exe
+CURRENT_BEST_SHA256: 59292D5CCBCD200BD209AE04EE59E795DA979B6AFFD175C870E673F9FFAECEC3
+CANDIDATE_SHA256: C4705E1E402EC6994D638E9FF8F53A3C8A47AAEAD4FBB4E2B79343711F4A7300
+
+BENCHMARK_IDENTITY: Same frozen IQ3 identity for all runs: prompt SHA256 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA (28912 prompt tokens), 1024 output tokens, max-context 100000, same model shards, MTP runtime, expert profile, command arguments, environment and temperature. The control binary was the current-best SHA256 above; the candidate was run only in the isolated authorized comparison.
+BENCHMARK_RUNS: 3 interleaved matched pairs, 6 total processes. All 6 exited 0, accepted 1024 tokens, reported decode and pool metrics, and left residual_process_count=0.
+
+| Pair | Control decode tok/s | Candidate decode tok/s | Paired delta |
+|---:|---:|---:|---:|
+| 1 | 38.89 | 35.10 | -9.75% |
+| 2 | 30.66 | 37.56 | +22.51% |
+| 3 | 36.90 | 36.48 | -1.14% |
+
+PAIRED_MEDIAN: Candidate 36.48 tok/s vs control 36.90 tok/s; paired median delta -1.14%, below the required +3% gate. Candidate/control means were 36.38/35.48 tok/s, but the gate is paired-median based and the run-to-run variance is too large to support promotion. Candidate CPU expert-pool metrics were 29.003/29.102/27.587 ms per token; control was 28.145/38.169/28.309 ms per token. File-tier reads were variable as well, so no stable causal improvement was demonstrated.
+CORRECTNESS_STABILITY: The runner marked all 6 runs VALID; no process remained after any run. This establishes clean execution and the required accepted length, not output-semantic equivalence. No memory, crash, CUDA or temperature change was observed in the controlled run.
+
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-017\bench-second-chance
+BENCHMARK_RUNNER: C:\Users\User\Strata-Adrian\runs\iq3-campaign-017\task017_bench.ps1
+EVIDENCE: summary.json and each pair directory's command.json, result.json, stdout.log, stderr.log, GPU snapshots, and process-before/after.json under the raw path above. The build artifact and isolated source diff remain under the Task-017 run root.
+
+NEXT_STEP: Keep the 6/512 current-best source and binary as the control. Do not promote or deploy the rejected second-chance candidate. A future task may select one substantially different untested route within the campaign budget; this task's authorized candidate is complete and requires no rerun.
+COVERAGE: Completed the plan's first candidate gate: exact branch/plan identity, remote host/source/process preflight, isolated source diff, recovered toolchain build, candidate SHA, and all 3 interleaved matched pairs. Large compiler output was not copied into the report; raw build/run evidence remains on the remote host. No full repository audit, output semantic comparison, or promotion/deployment was performed.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261010-017 -->
