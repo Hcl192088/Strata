@@ -1100,3 +1100,62 @@ NEXT STEP
 
 Keep the Task018 current-best binary/source unchanged. Do not promote the Task020 port. The campaign is complete at the first-stage reject gate; no further benchmark is justified under the remaining two-process budget.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-020 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261011-021
+STATUS: PARTIAL
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-021-iq3xxs-nt1-20261011
+TASK_COMMIT_SHA: 652b36d1311c295a00a757fcd928050dc33d2c4b
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-021
+
+# LUNA-20261011-021 — IQ3_XXS NT=1 AVX2 route
+
+## Decision
+
+**REJECT / do not promote.** The route-share gate passed, and numerical parity passed, but the required one-token AVX2 microbench gate failed: IQ3_XXS gate+up was **248 us** with the AVX2 kernel versus **235 us** with ggml `vec_dot` (AVX2 is **5.53% slower** by elapsed time, not >=10% faster). Per the plan, no full A/B benchmark was run.
+
+## Locked task identity
+
+- TASK_ID: `LUNA-20261011-021`
+- Source: `coordination/task-021-iq3xxs-nt1-20261011`
+- Source branch commit: `652b36d1311c295a00a757fcd928050dc33d2c4b`
+- Plan: `coordination/TASK_021_CAMPAIGN.md`
+- Plan SHA: `b3ebc7562d4e00f3b321520290bb2acf409d80e8`
+- Base source HEAD: `e26d5538b450ebf57942697f96242927dacfab77`
+
+## Verified evidence
+
+### Route census
+
+One frozen 28,912-token / 1,024-output run was executed only with an isolated diagnostic binary, not as a performance comparison:
+
+- Diagnostic binary: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-021\build-instrument-nt1\strata.exe`
+- Diagnostic binary SHA256: `26EFAC0FE22CC1AE2B50CB34C4FAD01D6F47659B6D96B50A2067EFBDBE6E8BCB`
+- Prompt SHA256: `9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA`
+- `native_gu_rows` call counts: NT1 `864716`; NT>1 `74142`; total `938858`
+- NT1 call share: `92.103%` (call-count share, not token- or row-weighted)
+- Raw evidence: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-021\instrument-nt1-run\stdout.txt` and `stderr.txt`
+
+The same diagnostic run reported decode `34.90 tok/s`, but that number is intentionally **not** used for comparison because its binary is not current-best.
+
+### Candidate microbench and parity
+
+The candidate was built in an isolated worktree with only this source change: allow `nt == 1 && avx2 && f.gu_type == 18` to enter the existing `iq256_gu_rows` path; all other route conditions were preserved.
+
+- Candidate binary: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-021\build-candidate-nt1\strata.exe`
+- Candidate binary SHA256: `0C2AE14A01ED1780A564FA62D4DA4002B612324294FF782BDC11BF7696E768E1`
+- Existing current-best SHA256 reverified: `662C7E6103B29538EAF530FB2657BE0C384730F76D9805987695327C11967D71`
+- Toolchain: MSVC `19.44.35226.0` / toolset `14.44.35207`; CUDA `13.2.78`; CMake `4.3`
+- Existing parity tool: `native_expert_parity --synthetic iq3_xxs/q8_0`
+- Parity: `0 failures`; IQ3 gate rel `3.15e-08`; width invariance `0` differing gate/up or down rows; q8_0 down `0/36` token sets differing; GPU decode-once/per-entry bitwise equal
+- Microbench: AVX2 `248 us` vs ggml `235 us`; `+5.53%` elapsed time for AVX2, therefore gate failed
+- Raw evidence: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-021\candidate-parity\synthetic-iq3-xxs-q8-0.txt`
+
+## Scope and remaining state
+
+- Canonical source was not modified.
+- Current-best remains the Task018 binary `662C7E...`.
+- No full candidate A/B, promotion, rollback, or benchmark claim was made.
+- No relevant Strata/Luna process remained after validation.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-021 -->
