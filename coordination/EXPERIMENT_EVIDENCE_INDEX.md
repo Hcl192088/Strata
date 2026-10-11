@@ -1,0 +1,29 @@
+# Strata experiment evidence index
+
+Purpose: durable, conservative index for coordination before any successor TASK_ID is chosen. This is a summary, NOT a substitute for run-scoped raw evidence. Refresh against latest GitHub outbox and desktop raw manifests on each cycle. Never treat absence from this index/outbox as proof a test did not run.
+
+## Ground rules
+- Authoritative performance metric: matched 1,024-accepted-token decode tok/s, with model, quant, prompt SHA, context, MTP, env, source and binary identity recorded.
+- Canonical IQ3 baseline last confirmed: Task018; source HEAD e26d5538b450ebf57942697f96242927dacfab77; binary SHA256 662C7E6103B29538EAF530FB2657BE0C384730F76D9805987695327C11967D71; 6/512; 20 GiB resident. Recheck latest PROMOTE before use. IQ2 results must never be grouped with IQ3.
+- Report each planned stage separately: `PLAN requirement | executed? | raw evidence path | binary/control SHA | matched? | activation? | paired result | confidence`.
+- Possible statuses: VERIFIED, NOT_RUN (including legitimate go/no-go stop), INCONCLUSIVE, DEVIATED, or UNVERIFIED (missing access/evidence). `COMPLETED` is task lifecycle, not hypothesis validation.
+
+## Task020: upstream v0.1.42 investigation
+- Locked plan: branch `coordination/task-020-upstream-v0142-20261011`, `coordination/TASK_020_CAMPAIGN.md`, blob SHA `3cb03049f48e6d8238d66f03284d68e22c76fe8d`.
+- Plan explicitly requests: A. Task018 vs v0.1.42 defaults; B. tail-skip=0 vs 7 with fixed PCIe; C. old vs auto PCIe with tail-skip=7; D. port promising isolated components to 018 and re-benchmark. The plan's sequence and gates, not assumed completion, govern classification.
+- Luna's main outbox report documents 28 total valid benchmark processes under Task020, with 22 earlier processes plus 6 final port/control processes. The 22 earlier processes are NOT broken down by stage in that report. Their identities, activation, comparisons, and conclusions must be recovered from desktop raw records and any subsequent supplements, NOT guessed. Do not label these planned stages 'NOT_RUN' or 'VERIFIED' until evidence is inspected.
+- Final port A/B: 3 interleaved pairs, candidate 34.05/35.90/37.15 tok/s vs control 38.20/38.00/35.82 tok/s; paired median -5.53%; valid accepted_tokens=1024, exit=0. Reject combined port candidate only; no promotion. PcieAuto share adjustment was observed; tail-skip activation/startup log was absent. This alone does NOT isolate or reject tail-skip.
+- Remote evidence root: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-020`; port raw subdir `stage-e-port-018`; port script `TASK_020_port_bench.ps1`.
+- REQUIRED FORENSICS before replaying tail-skip: enumerate the earlier 22 processes (run manifest, commands/env, source/binary identities and toggles, activation counters, 1,024 accepted output, timing and paired results). Reconcile per stage against the original PLAN; publish persistent stage-level supplement. If data are inaccessible from ChatGPT, a later non-conflicting Luna task must inspect the desktop raw BEFORE deciding whether any new benchmark is needed.
+
+## Task019/021/022
+- Task019 SSD-cost placement: first three-pair A/B paired median +0.16%, REJECT; not proof that a materially different placement hypothesis fails.
+- Task021 IQ3 NT=1 AVX2 gate: 248 us vs ggml 235 us (+5.53% time); preflight microbenchmark REJECT, full decode A/B NOT_RUN by design.
+- Task022 tail-skip isolation: status BLOCKED at skip0 output SHA-parity preflight; identical Task018 binary produced differing generated-output hashes across runs. Rebuilt skip0 first-logit KL=0, but exact generated-token SHA differed. skip7 activation and full A/B NOT_RUN. Does not establish tail-skip performance.
+
+## Task023: reassessment required
+- Staged branch: `coordination/task-023-tail-skip-numerical-20261011`, PLAN blob SHA `d875767425a8f7d9fcfcda20003ef00a6c5880d6` (reverify current head before any action). Proposed fixed-prefix logit KL and skip7 counters.
+- Its novelty and justification are UNVERIFIED until the Task020 first 22 processes and any supplemental history have been audited. Treat 023 as an already published authorization, never as a blank or unclaimed slot. Before amending/replacing, verify Luna/controller local claim and process state. If claimed/running, do not rewrite its locked PLAN; incorporate any discovered evidence into its report/next unique successor. If unclaimed, use controller-supported safe cancellation/supersession only after verifying exclusivity; do not create parallel executable tasks or overwrite an immutable source of truth.
+
+## Mandatory future handoff
+For every future terminal task, append a compact stage matrix and run-count reconciliation to a durable GitHub document or outbox, including PROMOTE/REJECT per subhypothesis, what was NOT_RUN and why, and precise desktop raw paths. A scheduled coordinator must inspect *all* past relevant stages before declaring a route untested or proposing a repeat. Reports missing stage-level coverage must trigger evidence retrieval, not automatic duplicate benchmarks.
