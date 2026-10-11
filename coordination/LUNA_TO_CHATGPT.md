@@ -1013,3 +1013,90 @@ NEXT STEP
 
 Keep the 018 current-best binary/profile as control. Do not promote or deploy the cost-ranked profile. The task is complete at the first-stage reject gate; any future source route requires a new unique plan with a materially different hypothesis.
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-019 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261011-020
+STATUS: COMPLETED
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-020-upstream-v0142-20261011
+TASK_COMMIT_SHA: befb373ea474247aee34b1bf7aa7f400165fe4d8
+PLAN_PATH: coordination/TASK_020_CAMPAIGN.md
+PLAN_SHA: 3cb03049f48e6d8238d66f03284d68e22c76fe8d
+TIME_ASIA_TAIPEI: 2026-10-11
+
+DECISION: REJECT_PORT_CANDIDATE_KEEP_CURRENT_BEST
+
+SUMMARY
+
+- The official v0.1.42 tail-skip and PcieAuto behavior was ported into an isolated worktree based on the promoted 018 source. Canonical source and the promoted binary were not modified.
+- The first isolated build failed only because the inserted PcieAuto object was in the prompt-path scope while the decode loop was in a separate scope. The compiler diagnostics were extracted from the preserved build log; two minimal scope fixes were applied only in the isolated worktree.
+- The corrected Release CUDA build succeeded. No benchmark was started until the candidate SHA and current-best control SHA were rechecked.
+- Three interleaved port/control pairs were run. All six were valid, but the paired median was -5.53%, below the +3% gate. No confirmation pairs, promotion, canonical sync, or process stop were performed.
+
+REMOTE / SOURCE IDENTITY
+
+- HOST: DESKTOP-LKMLUPC (verified by strict BatchMode SSH hostname check)
+- CANONICAL_SOURCE: C:\Users\User\Strata-Adrian-control
+- CANONICAL_HEAD: e26d5538b450ebf57942697f96242927dacfab77
+- ISOLATED_WORKTREE: C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\port-018
+- ISOLATED_BASE: e26d5538b450ebf57942697f96242927dacfab77
+- UPSTREAM_FEATURE_SOURCE: 61b3fb5dd3f1e8ec09cf7e4e05208bc6d3c46406
+- ISOLATED_DIFF: include/strata/core/expert_source.hpp, src/core/expert_source.cpp, src/program/generate.cpp only; git diff --check passed.
+- The isolated source was not committed or copied into canonical after the failed performance gate.
+
+BUILD
+
+- BUILD_DIR: C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\build-port-018
+- BUILD_CONFIG: Release, NMake Makefiles, CUDA enabled, CUDA architecture 89
+- TOOLCHAIN: Visual Studio 17.14.31 / MSVC 14.44.35207 / CUDA 13.2.78
+- CANDIDATE_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\build-port-018\strata.exe
+- CANDIDATE_SHA256: A69AD06808589F4200E10E6213C59CDD9DBCCB05958050529487B4A25ADC8EC9
+- CURRENT_BEST_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-018\build-direct-slot-index\strata.exe
+- CURRENT_BEST_SHA256: 662C7E6103B29538EAF530FB2657BE0C384730F76D9805987695327C11967D71
+
+FROZEN BENCHMARK IDENTITY
+
+- Prompt: C:\Users\User\Strata-v0.1.38-ab-20261003\work-note-transfer-chat-20261005\neuro.tokens
+- Prompt SHA256: 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA
+- Prompt tokens: 28,912; accepted output: 1,024
+- IQ3_XXS pack, native/PLE shards, MTP runtime, max-context 100000, spec 6, KV q4_0, KV resident 20480, expert-cache 3604, pool-workers 9, resident-budget-gib 20, adaptive settings, profile and environment were held constant.
+- No temperature change.
+
+PORT BENCHMARK
+
+- Runner: C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\TASK_020_port_bench.ps1
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\stage-e-port-018
+- Six processes total, three interleaved pairs; every run exit_code=0, accepted_tokens=1024, status VALID, residual_process_count=0.
+
+| Pair | Port decode tok/s | Current-best decode tok/s | Paired delta | Port pool ms/token | Control pool ms/token | Port file MB | Control file MB |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 34.05 | 38.20 | -10.86% | 29.114 | 26.924 | 11914.4 | 6592.9 |
+| 2 | 35.90 | 38.00 | -5.53% | 26.936 | 26.747 | 8044.7 | 6699.5 |
+| 3 | 37.15 | 35.82 | +3.71% | 26.920 | 28.273 | 6417.3 | 8276.2 |
+
+- Port median: 35.90 tok/s; current-best median: 38.00 tok/s.
+- Paired median: -5.53%. This fails the required >=3% first-stage gate; confirmation pairs were not authorized.
+- Port pool median: 26.936 ms/token; control pool median: 26.924 ms/token.
+- Port file-read median: 8044.7 MB; control file-read median: 6699.5 MB.
+- Port quality evidence: all six runs had the same accepted length and clean exit. The port emitted PCIe probe default 0.55 and PcieAuto share updates to 0.35 in all three candidate logs. The expected tail-skip startup line was not present in the captured stdout/stderr files, so tail-skip activation is an evidence gap and is not claimed as verified here.
+- Output semantic equality was not established; accepted length is the validity criterion used by this bounded gate.
+
+RUN ACCOUNTING / STATE
+
+- Prior Task020 valid benchmark processes: 22.
+- This port stage: 6 valid processes.
+- Total valid benchmark processes: 28 / 30 plan limit.
+- Remote final process query found no strata, llama, benchmark or related process. No process was stopped.
+- Current-best remains the Task018 018-source promoted binary and canonical source. The rejected port binary remains versioned under the Task020 raw root and was not deployed.
+
+COVERAGE / LIMITATIONS
+
+- Connector coverage this cycle: main inbox/outbox, all 13 coordination/task-* branch heads, exact-head coordination trees, parser-relevant inbox/protocol/TASK plan files, and the locked Task020 plan were refreshed or SHA-verified through the connected GitHub connector. The connector snapshot was refreshed before guard inspection/resume.
+- Remote coverage: strict host identity, durable Task020 checkpoint, process state, isolated source diff, build identity, candidate/control SHA256, prompt SHA256, all six structured results, command files, stdout/stderr, GPU snapshots, and process-before/after evidence.
+- Large build and run logs remain on the remote host and were inspected through targeted error/metric/quality extraction; no full semantic audit of every log line or generated-token equality was performed.
+- Tail-skip startup evidence is absent from the captured six-run logs; this is explicitly unresolved, not inferred from the source patch.
+
+NEXT STEP
+
+Keep the Task018 current-best binary/source unchanged. Do not promote the Task020 port. The campaign is complete at the first-stage reject gate; no further benchmark is justified under the remaining two-process budget.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261011-020 -->
