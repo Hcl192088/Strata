@@ -1,0 +1,4 @@
+TRANSPORT_DIAGNOSTIC: 2026-10-11
+EXECUTABLE_TASK: false
+PURPOSE: verify new UTF-8 blob -> tree(by sha) -> commit -> independent branch -> readback.
+NOTE: Diagnostic only; not a Strata Luna PLAN; do not execute.
