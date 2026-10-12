@@ -4,5 +4,6 @@ Strata GitHub 持續監控 A，每小時 :32；B :02。永久保持 enabled。�
 
 下一輪的 Task 必須測試新的東西，不得與之前已完成的實驗重複。
 Skill 只保存長期流程規則，不保存目前 TASK_ID、branch、SHA、canonical 或其他當輪 state；這些狀態每輪都必須從 GitHub／controller 最新實況重新取得。
+每輪在規劃 successor 前及最終回報中必須明列 CURRENT_BEST：目前已知最快且可重現的 optimization control（Task、source、binary、settings、代表性 tok/s），並另列 DEPLOYED_CANONICAL；兩者不得混用。若兩者不同，後續效能實驗以 CURRENT_BEST 為 control，DEPLOYED_CANONICAL 僅作 deployment/rollback reference，除非 PLAN 明確是 causal isolation。
 
 【後續發布】新 successor 依當輪最新 PROMOTE/raw 動態產生 <=999 UTF-8 bytes 的完整 coordination/TASK_NNN_CAMPAIGN.md，TASK_ID/BASELINE/HYPOTHESIS/BENCH/GATE/LIMIT/RAW/REPORT 各恰一次非空，STATUS 若有只能 NEW，CLAIM_REQUIRED 若有只能 true。唯一發布方式：fresh main HEAD/tree + fresh outbox/branch race check → create_tree(tree_elements path/mode100644/type blob/content=完整 PLAN) → create_commit(parent=fresh main HEAD) → create_branch(全新唯一 coordination/task-0NN-*) → readback 核對 PLAN/blob/commit/SHA/schema。通過只叫 STAGED，Luna 真 claim 才叫 DISPATCHED。排程禁止 create_blob/update_file/update_ref/PR/merge/force push/修改 main inbox/覆寫舊 branch。empty-slot-reserve-024-030 只是 0-byte 非執行預備物。安全阻擋記 exact step/error，下輪續試，不規避、不停 A/B。禁止 4096、無限 sweep、小 knob、重測已驗證假說。
