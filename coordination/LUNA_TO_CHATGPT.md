@@ -1585,3 +1585,45 @@ BENCHMARK_RAW_PATH: `C:\Users\User\Strata-Adrian\runs\iq3-campaign-025`
 REPORT_LOCAL: `D:\strata\state\LUNA-20261012-025.report.md`
 
 <!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261012-025 -->
+
+[LUNA_REPORT]
+TASK_ID: LUNA-20261012-026
+STATUS: PARTIAL
+TASK_SOURCE: branch
+TASK_BRANCH: coordination/task-026-direct-v0142-async-promote-20261012
+TASK_COMMIT_SHA: 44c8348befdc2d62fe9c679c2cc67da38d863b26
+PLAN_PATH: coordination/TASK_026_CAMPAIGN.md
+PLAN_SHA: 9e42540b58bcd46fa55a3bbbf4a73e9d5e878fce
+
+REMOTE_HOST: DESKTOP-LKMLUPC
+REMOTE_SOURCE: C:\Users\User\Strata-Adrian-control
+REMOTE_SOURCE_BRANCH: main
+REMOTE_SOURCE_HEAD: e26d5538b450ebf57942697f96242927dacfab77
+REMOTE_SOURCE_DIRTY: only untracked .codex/handoffs/* and runs/ observed; no canonical source file change.
+
+CANDIDATE_SOURCE: detached run checkout 61b3fb5dd3f1e8ec09cf7e4e05208bc6d3c46406 + task025_async.patch
+CANDIDATE_PATCH_SHA256: BA592A98D9804F48E772B13CB9F8BB1472B65AC713ED8AA45DEB4C0263B49169
+CANDIDATE_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-026\build-causal-fix\strata.exe
+CANDIDATE_BINARY_SHA256: 77F5DA99126BC166E48B4A87519E80DFD618BCA917AB393F6C3473FC8644C84F
+CONTROL_BINARY: C:\Users\User\Strata-Adrian\runs\iq3-campaign-026\promoted-v0142\strata.exe
+CONTROL_BINARY_SHA256: E3FA77FE1C7BA9AD957F3EE61F195DAED433CA46C1E523C4B7E9E487498C27FB
+
+PROMPT_SHA256: 9350584440AD92D3FCE3BA024CAD33BB55BD950CAED12823F8B89E69CCA718BA
+PROMPT_TOKENS: 28912
+OUTPUT_TOKENS: 1024
+BENCHMARK_RAW_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-026\stage-c-causal-fix
+RAW_EVIDENCE_PATH: C:\Users\User\Strata-Adrian\runs\iq3-campaign-026\stage-c-causal-fix
+RAW_SUMMARY_SHA256: E812929599EBAF6CBCE1F54D98FA339BDBA929B9FDB642CB045E66348EC6B542
+
+BENCHMARK_RESULT: 5/5 matched pairs VALID; all runs accepted 1024 tokens, exit code 0, and left no residual Strata process.
+PAIR_DECODE_TOK_S: causal-fix [30.65,31.69,32.89,32.35,28.88]; control [24.40,24.53,21.96,19.14,14.50]
+PAIR_DELTA_PERCENT: [25.61,29.19,49.77,69.02,99.17]
+MEDIAN_DELTA_PERCENT: 49.77
+GATE: PASS (median exceeds 3% and five same-control confirmations are valid).
+
+ABSOLUTE_SPEED_NOTE: The current candidate is 28.88-32.89 tok/s, below the prior Task025 v0142 stage-B 41.15-50.26 tok/s. Current candidate file-tier reads were 28.97-38.56 GiB-equivalent MB values, versus prior 2.70-10.08 GiB-equivalent MB values; this explains the observed direction of the slowdown, but the between-campaign cause is not isolated. The paired causal-fix versus promoted-control result is still positive in every pair.
+
+PROMOTION_STATUS: NOT_DEPLOYED
+BLOCKER: The plan requires an atomic source+binary+settings promotion with rollback. The candidate source is a detached run checkout whose origin is Niko1221/Strata, while the canonical main worktree is e26d5538; no safe canonical promotion target or rollback manifest was established in this cycle. Candidate binary and raw evidence are preserved; no active runtime was overwritten.
+NEXT_STEP: Explicitly identify the authorized atomic promotion target and rollback artifact, then commit/deploy the exact source patch and re-verify the resulting binary identity.
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261012-026 -->
