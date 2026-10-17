@@ -1726,3 +1726,5 @@ Strict parser result: EOF complete; 567 windows; 52,464 records; route width fix
 The existing analyzer had three execution-bundle bugs (old main entry, tuple over-iteration, and missing cache-size lookup); they were fixed only in the streamed analysis bundle. Existing repository tools were not modified. The raw trace and remote JSON/Markdown remain authoritative on the remote host; local state contains metadata and hashes only.
 
 No accepted decode tok/s, quality parity, predictor runtime cost, deployment or paper reproduction is claimed. Next gate: offline Fate cross-layer predictor analysis, followed only if justified by matched predictor cost/hit-rate/quality/parity evidence.
+
+<!-- LUNA_PUBLISHED_TASK_ID: LUNA-20261018-028 -->
