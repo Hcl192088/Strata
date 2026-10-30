@@ -1,0 +1,442 @@
+{
+  "status": "DONE",
+  "rounds": [
+    {
+      "phase": "U_unmapped",
+      "round": 1,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.0645131999917794,
+      "GB_s": 4.160938475136955
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 1,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.1868047000025399,
+      "GB_s": 1.4369844869874806
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 1,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.043444299983093515,
+      "GB_s": 6.178841783719902
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 1,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.06758989999070764,
+      "GB_s": 3.971532078563586
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 2,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.17136829998344183,
+      "GB_s": 1.5664242221340652
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 2,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.06458700000075623,
+      "GB_s": 4.156183999827473
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 2,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.06240509997587651,
+      "GB_s": 4.301498693276145
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 2,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.042255300009856,
+      "GB_s": 6.352705008303994
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 3,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.05795859999489039,
+      "GB_s": 4.631503452872657
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 3,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.16259370002080686,
+      "GB_s": 1.6509585301622927
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 3,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.04534419998526573,
+      "GB_s": 5.919951307713581
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 3,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.07036670000525191,
+      "GB_s": 3.8148080836527076
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 4,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.1607748999958858,
+      "GB_s": 1.6696353473512922
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 4,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.05980240000644699,
+      "GB_s": 4.488707074817421
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 4,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.0624662000045646,
+      "GB_s": 4.297291270805405
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 4,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.042377499979920685,
+      "GB_s": 6.33438631649319
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 5,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.06322780001210049,
+      "GB_s": 4.245528959549866
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 5,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.19887150000431575,
+      "GB_s": 1.3497934897367125
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 5,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.04341569999814965,
+      "GB_s": 6.182912080455701
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 5,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.0792700000165496,
+      "GB_s": 3.386343584508104
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 6,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.20710010000038892,
+      "GB_s": 1.2961628507156486
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 6,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.0610510999977123,
+      "GB_s": 4.396897943035569
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 6,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.07942470000125468,
+      "GB_s": 3.3797478113956934
+    },
+    {
+      "phase": "U_unmapped",
+      "round": 6,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.043438399996375665,
+      "GB_s": 6.179681020074341
+    },
+    {
+      "phase": "U_mapped",
+      "round": 1,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.2575119000102859,
+      "GB_s": 1.0424196162945394
+    },
+    {
+      "phase": "U_mapped",
+      "round": 1,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.18289729999378324,
+      "GB_s": 1.4676840828657627
+    },
+    {
+      "phase": "U_mapped",
+      "round": 1,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.07704319999902509,
+      "GB_s": 3.4842199701387897
+    },
+    {
+      "phase": "U_mapped",
+      "round": 1,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.06749359998502769,
+      "GB_s": 3.977198668607807
+    },
+    {
+      "phase": "U_mapped",
+      "round": 2,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.17721190000884235,
+      "GB_s": 1.514771050852713
+    },
+    {
+      "phase": "U_mapped",
+      "round": 2,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.20123589999275282,
+      "GB_s": 1.3339342334527153
+    },
+    {
+      "phase": "U_mapped",
+      "round": 2,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.06293290000758134,
+      "GB_s": 4.26542326776078
+    },
+    {
+      "phase": "U_mapped",
+      "round": 2,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.06913769998936914,
+      "GB_s": 3.882620567957505
+    },
+    {
+      "phase": "U_mapped",
+      "round": 3,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.18977980001363903,
+      "GB_s": 1.414457471136065
+    },
+    {
+      "phase": "U_mapped",
+      "round": 3,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.17671090000658296,
+      "GB_s": 1.5190656376601561
+    },
+    {
+      "phase": "U_mapped",
+      "round": 3,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.08527770001091994,
+      "GB_s": 3.1477802047384773
+    },
+    {
+      "phase": "U_mapped",
+      "round": 3,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.07646799998474307,
+      "GB_s": 3.5104286244384366
+    },
+    {
+      "phase": "U_mapped",
+      "round": 4,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.1960391000029631,
+      "GB_s": 1.3692954925621605
+    },
+    {
+      "phase": "U_mapped",
+      "round": 4,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.25051869999151677,
+      "GB_s": 1.0715186371679637
+    },
+    {
+      "phase": "U_mapped",
+      "round": 4,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.08094980000169016,
+      "GB_s": 3.3160731217914723
+    },
+    {
+      "phase": "U_mapped",
+      "round": 4,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.09089700001641177,
+      "GB_s": 2.953182788777771
+    },
+    {
+      "phase": "U_mapped",
+      "round": 5,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.2592548999818973,
+      "GB_s": 1.0354113114882062
+    },
+    {
+      "phase": "U_mapped",
+      "round": 5,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.20944870001403615,
+      "GB_s": 1.281628656477748
+    },
+    {
+      "phase": "U_mapped",
+      "round": 5,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.09121079999022186,
+      "GB_s": 2.9430227125381787
+    },
+    {
+      "phase": "U_mapped",
+      "round": 5,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.08108569998876192,
+      "GB_s": 3.3105153687666737
+    },
+    {
+      "phase": "U_mapped",
+      "round": 6,
+      "arm": "M",
+      "chunk": 524288,
+      "seconds": 0.22317949999705888,
+      "GB_s": 1.2027782838636054
+    },
+    {
+      "phase": "U_mapped",
+      "round": 6,
+      "arm": "U",
+      "chunk": 524288,
+      "seconds": 0.22824349999427795,
+      "GB_s": 1.1760924451593568
+    },
+    {
+      "phase": "U_mapped",
+      "round": 6,
+      "arm": "M",
+      "chunk": 2097152,
+      "seconds": 0.06998479997855611,
+      "GB_s": 3.835625108341393
+    },
+    {
+      "phase": "U_mapped",
+      "round": 6,
+      "arm": "U",
+      "chunk": 2097152,
+      "seconds": 0.07854990000487305,
+      "GB_s": 3.417387622178347
+    }
+  ],
+  "design": "same U file before/after mapping, fixed mapped M reference; six alternating rounds per phase",
+  "bytes_verified": true,
+  "summary": {
+    "U_unmapped": {
+      "524288": {
+        "U_over_M_mean": 2.9300392173005383,
+        "ratios": [
+          2.895604310844037,
+          2.653294006246386,
+          2.805342089614674,
+          2.688435580822065,
+          3.145317407315388,
+          3.39224190896068
+        ]
+      },
+      "2097152": {
+        "U_over_M_mean": 1.6187998910069572,
+        "ratios": [
+          1.5557829224319522,
+          1.4768585233407547,
+          1.5518346343769889,
+          1.4740416502663525,
+          1.8258371976019743,
+          1.8284444180237203
+        ]
+      }
+    },
+    "U_mapped": {
+      "524288": {
+        "U_over_M_mean": 0.8483725490185967,
+        "ratios": [
+          0.7102479535372063,
+          0.8806177228577223,
+          0.9311365065928151,
+          0.7825328009829267,
+          0.8078871412986257,
+          0.9778131688422845
+        ]
+      },
+      "2097152": {
+        "U_over_M_mean": 0.892252586520761,
+        "ratios": [
+          0.8760487620696149,
+          0.9102544634440852,
+          0.8966939771470294,
+          0.8905662451684256,
+          0.888992312285986,
+          0.8909597590094249
+        ]
+      }
+    }
+  },
+  "limitation": "Mapping order cannot be reversed without changing cache state; fixed M reference reduces time-drift confounding but does not prove full model speedup."
+}

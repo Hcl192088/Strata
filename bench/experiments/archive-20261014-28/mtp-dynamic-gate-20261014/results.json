@@ -1,0 +1,30 @@
+[
+  {
+    "name": "dynamic-control-01",
+    "done": "DONE 1024 28912 26785.9 21029.3 length 397 464 0 318796 454773 117657 2116 3824.1 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "C2BB16D1D1E9E03EF6F6834A5CA10797EE5C654F885CA847AA4532FE3405A74B",
+    "exit_code": 0
+  },
+  {
+    "name": "dynamic-on-01",
+    "done": "DONE 1024 28912 26328.2 23098.8 length 353 393 0 297088 438710 125789 2885 5251.5 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "0EA9F3A16B798634FBF0A42076F4BA91C520D6DC6D047ACB20FE7B09BB6E96FF",
+    "exit_code": 0
+  },
+  {
+    "name": "dynamic-on-02",
+    "done": "DONE 1024 28912 26287.4 21273.8 length 365 416 0 321265 449521 112964 1982 3587.3 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "CF92B819CC432A7E383DB2528C2A596BD0329A8DD19A9D852CE6DF4F9FCF9F1F",
+    "exit_code": 0
+  },
+  {
+    "name": "dynamic-control-02",
+    "done": "DONE 1024 28912 29186.0 22240.2 length 398 469 0 309217 453091 125861 2540 4648.1 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "F462EB10ADC2F0FF4A7E364A695C2CC0C856A98EC6B9E7F2919ECBD1BA45D54B",
+    "exit_code": 0
+  }
+]

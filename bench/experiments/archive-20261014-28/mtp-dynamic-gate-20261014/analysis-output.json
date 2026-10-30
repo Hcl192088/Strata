@@ -1,0 +1,104 @@
+{
+  "runs": {
+    "dynamic-control-01": {
+      "tok_s": 48.69396508680746,
+      "accepted": 397,
+      "offered": 464,
+      "windows": 627,
+      "output_per_window": 1.63,
+      "window_ms": 33.54,
+      "verify_ms": 29.98,
+      "cpu_ms": 14.19,
+      "token_sha256": "C2BB16D1D1E9E03EF6F6834A5CA10797EE5C654F885CA847AA4532FE3405A74B",
+      "acceptance": 0.8556034482758621,
+      "suffix": [
+        37,
+        45,
+        62
+      ],
+      "mtp_only": {
+        "accepted": 352,
+        "offered": 402,
+        "acceptance": 0.8756218905472637
+      }
+    },
+    "dynamic-on-01": {
+      "tok_s": 44.33130725405649,
+      "accepted": 353,
+      "offered": 393,
+      "windows": 671,
+      "output_per_window": 1.53,
+      "window_ms": 34.42,
+      "verify_ms": 30.78,
+      "cpu_ms": 13.52,
+      "token_sha256": "0EA9F3A16B798634FBF0A42076F4BA91C520D6DC6D047ACB20FE7B09BB6E96FF",
+      "acceptance": 0.8982188295165394,
+      "suffix": [
+        26,
+        36,
+        52
+      ],
+      "mtp_only": {
+        "accepted": 317,
+        "offered": 341,
+        "acceptance": 0.9296187683284457
+      }
+    },
+    "dynamic-on-02": {
+      "tok_s": 48.13432485028533,
+      "accepted": 365,
+      "offered": 416,
+      "windows": 660,
+      "output_per_window": 1.55,
+      "window_ms": 32.23,
+      "verify_ms": 28.54,
+      "cpu_ms": 12.2,
+      "token_sha256": "CF92B819CC432A7E383DB2528C2A596BD0329A8DD19A9D852CE6DF4F9FCF9F1F",
+      "acceptance": 0.8774038461538461,
+      "suffix": [
+        43,
+        58,
+        70
+      ],
+      "mtp_only": {
+        "accepted": 307,
+        "offered": 346,
+        "acceptance": 0.8872832369942196
+      }
+    },
+    "dynamic-control-02": {
+      "tok_s": 46.042751414105986,
+      "accepted": 398,
+      "offered": 469,
+      "windows": 626,
+      "output_per_window": 1.64,
+      "window_ms": 35.53,
+      "verify_ms": 31.87,
+      "cpu_ms": 14.17,
+      "token_sha256": "F462EB10ADC2F0FF4A7E364A695C2CC0C856A98EC6B9E7F2919ECBD1BA45D54B",
+      "acceptance": 0.8486140724946695,
+      "suffix": [
+        28,
+        33,
+        50
+      ],
+      "mtp_only": {
+        "accepted": 365,
+        "offered": 419,
+        "acceptance": 0.8711217183770883
+      }
+    }
+  },
+  "confidence": [],
+  "limits": [
+    "Full serve-engine settings; neuro prompt, not original Hermes or Python HTTP replay",
+    "Different free-generation sequences and only two runs per timed arm",
+    "Top2/full-head/confidence diagnostic speeds excluded from performance claims",
+    "Confidence bins observe only submitted drafts reached before prefix rejection; gate >=0.75",
+    "No low-confidence acceptance or matched marginal verify costs; dynamic candidate measurements apply only when present"
+  ],
+  "means": {
+    "dynamic_control": 47.36835825045672,
+    "dynamic_on": 46.23281605217091
+  }
+}

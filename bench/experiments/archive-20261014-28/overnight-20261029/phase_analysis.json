@@ -1,0 +1,265 @@
+{
+  "requests": 30,
+  "windows": 2838.0,
+  "CPU_ms_window": 24.496451726568004,
+  "components_ms_window": {
+    "gu_ms": 11.879303558844256,
+    "quant_ms": 0.14382293868921775,
+    "down_ms": 5.162856342494714,
+    "join_ms": 6.090162332628612,
+    "lru_ms": 1.195714129668781,
+    "cpu_residual_ms": 0.024592424242423857
+  },
+  "components_CPU_fraction": {
+    "gu_ms": 0.48493976562166247,
+    "quant_ms": 0.005871174335556213,
+    "down_ms": 0.2107593540535203,
+    "join_ms": 0.24861406054263088,
+    "lru_ms": 0.048811727633678095,
+    "cpu_residual_ms": 0.0010039178129521414
+  },
+  "separate_overlapping_ms_window": {
+    "helper_ms": 9.66332381959126,
+    "direct_ms": 9.749506095842143,
+    "copy_ms": 1.7165457716701902,
+    "issue_wait_ms": 8.01634658210007,
+    "ready_ms": 4.1680511627906975,
+    "inline_ms": 0.09694295278365046
+  },
+  "issued_GB": 68.080484352,
+  "useful_GB": 67.9678464,
+  "read_amplification": 1.0016572240841222,
+  "inline_calls": 280.0,
+  "splits": 23952.0,
+  "notes": [
+    "GU/down are full pool phase wall time, including worker imbalance/memory stalls, not pure instructions.",
+    "helper/direct/copy/issue_wait are overlapping thread work; do not add them to components.",
+    "issue_wait includes issue and GetOverlappedResult duration, not isolated SSD device service time.",
+    "Existing active MT1 source/config/temperature were not changed; this is a diagnostic build."
+  ],
+  "by_point": {
+    "p01": {
+      "requests": 3,
+      "windows": 123.0,
+      "cpu_ms": 38.82212764227642,
+      "gu_ms": 15.232258536585366,
+      "quant_ms": 0.16895853658536586,
+      "down_ms": 6.858894308943089,
+      "join_ms": 13.585478861788618,
+      "lru_ms": 2.9420512195121953,
+      "cpu_residual_ms": 0.034486178861788716,
+      "helper_ms": 21.03112195121951,
+      "inline_ms": 0.15298292682926828,
+      "issue_wait_ms": 16.686790243902436,
+      "copy_ms": 4.305304065040651
+    },
+    "p02": {
+      "requests": 3,
+      "windows": 84.0,
+      "cpu_ms": 20.940382142857143,
+      "gu_ms": 11.38750238095238,
+      "quant_ms": 0.14571309523809525,
+      "down_ms": 4.989270238095238,
+      "join_ms": 3.6954976190476194,
+      "lru_ms": 0.6999369047619047,
+      "cpu_residual_ms": 0.022461904761903333,
+      "helper_ms": 5.9265357142857145,
+      "inline_ms": 0.0,
+      "issue_wait_ms": 4.866636904761905,
+      "copy_ms": 1.0437857142857143
+    },
+    "p03": {
+      "requests": 3,
+      "windows": 138.0,
+      "cpu_ms": 34.38998478260869,
+      "gu_ms": 15.422544927536233,
+      "quant_ms": 0.3520094202898551,
+      "down_ms": 6.928407246376812,
+      "join_ms": 9.370617391304346,
+      "lru_ms": 2.2858318840579708,
+      "cpu_residual_ms": 0.030573913043478267,
+      "helper_ms": 16.693014492753623,
+      "inline_ms": 0.03347826086956522,
+      "issue_wait_ms": 13.191182608695652,
+      "copy_ms": 3.499936231884058
+    },
+    "p04": {
+      "requests": 3,
+      "windows": 253.0,
+      "cpu_ms": 30.65592371541502,
+      "gu_ms": 12.522675494071146,
+      "quant_ms": 0.1446687747035573,
+      "down_ms": 5.311140711462452,
+      "join_ms": 11.155145454545455,
+      "lru_ms": 1.4966581027667984,
+      "cpu_residual_ms": 0.025635177865611557,
+      "helper_ms": 15.501197628458497,
+      "inline_ms": 0.2237703557312253,
+      "issue_wait_ms": 13.556932806324111,
+      "copy_ms": 2.1414592885375496
+    },
+    "p05": {
+      "requests": 3,
+      "windows": 826.0,
+      "cpu_ms": 19.250599515738497,
+      "gu_ms": 10.118755084745764,
+      "quant_ms": 0.11341113801452785,
+      "down_ms": 4.4173154963680386,
+      "join_ms": 3.823012469733656,
+      "lru_ms": 0.7561369249394673,
+      "cpu_residual_ms": 0.021968401937044333,
+      "helper_ms": 6.024437046004842,
+      "inline_ms": 0.10006234866828087,
+      "issue_wait_ms": 5.054001573849879,
+      "copy_ms": 1.0572434624697336
+    },
+    "p06": {
+      "requests": 3,
+      "windows": 246.0,
+      "cpu_ms": 27.0450418699187,
+      "gu_ms": 13.244429674796748,
+      "quant_ms": 0.15313617886178862,
+      "down_ms": 5.741892276422764,
+      "join_ms": 6.343471138211382,
+      "lru_ms": 1.536118699186992,
+      "cpu_residual_ms": 0.02599390243902575,
+      "helper_ms": 11.921284552845528,
+      "inline_ms": 0.08843170731707317,
+      "issue_wait_ms": 9.71879837398374,
+      "copy_ms": 2.263241056910569
+    },
+    "p07": {
+      "requests": 3,
+      "windows": 161.0,
+      "cpu_ms": 26.908408695652177,
+      "gu_ms": 13.045662732919256,
+      "quant_ms": 0.14702298136645964,
+      "down_ms": 5.69773850931677,
+      "join_ms": 6.596234782608695,
+      "lru_ms": 1.3956242236024843,
+      "cpu_residual_ms": 0.026125465838508406,
+      "helper_ms": 10.774850931677019,
+      "inline_ms": 0.0637167701863354,
+      "issue_wait_ms": 8.756942857142857,
+      "copy_ms": 2.0557875776397516
+    },
+    "p08": {
+      "requests": 3,
+      "windows": 290.0,
+      "cpu_ms": 24.348544137931036,
+      "gu_ms": 12.200276551724137,
+      "quant_ms": 0.14998793103448274,
+      "down_ms": 5.253607931034483,
+      "join_ms": 5.629248620689655,
+      "lru_ms": 1.09112,
+      "cpu_residual_ms": 0.024303103448276346,
+      "helper_ms": 8.881503448275861,
+      "inline_ms": 0.07733896551724138,
+      "issue_wait_ms": 7.446999310344828,
+      "copy_ms": 1.4888320689655172
+    },
+    "p09": {
+      "requests": 3,
+      "windows": 239.0,
+      "cpu_ms": 22.492580334728036,
+      "gu_ms": 11.088907112970713,
+      "quant_ms": 0.1227907949790795,
+      "down_ms": 4.642133472803348,
+      "join_ms": 5.531490376569038,
+      "lru_ms": 1.082860669456067,
+      "cpu_residual_ms": 0.02439790794979124,
+      "helper_ms": 8.27179079497908,
+      "inline_ms": 0.14824476987447696,
+      "issue_wait_ms": 6.878546025104602,
+      "copy_ms": 1.5205
+    },
+    "p10": {
+      "requests": 3,
+      "windows": 478.0,
+      "cpu_ms": 23.35128828451883,
+      "gu_ms": 11.886810251046025,
+      "quant_ms": 0.1299286610878661,
+      "down_ms": 5.184193723849373,
+      "join_ms": 5.130216945606694,
+      "lru_ms": 0.9964269874476988,
+      "cpu_residual_ms": 0.023711715481172044,
+      "helper_ms": 8.197177824267783,
+      "inline_ms": 0.0471765690376569,
+      "issue_wait_ms": 6.8199412133891215,
+      "copy_ms": 1.4087094142259415
+    }
+  },
+  "speed_by_round_not_promotion": {
+    "C": {
+      "1": {
+        "rate": 42.4218360505002,
+        "requests": 10
+      },
+      "2": {
+        "rate": 44.83932947266707,
+        "requests": 10
+      },
+      "3": {
+        "rate": 48.56522249282397,
+        "requests": 10
+      }
+    },
+    "O": {
+      "1": {
+        "rate": 45.8314680991665,
+        "requests": 10
+      },
+      "2": {
+        "rate": 46.50833477150734,
+        "requests": 10
+      },
+      "3": {
+        "rate": 48.25312578546502,
+        "requests": 10
+      }
+    },
+    "D": {
+      "1": {
+        "rate": 48.044529075728725,
+        "requests": 10
+      },
+      "2": {
+        "rate": 47.83117393764446,
+        "requests": 10
+      },
+      "3": {
+        "rate": 46.04791073643393,
+        "requests": 10
+      }
+    }
+  },
+  "speed_excluded_rounds": {
+    "1": "C ran Normal; O changed Normal to AboveNormal mid-block. No priority-matched comparison."
+  },
+  "paired_diagnostic_deltas": {
+    "O_vs_C": {
+      "n": 2,
+      "mean_pct": 1.539778213523757,
+      "deltas": [
+        3.7221905823940915,
+        -0.6426341553465775
+      ],
+      "note": "Small diagnostic sample; changed outputs/window mix; not a candidate promotion test."
+    },
+    "D_vs_O": {
+      "n": 2,
+      "mean_pct": -0.8628961139605984,
+      "deltas": [
+        2.8443055908927706,
+        -4.570097818813967
+      ],
+      "note": "Small diagnostic sample; changed outputs/window mix; not a candidate promotion test."
+    }
+  },
+  "next_decision_inputs": {
+    "GU_time_reduction_20pct_ms_window": 2.3758607117688513,
+    "eliminate_join_upper_ms_window": 6.090162332628612,
+    "eliminate_copy_thread_time_not_speedup_ms_window": 1.7165457716701902,
+    "residual_fraction": 0.0010039178129521414
+  }
+}

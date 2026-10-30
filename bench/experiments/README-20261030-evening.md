@@ -60,6 +60,9 @@ current best：binary A1E6123852A5…D9491AD8、config 060F2FBCCC54…46893D93�
 4. **GPU kernel 改寫**：上限約 2.1 ms/w（+5%），實際可能只有一半，工程量大。
 5. **在條件內還能做的都是小項目**：expert 載入時直接寫進 arena（≤2.7%）、MTP full head（約 1%）、快取策略（約 2%）、GPU kernel（≤5%）。全部疊起來樂觀估計 +5～8%，而且每項單獨都在雜訊附近。
 
+## 補充：動態 MTP 深度已在 10/14 測過
+AMTP／vLLM adaptive verification／SpecFit 成本模型這類「每輪依接受機率與驗證成本決定驗證多少 token」的做法，10/14 已做過原型：依 (1+q1+q1·q2)/cost 選長度，結果 −2.40%；固定深度 4 是 −6.04%；live 已有 `--spec-min-p 0.75` 信心門檻。報告見 `README-20261014-28-archive.md`。當時是 pipeline、MT1 上線前，各 T 的成本比例可能已經改變；如果要重新評估，需要先用現行 binary 重量 T1/T2/T3 成本。
+
 ## 條件外、但數字比較大的兩件事
 - **HTTP 串流**：live 用 stream=true 時每個 window 多約 6.3 ms（非串流的殘差是 1.7、串流是 8.1 ms/w），實際使用比 benchmark 慢 14–17%。這不影響輸出。使用者已改成客戶端預設不串流；原因還沒找到（server 程式碼看起來不會卡住引擎，多出來的時間落在引擎沒計時的段）。
 - **會改變輸出的路由偏置**（ROUTE_PRIOR／ROUTE_BIAS／ROUTE_RESIDENT／GATE_SKIP）：10/20 在舊 binary 量到 +15～60%。上游 0.2.7 在 ≤13 GiB 的卡預設 ROUTE_PRIOR=1.5，0.2.8 因長對話重複文字改回預設關閉。我們的品質評估計畫（10/27 草稿，60 題）從未執行。

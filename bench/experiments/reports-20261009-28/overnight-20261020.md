@@ -1,0 +1,81 @@
+# Overnight experiments 2026-10-20 (append-only log)
+
+Operator: subagent (Sonnet 5.5) for user. Remote DESKTOP-LKMLUPC. No GitHub writes.
+Gates: host identity, control SHA 366A355E..15E2, process inventory before each remote step, capacity gate per block (control: slots 3153 / 20.00 GiB / locked 20479 MiB).
+
+2026-10-20 00:26:28 start: read AGENTS/handoffs/runner. Remote hostname DESKTOP-LKMLUPC OK, control SHA OK, power plan: Razer Cortex Power Plan (96fcb87f-...), free RAM 1703 MB with live API (20 GiB locked). Live process inventory = expected API stack only (start_task020_api.ps1, strata_memory_policy --run wrapper x2 launcher/base, serve.server x2, strata.exe PID 23160, --watch x2).
+
+## Setup notes (before runs)
+- Remote inputs: C:\Users\User\Strata-Adrian-control\runs\overnight-20261020-inputs\requests (10 Hermes points p01..p10, copied from D:\strata\state\nowait-hermes-20261019\requests). Harness: tools\replay_ab_20261020.py (local D:\strata\tools\, remote ...\tools\). Fresh `serve.server` (127.0.0.1:8081) + fresh engine per block, config COPY per arm (live config untouched), greedy (temperature 0, other sampling keys removed), max_tokens 512, 10 requests sequential, SSD MB per request = delta of cumulative "files N blobs X MB read" engine-log line (includes prefill reads), decode tok/s = "N generated in X ms" line.
+- v0.2.0-beta: cloned to runs\v020beta-20261020\source; tag v0.2.0-beta is an annotated tag object b73dbce -> commit 3d1fb48090e8f2cefc22d7b5845fb7f5b71f33fa (HEAD detached at tag). Same llama.cpp pin 3cf03257 as current best. Build started (scheduled task Strata-Build-V020-20261020, -j2 belownormal).
+- SOURCE FINDINGS v0.2.0-beta (a): FileExpertSource::set_io_prefetch is `#if defined(__linux__)` (generate.cpp:5515-5540): STRATA_IO_PREFETCH, page-cached zero-copy (STRATA_COLD_OVERLAP=4) and the Linux defaults are Linux-only and for the GGUF read in place; "an experts.bin pack keeps them off unless set". On Windows with our pack: IO prefetch = no-op, COLD_OVERLAP default 0. The only portable piece is STRATA_COLD_OVERLAP=1 (background threads read the claimed blobs; `direct_` unbuffered path supports it), which exists in the current-best source too -> tested as env arm CCOLD1 on the control binary (never tested before; no mention in handoffs).
+- SOURCE FINDINGS (b): v0.2.0 STRATA_ROUTE_PRIOR=lambda (verify.cpp:1883, route_prior.cu) = Skliar et al. cache-conditional routing, top-10 of 512 re-picked with +lambda on the logit of every expert resident in the VRAM tier (d_res>=0), selection uses biased logits, weights = unbiased softmax renormalised over the 10 picked. NOT guarded for top-1 (top-1 can change) and does NOT know the RAM tier. The CURRENT-BEST source already contains the identical route_prior.cu / STRATA_ROUTE_PRIOR (verify.cpp:1380) -> arms CRP25/50/100 on the control binary need no build. Therefore step 3 (own implementation) is a genuine extension only as: bonus for VRAM+RAM resident experts + top-1 guard -> implemented as STRATA_ROUTE_BIAS in candidate build.
+- Existing in control: STRATA_ROUTE_TAIL_SKIP=7 (serve default): a missed expert that every token of the verify window routes at rank>=7 is skipped, zero contribution, no renormalisation. Step 2 gate-weight skipping = same mechanism with a weight criterion (needs the routing weights on the host: doorbell_publish_res did not publish them; patch adds doorbell_publish_res_w + g_gate_w).
+- Candidate source copy: runs\cand-20261020\source (from ram-lru-20261013\source @61b3fb5d + 2 dirty RAM-LRU files, then patch1.py: STRATA_GATE_COUNT=1, STRATA_GATE_SKIP=tau (no renorm, never rank0), STRATA_ROUTE_BIAS=lam (VRAM+RAM bonus, top-1 guard)). Patch + diff kept in D:\strata\state\cand-20261020\ (orig/ new/ patch1.py). Build queued after v020 build (task Strata-Build-Cand-20261020).
+
+## Experiment 0 - harness (log)
+- 00:43 test campaign runs\replay-test-20261020 (arms C,B02, 2 rounds; API stopped by runner, verified PIDs 23160/14352/16260/27032/27496). C r1 READY in 22 s with gate slots 3153 / 20.00 / 20479 OK.
+- Harness lesson: the engine-log cumulative "files N blobs X MB read" counter includes startup reads (28 GB at p01) and is useless per request. Per-request SSD numbers come from the serve /metrics requests[0] (file_mb, file_blobs, ram_blobs, hit_rate, decode_ms): decode-phase (CPU-computed experts) reads. Harness patched to record these (m_* fields); the 4 test blocks were started with the older version, so for them SSD MB per request is only in the saved engine logs (tail-pXX.log "expert tiers" line is cumulative) -> do not use test-block SSD numbers; use campaign blocks.
+- Tool quirk: Bash tool turns "\\" into "\" in my commands -> JSON/PowerShell with backslashes written via the Write tool or forward slashes.
+- 00:51 test run: C r1 and B02 r1 (v0.2.0 default, no RAM LRU, config copy) both ran 10 requests OK (B02 READY 25 s, slots 3139 (recorded only), 20.00 GiB, locked 20479). Observed: B02 decode ~17-31 tok/s vs C ~18-43 tok/s per request (B02 clearly slower; real stats later). v0.2.0 binary reports "strata 0.1.45.3", SHA 8BA5A9D0B55AA699534BEBC9F3E55C71CAC561A87AEE5175D659DB78635F638A.
+- 00:51 harness bug: after B02 block finished, kill_tree raised psutil.AccessDenied(pid 26548) -> campaign aborted, and the runner then HUNG in `finally` (API restore never ran; API was down ~4 min). I killed the hung runner python (PID 21212, my own); the wrapper guard restored the API (loaded 00:55:24, strata.exe PID 3744). Fixed kill_tree (errors tolerated), added faulthandler stack log. Process note: SHA/slots of the restored API still to be verified at end of each run.
+- 00:57 launched campaign A: runs\replay-A-20261020, arms C,CRP25,CRP50,CRP100,CCOLD1,B02,B02A8,B02RP25,B02RP50,B02RP100 x 3 rounds (cap 170 min).
+
+## Campaign A results (replay-A-20261020; 10 arms x 3 interleaved fresh-engine rounds; 10 Hermes points, greedy, max_tokens 512) 00:57-02:41
+Raw: remote C:\Users\User\Strata-Adrian-control\runs\replay-A-20261020 ; local copy + analysis D:\strata\state\overnight-20261020-data\A , A_summary.md (analyzer tools\analyze_replay_20261020.py). API restored 02:41 (guard OK); verified afterwards: control exe SHA 366A355E..15E2, slots 3153, arena 20479, strata.exe PID 21884, live idle.
+Identity: C/C* arms = control binary SHA 366A355E0E866B12D1793C9D8BE022925305B4560E1AE7DC47F8716C865015E2 (gate slots 3153 / 20.00 / 20479 all blocks); B02* = v0.2.0-beta commit 3d1fb480 build, SHA 8BA5A9D0B55AA699534BEBC9F3E55C71CAC561A87AEE5175D659DB78635F638A (slots 3139, 20.00 GiB, locked 20479; recorded only). tok/s = sum tokens / sum decode ms of the 10 requests per block (~1700 tokens/block); SSD MB = serve /metrics file_mb per request (decode-phase file reads of CPU-computed experts), mean of 10.
+
+| arm | n | tok/s mean | paired d vs C (mean+-sd, 3 rounds) | SSD MB/req | hit % |
+|---|---:|---:|---|---:|---:|
+| C (control) | 3 | 35.98 (sd 1.09) | - | 1964 | 51.4 |
+| CRP25 (ROUTE_PRIOR 0.25, control bin) | 3 | 41.61 | +5.63 +-2.64 (+15.7%) | 1655 | 60.8 |
+| CRP50 | 3 | 47.02 | +11.04 +-1.21 (+30.7%) | 1298 | 68.9 |
+| CRP100 | 3 | 57.41 | +21.44 +-0.45 (+59.6%) | 977 | 82.6 |
+| CCOLD1 (STRATA_COLD_OVERLAP=1, exact) | 3 | 37.29 | +1.32 +-0.54 (+3.7%) | 2117 | 51.1 |
+| B02 (v0.2.0 defaults, no RAM LRU) | 3 | 22.89 | -13.08 +-1.20 (-36.4%) | 8511 | 54.8 |
+| B02A8 (+STRATA_RAM_ADAPT=8) | 3 | 30.19 | -5.78 +-2.36 (-16.1%) | 4055 | 54.3 |
+| B02RP25 | 3 | 26.18 | -9.80 (-27.2%) ; vs B02 +3.3 | 6598 | 60.7 |
+| B02RP50 | 3 | 32.50 | -3.47 (-9.7%) ; vs B02 +9.6 | 4677 | 68.9 |
+| B02RP100 | 3 | 44.76 | +8.78 +-1.56 (+24.4%) ; vs B02 +21.9 | 3306 | 82.8 |
+
+Determinism: control is NOT bit-exact. C vs C (3 rounds, 30 point-pairs): 10/30 identical outputs, mean prefix fraction 0.41, difflib ratio 0.65, tool-call name+args identical 19/30 (greedy + MTP + adaptive swaps/RAM-LRU state differences; B02 shows identical SSD MB per request across rounds, i.e. its cache state is deterministic but outputs still differ from C). So agreement of output-changing arms must be read against this baseline (0.41 / 0.65 / 19 of 30).
+Agreement vs C (prefix frac / ratio / tool-call identical): CRP25 0.24/0.58/21 of 30 (= baseline level); CRP50 0.14/0.55/17; CRP100 0.03/0.38/14; CCOLD1 0.42/0.67/18 (= baseline, as expected for an exact knob); B02 0.08/0.53/19.
+Side-by-side judgement (tool-call points p03,p07-p10, QA p01,p02,p04): CRP25 final answers/tool calls equivalent to C (same tools, same answers, differences within the C-vs-C jitter). CRP50: same on 3 of the 4 tool points, but p08 switches from mcp__beeper__list_messages to an execute_code file search (a different, less direct strategy), wording drift on QA. CRP100: visible behaviour change (p03 adds an extra terminal call, p08 execute_code that hunts for a .beeper_token file, p10 once answers instead of calling skill_view, QA wording changes) -> not acceptable without a task-level quality gate. CRP25 is the only value that looks quality-neutral on this sample.
+Verdicts: (1) STRATA_ROUTE_PRIOR is already in the current-best source; env only; real speed lever: SSD reads -16/-34/-50%, tok/s +16/+31/+60%. Quality: 0.25 near-neutral, 0.5 borderline, 1.0 degraded. (2) STRATA_COLD_OVERLAP=1 on Windows with direct unbuffered reads: +3.7% (+1.3 tok/s, paired sd 0.5, n=3; exact; small but consistent; needs more rounds to be called real). (3) v0.2.0-beta is not an improvement for our setup: -36% at defaults (no private RAM LRU), -16% with RAM_ADAPT=8; its Linux-only zero-copy/IO-prefetch is not active on Windows; ROUTE_PRIOR on it helps relatively (+22% at 1.0 vs B02) but never beats the control.
+- 02:50 cand build OK (SHA 89380A69..F923, runs\cand-20261020\build). Launched campaign B runs\replay-B-20261020: arms C,D(cand no knobs),DCNT(GATE_COUNT+SSD_HIST),DG1/DG2/DG5 (GATE_SKIP .01/.02/.05, no renorm, never rank0),DB25/50/100 (STRATA_ROUTE_BIAS VRAM+RAM tier, top-1 guard) x3 rounds.
+
+## Campaign B results (replay-B-20261020; candidate build; 9 arms x 3 rounds) 02:50-04:20
+Raw: remote runs\replay-B-20261020 ; local D:\strata\state\overnight-20261020-data\B , B_summary.md. API restored 04:20; verified: SHA 366A355E..15E2, slots 3153, arena 20479, strata.exe PID 33180, idle.
+Candidate: runs\cand-20261020 (source = control source 61b3fb5d + RAM-LRU dirty + patch1/patch2 in D:\strata\state\cand-20261020), binary SHA 89380A695369409F129AA086DC884CEAF5E0A6CC30113D6400EDF4134336F923, gate values slots 3153/20.00/20479 (recorded).
+| arm | tok/s mean | paired d vs C | SSD MB/req | hit % |
+|---|---:|---|---:|---:|
+| C | 35.80 (sd 1.95) | - | 2042 | 50.9 |
+| D (cand binary, no knobs) | 35.61 (sd 4.8) | -0.19 +-3.01 (-0.5%) | 2170 | 52.3 |
+| DCNT (counting only) | 37.59 | +1.80 +-1.99 | 2052 | 51.9 |
+| DG1 GATE_SKIP 0.01 | 36.42 | +0.62 +-2.40 (+1.7%) | 2036 | 52.1 |
+| DG2 GATE_SKIP 0.02 | 37.56 | +1.77 +-2.79 (+4.9%) | 2015 | 54.6 |
+| DG5 GATE_SKIP 0.05 | 38.31 | +2.52 +-1.78 (+7.0%) | 1861 | 55.0 |
+| DB25 ROUTE_BIAS .25 (VRAM+RAM, top-1 kept) | 40.66 | +4.86 +-1.99 (+13.6%) | 1220 | 52.4 |
+| DB50 | 43.88 | +8.09 +-1.25 (+22.6%) | 777 | 54.7 |
+| DB100 | 46.79 | +10.99 +-2.49 (+30.7%) | 532 | 57.0 |
+Agreement vs C (identical outputs / prefix frac / ratio / tool-call identical of 30): baseline C-vs-C 9/0.35/0.63/16; D 10/0.41/0.68/15 (neutral binary); DCNT 11/0.46/0.67/16; DG1 10/0.38/0.66/16; DG2 0/0.07/0.53/16; DG5 4/0.19/0.55/18; DB25 3/0.17/0.62/16; DB50 0/0.10/0.49/16; DB100 0/0.06/0.48/16.
+Step 2 counting (DCNT/DG*, cumulative per block over the 10 points, misses = distinct CPU-computed VRAM-misses per window AFTER the existing ROUTE_TAIL_SKIP=7 already removed ~32% (tail_skipped 127k vs 269k remaining misses)): fraction of remaining misses with max routing weight in window < tau: 0.01 -> 0.004% (8-12 experts); 0.02 -> 0.05% (125-136, 0.2-0.3% of SSD-missing ones); 0.05 -> 2.2-2.3% (5.6-6.5k), 6.3-6.7% of SSD-miss experts. Weights >= 0.05 are the rule once the rank>=7 tail is gone, so gate skipping adds almost nothing on top of tail skip at tau<=0.02 (skip = zero contribution, NO renormalisation, never rank 0). tau 0.05: +7.0% tok/s (paired +2.5 +-1.8, inside noise ~3.6) with SSD -9% and outputs changing (4/30 identical). Pre-registered success from literature scan (>=20% misses below tau): NOT met.
+Step 3 (own ROUTE_BIAS, VRAM+RAM bonus, unbiased top-1 never displaced): SSD reads -40%/-62%/-74% at 0.25/0.5/1.0 (more than VRAM-only ROUTE_PRIOR: -16/-34/-50%) but tok/s gain smaller (+13.6/+22.6/+30.7 vs +15.7/+30.7/+59.6) because the bonus is the same for RAM-tier experts that the CPU must still compute, whereas VRAM-only bias moves work to the GPU. Quality (side-by-side p03-p10, QA p01/p02/p04): DB25 and DB50 within the C-vs-C jitter (the control itself flips p08 between execute_code and list_messages); DB100 shows one off-strategy (p10 web search). Follow-up arms with larger VRAM bonus than RAM bonus queued in campaign C.
+Step 4 (cold accounting, hist of DCNT r1, per-expert distinct-per-window counts): experts routed 19,004/24,576; 585,995 routings; CPU-from-RAM 214,039; SSD reads 10,244 (decode-phase distinct per window). SSD reads are a long tail: coldest 30% of routed experts (acc<=7) = 28.7% of SSD reads but only 2.9% of routings; coldest 50% (acc<=17) = 56.4% of SSD reads / 10.3% of routings; coldest 70% = 77.3% / 26.6%. Cold = defined by this replay's own counts (oracle; a pack built from a profile will be less sharp). Estimated SSD bytes saved by an IQ2_XXS cold pack (3.06 -> 2.06 bpw): coldest 30% -> 9.4%, 50% -> 18.4%, 70% -> 25.3%; IQ1_S: 14/28/38%. Using the CRP data (SSD -50% <-> +60% tok/s, ~1.2 tok/s% per SSD%) that is at most ~+10-20% tok/s for a pack of quality-degraded cold experts (not built).
+Step 4 addendum (3 rounds summed, 2.30M routings, 36.9k SSD reads): coldest 30%/50%/70% of routed experts carry 21.9%/51.5%/75.3% of SSD reads and 1.9%/8.1%/23.4% of routings. Split-half check (rank by round-1 counts, evaluate on rounds 2+3 SSD reads): 28.2%/53.8%/73.6% -> stable, but rounds replay identical inputs so it is not independent evidence; true cold-pack selection would use a profile from other traffic. Files: D:\strata\state\overnight-20261020-data\cold_3rounds.txt.
+- 04:25 launched campaign C runs\replay-C-20261020: C,CCOLD1(more rounds),DG75,DG100 (GATE_SKIP .075/.1),DB50V100,DB25V100 (ROUTE_BIAS 0.5/0.25 with VRAM bonus 1.0),CRP25C1 (ROUTE_PRIOR .25 + COLD_OVERLAP=1) x3.
+
+## Campaign C results (replay-C-20261020; 7 arms x 3 rounds) 04:21-05:30 — analysed by main session 2026-10-20 08:45
+Subagent stopped at ~04:25 (session rate limit) after launching C; the remote run completed on its own. DONE.json: 21/21 blocks OK; API RESTORE OK 05:30:53 (strata.exe PID 32280, SHA 366A355E..15E2, slots 3153, arena 20479, idle; re-verified 08:42).
+Local copy + analysis: overnight-20261020-data\C , C_summary.md (analyze_replay_20261020.py C C).
+| arm | tok/s | paired d vs C | SSD MB/req | hit % | CPU exp/layer-win |
+|---|---:|---|---:|---:|---:|
+| C | 37.64 (sd 0.22) | - | 2057 | 51.5 | 6.89 |
+| CCOLD1 (COLD_OVERLAP=1) | 37.36 | -0.27 +-0.70 (-0.7%) | 2141 | 50.8 | 7.04 |
+| DG75 GATE_SKIP 0.075 | 44.00 | +6.36 +-1.01 (+16.9%) | 1544 | 59.4 | 5.31 |
+| DG100 GATE_SKIP 0.10 | 53.19 | +15.55 +-1.09 (+41.3%) | 1037 | 67.1 | 3.25 |
+| DB50V100 ROUTE_BIAS RAM .5 / VRAM 1.0 | 50.34 | +12.71 +-0.77 (+33.8%) | 713 | 68.8 | 4.87 |
+| DB25V100 ROUTE_BIAS RAM .25 / VRAM 1.0 | 52.43 | +14.80 +-2.05 (+39.3%) | 798 | 75.0 | 3.89 |
+| CRP25C1 ROUTE_PRIOR .25 + COLD_OVERLAP 1 | 40.36 | +2.72 +-0.42 (+7.2%) | 1700 | 60.3 | 5.90 |
+Agreement vs C (identical / prefix / ratio / tool-call identical of 30): C-vs-C 9/0.37/0.63/15; CCOLD1 9/0.38/0.66/16; DG75 0/0.05/0.44/16; DG100 0/0.05/0.45/18; DB50V100 0/0.05/0.50/16; DB25V100 0/0.07/0.46/13; CRP25C1 3/0.20/0.53/14.
+Notes: CCOLD1 +3.7% from campaign A not reproduced (-0.7%) -> COLD_OVERLAP=1 = no effect. CRP25 alone was +15.7% in A; with COLD_OVERLAP +7.2% here (cross-campaign, not paired). DG75/DG100 and DB*V100 are large speed levers but all change outputs (prefix agreement ~0.05 vs baseline 0.37); tool-call identity stays at baseline level but no side-by-side quality judgement was done for campaign C. Next: task-level quality evaluation before any adoption.

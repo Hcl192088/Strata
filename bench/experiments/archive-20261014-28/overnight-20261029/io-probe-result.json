@@ -1,0 +1,243 @@
+{
+  "status": "DONE",
+  "source": "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+  "offset": 17179869184,
+  "bytes_per_file": 268435456,
+  "rounds": [
+    {
+      "round": 1,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.06327949999831617,
+      "GB_s": 4.24206031980567
+    },
+    {
+      "round": 1,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.11716490000253543,
+      "GB_s": 2.2910910690333974
+    },
+    {
+      "round": 1,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.05244479997782037,
+      "GB_s": 5.118437978856342
+    },
+    {
+      "round": 1,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.12134170002536848,
+      "GB_s": 2.2122275849430095
+    },
+    {
+      "round": 2,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.23634209998999722,
+      "GB_s": 1.1357919558612752
+    },
+    {
+      "round": 2,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.05976959998952225,
+      "GB_s": 4.491170361639653
+    },
+    {
+      "round": 2,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.07448219999787398,
+      "GB_s": 3.604021578412859
+    },
+    {
+      "round": 2,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.04892720002681017,
+      "GB_s": 5.486425870536389
+    },
+    {
+      "round": 3,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.05251680000219494,
+      "GB_s": 5.111420649940224
+    },
+    {
+      "round": 3,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.1396416999923531,
+      "GB_s": 1.922315869934982
+    },
+    {
+      "round": 3,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.2599519999930635,
+      "GB_s": 1.0326347018186546
+    },
+    {
+      "round": 3,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.09321130000171252,
+      "GB_s": 2.879859587786762
+    },
+    {
+      "round": 4,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.2103921999805607,
+      "GB_s": 1.2758812162466207
+    },
+    {
+      "round": 4,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.059020499989856035,
+      "GB_s": 4.548173194841395
+    },
+    {
+      "round": 4,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.07667020001099445,
+      "GB_s": 3.5011706759798016
+    },
+    {
+      "round": 4,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.0447996000002604,
+      "GB_s": 5.9919163563612114
+    },
+    {
+      "round": 5,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.07146569999167696,
+      "GB_s": 3.756143940817239
+    },
+    {
+      "round": 5,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.21065620001172647,
+      "GB_s": 1.2742822474964286
+    },
+    {
+      "round": 5,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.044503499986603856,
+      "GB_s": 6.031783030116792
+    },
+    {
+      "round": 5,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.08109559997683391,
+      "GB_s": 3.310111227695243
+    },
+    {
+      "round": 6,
+      "arm": "M",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.21113920002244413,
+      "GB_s": 1.2713672116379398
+    },
+    {
+      "round": 6,
+      "arm": "U",
+      "chunk": 524288,
+      "queue_depth": 16,
+      "seconds": 0.06502350000664592,
+      "GB_s": 4.128283712389579
+    },
+    {
+      "round": 6,
+      "arm": "M",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.08023309998679906,
+      "GB_s": 3.345694682670448
+    },
+    {
+      "round": 6,
+      "arm": "U",
+      "chunk": 2097152,
+      "queue_depth": 16,
+      "seconds": 0.04705689998809248,
+      "GB_s": 5.704486612333713
+    }
+  ],
+  "shadow_sha256": {
+    "U": "fa06702107581931cc10f14359509fd9faaba98ee1366d1524c7f6e8ea57f3f5",
+    "M": "fa06702107581931cc10f14359509fd9faaba98ee1366d1524c7f6e8ea57f3f5"
+  },
+  "summary": {
+    "524288": {
+      "unmapped_advantage_pct": 203.73771804792963,
+      "paired_ci95_pct": [
+        126.33351594852961,
+        281.14192014732964
+      ],
+      "deltas_pct": [
+        85.15459193838939,
+        295.42192022604894,
+        165.89910273763212,
+        256.47308988693965,
+        194.76546096415476,
+        224.712142534413
+      ],
+      "mechanism_gate": true
+    },
+    "2097152": {
+      "unmapped_advantage_pct": 57.2206238759393,
+      "paired_ci95_pct": [
+        -11.190119585330486,
+        125.6313673372091
+      ],
+      "deltas_pct": [
+        131.37031712712331,
+        52.23066097602291,
+        -64.14288022242577,
+        71.14036734825488,
+        82.22297122977913,
+        70.50230679688134
+      ],
+      "mechanism_gate": false
+    }
+  },
+  "limitations": [
+    "Two separate shadow extents; physical placement/SSD cache can confound.",
+    "Mapped clone not faulted into RAM; tests mapping section behavior, not all original GGUF cache conditions.",
+    "Mechanism screen only; no model tok/s or promotion claim."
+  ]
+}

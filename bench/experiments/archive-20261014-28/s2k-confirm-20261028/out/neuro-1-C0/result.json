@@ -1,0 +1,71 @@
+{
+  "name": "1-C0",
+  "status": "OK",
+  "startup": {
+    "slots": "3153",
+    "ram_budget_gib": "20.00",
+    "locked_mib": "20479"
+  },
+  "startup_ok": true,
+  "decode_timing": [
+    "strata decode timing: 574 windows, avg T 1.88, 1.78 tokens/window, 35.37 ms/window = verify 31.75 (GPU-reach wait 11.93 + per-layer host 18.59 [plan 0.08 actq 0.10 jobs 4.60 CPU 13.78] + stage 0.01) + commit/emit 0.12 + draft 2.03; per layer-window: CPU experts 4.45 (5.34 entries), VRAM hits 10.85, PCIe 0.00",
+    "strata decode timing: 633 windows, avg T 1.69, 1.62 tokens/window, 34.40 ms/window = verify 30.83 (GPU-reach wait 11.57 + per-layer host 18.16 [plan 0.08 actq 0.09 jobs 5.26 CPU 12.70] + stage 0.01) + commit/emit 0.12 + draft 1.93; per layer-window: CPU experts 4.15 (4.75 entries), VRAM hits 9.82, PCIe 0.00",
+    "strata decode timing: 621 windows, avg T 1.73, 1.65 tokens/window, 32.85 ms/window = verify 29.23 (GPU-reach wait 11.68 + per-layer host 16.47 [plan 0.07 actq 0.09 jobs 4.10 CPU 12.18] + stage 0.01) + commit/emit 0.10 + draft 1.95; per layer-window: CPU experts 3.95 (4.65 entries), VRAM hits 10.40, PCIe 0.00",
+    "strata decode timing: 611 windows, avg T 1.73, 1.68 tokens/window, 31.94 ms/window = verify 28.36 (GPU-reach wait 11.89 + per-layer host 15.38 [plan 0.07 actq 0.10 jobs 3.51 CPU 11.67] + stage 0.01) + commit/emit 0.10 + draft 1.94; per layer-window: CPU experts 3.81 (4.41 entries), VRAM hits 10.68, PCIe 0.00"
+  ],
+  "generated": [
+    {
+      "n": 1024,
+      "ms": 20302.0,
+      "tok_s": 50.4
+    },
+    {
+      "n": 1024,
+      "ms": 21778.0,
+      "tok_s": 47.0
+    },
+    {
+      "n": 1024,
+      "ms": 20401.0,
+      "tok_s": 50.2
+    },
+    {
+      "n": 1024,
+      "ms": 19515.0,
+      "tok_s": 52.5
+    }
+  ],
+  "tok_s": [
+    50.4,
+    47.0,
+    50.2,
+    52.5
+  ],
+  "done_lines": [
+    "DONE 1024 28912 26768.4 20301.9 length 451 504 0 298894 445919 122865 2873 5088.7 28912 0",
+    "DONE 1024 28912 91.4 21778.3 length 391 438 28907 298509 442829 125624 3923 7267.5 5 0",
+    "DONE 1024 28912 107.3 20400.8 length 403 456 28907 310037 448657 117867 3168 5905.6 5 0",
+    "DONE 1024 28912 87.0 19515.3 length 413 448 28907 313291 442553 112466 2417 4573.7 5 0"
+  ],
+  "miss_overlap_last": null,
+  "engine_priority": [
+    {
+      "pid": 1872,
+      "at": 1793153161.8172607,
+      "first_class": "32",
+      "set_by_queue": true,
+      "set_ok": true,
+      "readings": [
+        [
+          1793153161.8172607,
+          "32768"
+        ],
+        [
+          1793153222.1368723,
+          "32768"
+        ]
+      ],
+      "ionice": "2"
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "runs": {
+    "control-01": {
+      "tok_s": 47.225283974302805,
+      "accepted": 436,
+      "offered": 504,
+      "windows": 590,
+      "output_per_window": 1.74,
+      "window_ms": 36.75,
+      "verify_ms": 32.99,
+      "cpu_ms": 15.05,
+      "token_sha256": "868121A6473AE2E0B6764856DB6134F40909233D3AF99E9BBC69F8F6FB9F6B51",
+      "acceptance": 0.8650793650793651,
+      "suffix": [
+        32,
+        59,
+        83
+      ],
+      "depth_accepted_tested": [
+        238,
+        262,
+        139,
+        151,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 377,
+        "offered": 421,
+        "acceptance": 0.8954869358669834
+      }
+    },
+    "depth4-01": {
+      "tok_s": 44.61309899838364,
+      "accepted": 404,
+      "offered": 486,
+      "windows": 621,
+      "output_per_window": 1.65,
+      "window_ms": 36.96,
+      "verify_ms": 33.16,
+      "cpu_ms": 15.14,
+      "token_sha256": "839F582C92016DDD7A040A2B2DFA1A67A3FD21C73D8B932848D6D4ACA3C7841A",
+      "acceptance": 0.831275720164609,
+      "suffix": [
+        25,
+        43,
+        62
+      ],
+      "depth_accepted_tested": [
+        212,
+        240,
+        102,
+        112,
+        47,
+        55,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 361,
+        "offered": 424,
+        "acceptance": 0.8514150943396226
+      }
+    },
+    "depth4-02": {
+      "tok_s": 47.03375039041688,
+      "accepted": 439,
+      "offered": 546,
+      "windows": 585,
+      "output_per_window": 1.75,
+      "window_ms": 37.22,
+      "verify_ms": 33.3,
+      "cpu_ms": 14.87,
+      "token_sha256": "688B053F69B1600D7CD4740DF2CE46F268C10D28B789B850C1B485B08E05DFAB",
+      "acceptance": 0.8040293040293041,
+      "suffix": [
+        32,
+        40,
+        65
+      ],
+      "depth_accepted_tested": [
+        222,
+        254,
+        107,
+        125,
+        70,
+        75,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 399,
+        "offered": 481,
+        "acceptance": 0.8295218295218295
+      }
+    },
+    "control-02": {
+      "tok_s": 48.57247212063429,
+      "accepted": 393,
+      "offered": 459,
+      "windows": 631,
+      "output_per_window": 1.62,
+      "window_ms": 33.41,
+      "verify_ms": 29.82,
+      "cpu_ms": 13.37,
+      "token_sha256": "698ECEA3A12AB5C0E0C2E6D31C70CD98D1EB55D38771773F6E4D6B68FAF464D7",
+      "acceptance": 0.8562091503267973,
+      "suffix": [
+        30,
+        38,
+        56
+      ],
+      "depth_accepted_tested": [
+        233,
+        258,
+        122,
+        135,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 355,
+        "offered": 403,
+        "acceptance": 0.8808933002481389
+      }
+    },
+    "control-03": {
+      "tok_s": 47.97106744994425,
+      "accepted": 421,
+      "offered": 503,
+      "windows": 603,
+      "output_per_window": 1.7,
+      "window_ms": 35.4,
+      "verify_ms": 31.68,
+      "cpu_ms": 14.36,
+      "token_sha256": "15B5A5C858C28B678A4FE3F135962D82DB13BF3C1696B7D7F6CEC900D305E458",
+      "acceptance": 0.8369781312127237,
+      "suffix": [
+        30,
+        44,
+        65
+      ],
+      "depth_accepted_tested": [
+        252,
+        283,
+        125,
+        141,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 377,
+        "offered": 438,
+        "acceptance": 0.860730593607306
+      }
+    },
+    "depth4-03": {
+      "tok_s": 43.44229259911334,
+      "accepted": 381,
+      "offered": 461,
+      "windows": 645,
+      "output_per_window": 1.59,
+      "window_ms": 36.55,
+      "verify_ms": 32.82,
+      "cpu_ms": 14.82,
+      "token_sha256": "DB7C194E91E476F0423DB8AAA66E0B09D85C9429A8C309CD5BE58F5EB92E64D8",
+      "acceptance": 0.8264642082429501,
+      "suffix": [
+        21,
+        35,
+        54
+      ],
+      "depth_accepted_tested": [
+        215,
+        243,
+        87,
+        99,
+        44,
+        49,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 346,
+        "offered": 407,
+        "acceptance": 0.8501228501228502
+      }
+    },
+    "trace-depth3": {
+      "tok_s": 47.116853477628695,
+      "accepted": 382,
+      "offered": 444,
+      "windows": 642,
+      "output_per_window": 1.6,
+      "window_ms": 33.85,
+      "verify_ms": 30.28,
+      "cpu_ms": 12.85,
+      "token_sha256": "C4342AD4105635666C43C1718D55C3E721501D333FA43BFEE0248748460D759A",
+      "acceptance": 0.8603603603603603,
+      "suffix": [
+        22,
+        25,
+        40
+      ],
+      "depth_accepted_tested": [
+        242,
+        266,
+        115,
+        132,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_histogram": {
+        "all_windows": {
+          "2": 141,
+          "1": 353,
+          "3": 143,
+          "4": 1,
+          "5": 1,
+          "6": 2
+        },
+        "mtp_windows": {
+          "2": 128,
+          "1": 353,
+          "3": 138
+        },
+        "third_offered": 0,
+        "third_reached": 0,
+        "third_accepted": 0,
+        "excludes_bootstrap": true
+      },
+      "mtp_only": {
+        "accepted": 357,
+        "offered": 404,
+        "acceptance": 0.8836633663366337
+      }
+    },
+    "trace-depth4": {
+      "tok_s": 46.248413598117544,
+      "accepted": 418,
+      "offered": 497,
+      "windows": 607,
+      "output_per_window": 1.69,
+      "window_ms": 36.48,
+      "verify_ms": 32.59,
+      "cpu_ms": 14.08,
+      "token_sha256": "5E80A056BD9235C739408A93ED432B9E89CECD583CEA4CBF0C3DF9D77C125D00",
+      "acceptance": 0.8410462776659959,
+      "suffix": [
+        16,
+        30,
+        47
+      ],
+      "depth_accepted_tested": [
+        232,
+        256,
+        103,
+        117,
+        53,
+        62,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_histogram": {
+        "all_windows": {
+          "2": 136,
+          "1": 334,
+          "3": 57,
+          "4": 73,
+          "5": 2,
+          "6": 4
+        },
+        "mtp_windows": {
+          "2": 133,
+          "1": 334,
+          "3": 52,
+          "4": 71
+        },
+        "third_offered": 71,
+        "third_reached": 62,
+        "third_accepted": 53,
+        "excludes_bootstrap": true
+      },
+      "mtp_only": {
+        "accepted": 388,
+        "offered": 450,
+        "acceptance": 0.8622222222222222
+      }
+    }
+  },
+  "confidence": [],
+  "limits": [
+    "Full serve-engine settings; neuro prompt, not original Hermes or Python HTTP replay",
+    "Different free-generation sequences; bounded run counts shown in individual results",
+    "Top2/full-head/confidence diagnostic speeds excluded from performance claims",
+    "Confidence bins observe only submitted drafts reached before prefix rejection; gate >=0.75",
+    "No low-confidence acceptance or matched marginal verify costs; dynamic candidate measurements apply only when present"
+  ],
+  "means": {
+    "depth3": 47.92294118162712,
+    "depth4": 45.029713995971285
+  }
+}

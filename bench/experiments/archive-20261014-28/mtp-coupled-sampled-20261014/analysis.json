@@ -1,0 +1,104 @@
+{
+  "runs": {
+    "sampled-off-01": {
+      "tok_s": 44.26519346569664,
+      "accepted": 358,
+      "offered": 447,
+      "windows": 666,
+      "output_per_window": 1.54,
+      "window_ms": 34.73,
+      "verify_ms": 31.15,
+      "cpu_ms": 13.43,
+      "token_sha256": "EDE51B402832EAA7ED6B958694C579557D381D287A5AA913C344401ABAA6703F",
+      "acceptance": 0.8008948545861297,
+      "suffix": [
+        39,
+        61,
+        81
+      ],
+      "mtp_only": {
+        "accepted": 297,
+        "offered": 366,
+        "acceptance": 0.8114754098360656
+      }
+    },
+    "sampled-on-01": {
+      "tok_s": 41.12317676540513,
+      "accepted": 347,
+      "offered": 435,
+      "windows": 678,
+      "output_per_window": 1.51,
+      "window_ms": 36.73,
+      "verify_ms": 32.94,
+      "cpu_ms": 14.61,
+      "token_sha256": "49EFE83BCE379C9484E890E8DE00048F986BDDFC42F20C24A20BBC4331EF95F6",
+      "acceptance": 0.7977011494252874,
+      "suffix": [
+        34,
+        48,
+        64
+      ],
+      "mtp_only": {
+        "accepted": 299,
+        "offered": 371,
+        "acceptance": 0.8059299191374663
+      }
+    },
+    "sampled-on-02": {
+      "tok_s": 39.77610403937213,
+      "accepted": 377,
+      "offered": 514,
+      "windows": 649,
+      "output_per_window": 1.58,
+      "window_ms": 39.67,
+      "verify_ms": 35.87,
+      "cpu_ms": 16.31,
+      "token_sha256": "34548153615AAB4905230AC6584B7468A88F6CBE12A93A068C4C9E5789C2D2EB",
+      "acceptance": 0.7334630350194552,
+      "suffix": [
+        31,
+        44,
+        73
+      ],
+      "mtp_only": {
+        "accepted": 333,
+        "offered": 441,
+        "acceptance": 0.7551020408163265
+      }
+    },
+    "sampled-off-02": {
+      "tok_s": 40.04426768654411,
+      "accepted": 381,
+      "offered": 512,
+      "windows": 644,
+      "output_per_window": 1.59,
+      "window_ms": 39.71,
+      "verify_ms": 36.05,
+      "cpu_ms": 16.14,
+      "token_sha256": "14643FFCF49B77EFDC2C4F6543B3E64764E36AB8A57A04F31D10DC204E8FF86E",
+      "acceptance": 0.744140625,
+      "suffix": [
+        24,
+        32,
+        52
+      ],
+      "mtp_only": {
+        "accepted": 349,
+        "offered": 460,
+        "acceptance": 0.758695652173913
+      }
+    }
+  },
+  "confidence": [],
+  "limits": [
+    "Full serve-engine settings; neuro prompt, not original Hermes or Python HTTP replay",
+    "Different free-generation sequences and only two runs per timed arm",
+    "Top2/full-head/confidence diagnostic speeds excluded from performance claims",
+    "Confidence bins observe only submitted drafts reached before prefix rejection; gate >=0.75",
+    "No low-confidence acceptance or matched marginal verify costs; dynamic candidate measurements apply only when present"
+  ],
+  "means": {
+    "sampled_off": 42.15473057612037,
+    "sampled_on": 40.449640402388624
+  }
+}

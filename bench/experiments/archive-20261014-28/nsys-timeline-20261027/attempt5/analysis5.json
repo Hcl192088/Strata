@@ -1,0 +1,433 @@
+{
+ "layers": {
+  "n": 25920,
+  "windows_parsed": 540,
+  "post_total_ms_per_window": 32.22382913333333
+ },
+ "post_classes": {
+  "long": {
+   "layers": 3080,
+   "ms_per_window": 19.763284544444446,
+   "pct_layers": 11.882716049382717,
+   "pct_post": 61.331272775402994
+  },
+  "mid": {
+   "layers": 10389,
+   "ms_per_window": 9.542412081481482,
+   "pct_layers": 40.08101851851852,
+   "pct_post": 29.612905536451326
+  },
+  "short": {
+   "layers": 12451,
+   "ms_per_window": 2.918132507407407,
+   "pct_layers": 48.036265432098766,
+   "pct_post": 9.055821688145684
+  }
+ },
+ "host_sched": {
+  "on_ms_per_window": 38.93778216296296,
+  "off_events": 9774,
+  "off_ms_per_window": 19.875077987037034
+ },
+ "etw_counts": {
+  "FREAD": 57149,
+  "FREAD_matched_end": 57149,
+  "HFAULT": 42497,
+  "DREAD": 57282
+ },
+ "clock_calibration": {
+  "host_io_intervals": 30085,
+  "best_shift_us": 50,
+  "best_overlap_frac": 0.9674496552112266,
+  "zero_shift_overlap_frac": 0.9637004761670498,
+  "scores_sample": [
+   [
+    -3000,
+    0.7230517668628199
+   ],
+   [
+    -2500,
+    0.7297273682588404
+   ],
+   [
+    -2000,
+    0.7356964428982969
+   ],
+   [
+    -1500,
+    0.7426765483311426
+   ],
+   [
+    -1000,
+    0.749946332898564
+   ],
+   [
+    -500,
+    0.7946673054173673
+   ],
+   [
+    0,
+    0.9637004761670498
+   ],
+   [
+    500,
+    0.8459193128790743
+   ],
+   [
+    1000,
+    0.7727735302207499
+   ],
+   [
+    1500,
+    0.7532562739622309
+   ],
+   [
+    2000,
+    0.7454187391298848
+   ],
+   [
+    2500,
+    0.741597746609922
+   ],
+   [
+    3000,
+    0.7364898253126664
+   ]
+  ]
+ },
+ "host_big_reads": {
+  "n_in_decode": 2332,
+  "GB": 4.167626752,
+  "per_window": 4.318518518518519,
+  "MB_per_window": 7.717827318518519,
+  "avg_MB": 1.7871469777015438,
+  "dur_us": {
+   "5": 463.5,
+   "25": 581.9,
+   "50": 652.0,
+   "75": 774.9,
+   "90": 1219.2,
+   "99": 24606.5
+  },
+  "dur_mean_us": 1687.169296740995,
+  "dur_sum_ms_per_window": 7.286071851851852,
+  "dur_ge_5ms": 69,
+  "throughput_GBps_sync": 1.0592576460190863,
+  "top_sizes": [
+   [
+    1871872,
+    467
+   ],
+   [
+    1974272,
+    262
+   ],
+   [
+    2179072,
+    172
+   ],
+   [
+    2334720,
+    166
+   ],
+   [
+    2330624,
+    161
+   ],
+   [
+    1306624,
+    160
+   ]
+  ]
+ },
+ "host_hard_faults": {
+  "n": 1905,
+  "per_window": 3.5277777777777777,
+  "MB": 104.218624,
+  "dur_us_p50": 177.3,
+  "dur_us_p90": 285.1,
+  "dur_us_p99": 17343.6,
+  "sum_ms_per_window": 3.7554885185185185
+ },
+ "host_small_reads": {
+  "n": 1905,
+  "MB": 104.218624,
+  "sizes_top": [
+   [
+    65536,
+    1337
+   ],
+   [
+    4096,
+    164
+   ],
+   [
+    61440,
+    109
+   ],
+   [
+    57344,
+    41
+   ],
+   [
+    20480,
+    32
+   ]
+  ]
+ },
+ "other_threads_io": {
+  "read_MB_by_tid": {
+   "3652": 154.456064,
+   "18312": 10.932224,
+   "15484": 10.32192,
+   "30092": 10.121216,
+   "30312": 9.867264,
+   "16912": 7.507968
+  },
+  "hardfaults_by_tid": {
+   "3652": 2449,
+   "16912": 144,
+   "4808": 142,
+   "25516": 93,
+   "23284": 8,
+   "32472": 7
+  }
+ },
+ "disk_big_reads_service": {
+  "n": 2344,
+  "resp_us_p50": 603.4,
+  "resp_us_p90": 1180.3,
+  "resp_us_p99": 24577.8,
+  "note": "DiskIo HighResResponseTime assumed in 100 ns units (inferred)"
+ },
+ "class_accounting_ms_per_window_for_ns_keys": {
+  "short": {
+   "n": 12451.0,
+   "post_ns": 2.918132507407407,
+   "host_on_ns": 2.9058210203703703,
+   "host_off_ns": 0.012311487037037036,
+   "host_off_io_ns": 0.0,
+   "io_any_ns": 0.0,
+   "io_big_ns": 0.0,
+   "io_hf_ns": 0.0,
+   "off_reason_0_ns": 0.011819635185185185,
+   "off_reason_21_ns": 0.0,
+   "off_reason_25_ns": 0.0,
+   "off_reason_50_ns": 0.0004918518518518518,
+   "big_reads": 0.0,
+   "big_bytes": 0.0
+  },
+  "mid": {
+   "n": 10389.0,
+   "post_ns": 9.542412081481482,
+   "host_on_ns": 9.342117555555555,
+   "host_off_ns": 0.20029452592592592,
+   "host_off_io_ns": 0.10002129629629629,
+   "io_any_ns": 0.11091074074074074,
+   "io_big_ns": 0.11091074074074074,
+   "io_hf_ns": 0.0,
+   "off_reason_0_ns": 0.08607082222222222,
+   "off_reason_21_ns": 0.0,
+   "off_reason_25_ns": 0.10007314814814815,
+   "off_reason_50_ns": 0.014150555555555555,
+   "big_reads": 113.0,
+   "big_bytes": 170696704.0,
+   "layers_with_big_read": 113.0
+  },
+  "long": {
+   "n": 3080.0,
+   "post_ns": 19.763284544444446,
+   "host_on_ns": 8.491464824074075,
+   "host_off_ns": 11.27181972037037,
+   "host_off_io_ns": 6.586498333333333,
+   "io_any_ns": 6.861085118518519,
+   "io_big_ns": 6.410623888888889,
+   "io_hf_ns": 0.4701178962962963,
+   "off_reason_0_ns": 0.37396231296296295,
+   "off_reason_21_ns": 0.44484074074074076,
+   "off_reason_25_ns": 6.596595925925926,
+   "off_reason_50_ns": 3.8564207407407407,
+   "big_reads": 2219.0,
+   "big_bytes": 3996930048.0,
+   "layers_with_big_read": 1884.0
+  }
+ },
+ "host_on_categories_ms_per_window": {
+  "short": {
+   "(no host sample)": 2.2525619296296298,
+   "ggml/vnni expert compute (host joins)": 0.2980364551697531,
+   "non-strata (kernel/driver only)": 0.2035284760451738,
+   "Verifier::run (other)": 0.0826043673148148,
+   "ExpertPool::wait_done": 0.06344364490460155,
+   "ExpertPool::publish": 0.002798330022446691,
+   "read_direct (ReadFile submit + kernel copy)": 0.0026249092592592594,
+   "PleReader::collect": 0.00022290802469135805
+  },
+  "mid": {
+   "ggml/vnni expert compute (host joins)": 3.223304939390645,
+   "(no host sample)": 2.8323604462962964,
+   "non-strata (kernel/driver only)": 1.9860209034424332,
+   "ExpertPool::wait_done": 0.9904223910399764,
+   "Verifier::run (other)": 0.21773661999851696,
+   "read_direct (ReadFile submit + kernel copy)": 0.05135561506025867,
+   "ExpertPool::publish": 0.03554496085212818,
+   "PleReader::collect": 0.005371679475308641
+  },
+  "long": {
+   "non-strata (kernel/driver only)": 3.2256148855750153,
+   "ExpertPool::wait_done": 2.2924341399569106,
+   "ggml/vnni expert compute (host joins)": 1.4449402560687954,
+   "read_direct (ReadFile submit + kernel copy)": 1.3006180257836102,
+   "ExpertPool::publish": 0.12218674058645122,
+   "Verifier::run (other)": 0.08054026143077482,
+   "PleReader::collect": 0.025130514672552978
+  }
+ },
+ "long_layers": {
+  "n": 3080,
+  "with_big_read_pct": 61.16883116883117,
+  "io_ge_50pct_of_post_pct": 22.662337662337663,
+  "big_reads_per_layer_hist": [
+   [
+    0,
+    1196
+   ],
+   [
+    1,
+    1616
+   ],
+   [
+    2,
+    209
+   ],
+   [
+    3,
+    52
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "mean_MB": 1.297704561038961,
+  "mean_post_ms": 3.464991446103896,
+  "mean_io_over_post": 0.3471632006860521
+ },
+ "regress_post_vs_MB": {
+  "slope_ms_per_MB": 1.1074797367075053,
+  "intercept_ms": 0.49326024513888445,
+  "implied_GBps": 0.9029510580238349,
+  "corr": 0.14138714738540736
+ },
+ "no_read_layers": {
+  "n": 23923,
+  "long_among_them": 1196,
+  "post_ms_per_window": 21.11131225185185,
+  "long_post_ms_per_window": 8.844616062962963
+ },
+ "read_layers": {
+  "n": 1997,
+  "post_ms_per_window": 11.112516881481481,
+  "mean_post_ms": 3.0048868883324986,
+  "by_nreads": {
+   "1": {
+    "layers": 1729,
+    "mean_post_ms": 2.817299696934644
+   },
+   "2": {
+    "layers": 209,
+    "mean_post_ms": 3.4345836602870814
+   },
+   "3": {
+    "layers": 52,
+    "mean_post_ms": 6.599853538461538
+   },
+   "4": {
+    "layers": 6,
+    "mean_post_ms": 8.430415833333335
+   },
+   "5": {
+    "layers": 1,
+    "mean_post_ms": 18.045076
+   },
+   "6": {
+    "layers": 0,
+    "mean_post_ms": 0.0
+   }
+  }
+ },
+ "host_off_by_reason_decode": {
+  "25": {
+   "events": 2484,
+   "ms_per_window": 10.07629462962963
+  },
+  "50": {
+   "events": 792,
+   "ms_per_window": 5.380502222222222
+  },
+  "21": {
+   "events": 1903,
+   "ms_per_window": 3.6414516907407406
+  },
+  "0": {
+   "events": 4552,
+   "ms_per_window": 0.7768294444444445
+  }
+ },
+ "host_off_decode": {
+  "total_ms_per_window": 19.875077987037034,
+  "io_overlap_ms_per_window": 9.844840764814814,
+  "io_overlap_frac": 0.4953359564795588,
+  "on_ms_per_window": 38.93778216296296
+ },
+ "host_preempted_not_io": {
+  "events": 2090,
+  "ms_per_window": 0.7194112962962963,
+  "by_who_ms_per_window": {
+   "Aac3572DramHal_x86.exe": [
+    41,
+    0.3205011111111111
+   ],
+   "strata.exe (other thread)": [
+    180,
+    0.14979037037037035
+   ],
+   "Aac3572MbHal_x86.exe": [
+    324,
+    0.06149759259259259
+   ],
+   "CefSharp.BrowserSubprocess.exe": [
+    782,
+    0.041716111111111114
+   ],
+   "ExitLag.exe": [
+    241,
+    0.03862814814814815
+   ],
+   "AacAmbientLighting.exe": [
+    37,
+    0.03360703703703704
+   ],
+   "System": [
+    191,
+    0.025698703703703703
+   ],
+   "LightingService.exe": [
+    148,
+    0.011883888888888888
+   ],
+   "unknown": [
+    17,
+    0.009982222222222222
+   ],
+   "dwm.exe": [
+    57,
+    0.00745462962962963
+   ]
+  }
+ }
+}

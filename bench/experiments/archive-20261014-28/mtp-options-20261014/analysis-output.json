@@ -1,0 +1,376 @@
+{
+  "runs": {
+    "baseline-01": {
+      "tok_s": 46.27432904482374,
+      "accepted": 355,
+      "offered": 429,
+      "windows": 671,
+      "output_per_window": 1.53,
+      "window_ms": 32.98,
+      "verify_ms": 29.34,
+      "cpu_ms": 12.38,
+      "token_sha256": "3CF033D1138676DBD3440FEA8EEB93A25AA363ACAC49198D15F6E80CDDCACFF2",
+      "acceptance": 0.8275058275058275,
+      "suffix": [
+        34,
+        44,
+        70
+      ],
+      "mtp_only": {
+        "accepted": 311,
+        "offered": 359,
+        "acceptance": 0.8662952646239555
+      }
+    },
+    "lookup3-01": {
+      "tok_s": 47.208084384450835,
+      "accepted": 465,
+      "offered": 546,
+      "windows": 560,
+      "output_per_window": 1.83,
+      "window_ms": 38.73,
+      "verify_ms": 34.99,
+      "cpu_ms": 16.7,
+      "token_sha256": "E1D084D354FC1C0EBCA535763931BEDDFDDD27AE4C14B296AD4F1915D45A73A8",
+      "acceptance": 0.8516483516483516,
+      "suffix": [
+        27,
+        88,
+        107
+      ],
+      "chain": [
+        21,
+        560,
+        13,
+        33
+      ],
+      "mtp_only": {
+        "accepted": 364,
+        "offered": 406,
+        "acceptance": 0.896551724137931
+      }
+    },
+    "lookup3-02": {
+      "tok_s": 48.42981460461597,
+      "accepted": 402,
+      "offered": 515,
+      "windows": 623,
+      "output_per_window": 1.64,
+      "window_ms": 33.94,
+      "verify_ms": 30.23,
+      "cpu_ms": 13.55,
+      "token_sha256": "A98FFA7CBC7E47862607354EBCA8AAFDD535C1D91DEF87B6E02B9C9AB6989CBD",
+      "acceptance": 0.7805825242718447,
+      "suffix": [
+        17,
+        23,
+        36
+      ],
+      "chain": [
+        33,
+        623,
+        10,
+        35
+      ],
+      "mtp_only": {
+        "accepted": 369,
+        "offered": 444,
+        "acceptance": 0.831081081081081
+      }
+    },
+    "baseline-02": {
+      "tok_s": 47.86388707114144,
+      "accepted": 407,
+      "offered": 476,
+      "windows": 618,
+      "output_per_window": 1.66,
+      "window_ms": 34.62,
+      "verify_ms": 30.97,
+      "cpu_ms": 14.0,
+      "token_sha256": "059787377E20227472C269E78328DD56B3E91E615DA2A98DDD69F279E74AA3C4",
+      "acceptance": 0.8550420168067226,
+      "suffix": [
+        28,
+        32,
+        51
+      ],
+      "mtp_only": {
+        "accepted": 375,
+        "offered": 425,
+        "acceptance": 0.8823529411764706
+      }
+    },
+    "coupled-greedy": {
+      "tok_s": 44.81086663515903,
+      "accepted": 400,
+      "offered": 476,
+      "windows": 624,
+      "output_per_window": 1.64,
+      "window_ms": 36.62,
+      "verify_ms": 32.9,
+      "cpu_ms": 15.11,
+      "token_sha256": "1B35E6EAF521FCFA62AF5C4C7253917E74AC34F0B1F8E8915B7E5CFD55767146",
+      "acceptance": 0.8403361344537815,
+      "suffix": [
+        37,
+        55,
+        77
+      ],
+      "mtp_only": {
+        "accepted": 345,
+        "offered": 399,
+        "acceptance": 0.8646616541353384
+      }
+    },
+    "top2": {
+      "tok_s": 46.304460874087134,
+      "accepted": 390,
+      "offered": 454,
+      "windows": 634,
+      "output_per_window": 1.62,
+      "window_ms": 34.88,
+      "verify_ms": 31.31,
+      "cpu_ms": 13.12,
+      "token_sha256": "E4CAAC92F6C2BDCCA6B0CEC3D430AB6CC2E5A12D34923E6B07DEDA0B2A4DDE4D",
+      "acceptance": 0.8590308370044053,
+      "suffix": [
+        35,
+        63,
+        76
+      ],
+      "top2": [
+        28,
+        0,
+        13,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 327,
+        "offered": 378,
+        "acceptance": 0.8650793650793651
+      }
+    },
+    "full-head-top2": {
+      "tok_s": 46.287716126115946,
+      "accepted": 368,
+      "offered": 441,
+      "windows": 658,
+      "output_per_window": 1.56,
+      "window_ms": 33.62,
+      "verify_ms": 29.53,
+      "cpu_ms": 12.84,
+      "token_sha256": "415C90B65E61DA3966F7366DB6BBCA32590577455386B4ED39808132C902F168",
+      "acceptance": 0.8344671201814059,
+      "suffix": [
+        21,
+        41,
+        64
+      ],
+      "top2": [
+        29,
+        0,
+        12,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mtp_only": {
+        "accepted": 327,
+        "offered": 377,
+        "acceptance": 0.8673740053050398
+      }
+    },
+    "confidence-diagnostic": {
+      "tok_s": 47.840630898319965,
+      "accepted": 422,
+      "offered": 490,
+      "windows": 602,
+      "output_per_window": 1.7,
+      "window_ms": 35.56,
+      "verify_ms": 31.91,
+      "cpu_ms": 13.89,
+      "token_sha256": "27EA70CCB45CAF0000C01EE966F425BE30BA248772AA2873B4CBFBB972B6021E",
+      "acceptance": 0.8612244897959184,
+      "suffix": [
+        29,
+        46,
+        66
+      ],
+      "mtp_only": {
+        "accepted": 376,
+        "offered": 424,
+        "acceptance": 0.8867924528301887
+      }
+    }
+  },
+  "confidence": [
+    {
+      "depth": 1,
+      "probability_bin": [
+        0.75,
+        0.8
+      ],
+      "tested": 18,
+      "accepted": 12,
+      "acceptance": 0.6666666666666666,
+      "wilson95": [
+        0.4374906934425036,
+        0.8372144563633714
+      ],
+      "mean_whole_window_verify_ms": 35.71745555555555
+    },
+    {
+      "depth": 1,
+      "probability_bin": [
+        0.8,
+        0.85
+      ],
+      "tested": 25,
+      "accepted": 21,
+      "acceptance": 0.84,
+      "wilson95": [
+        0.6534598601976183,
+        0.9359665239142201
+      ],
+      "mean_whole_window_verify_ms": 39.956212
+    },
+    {
+      "depth": 1,
+      "probability_bin": [
+        0.85,
+        0.9
+      ],
+      "tested": 20,
+      "accepted": 15,
+      "acceptance": 0.75,
+      "wilson95": [
+        0.5312949900419365,
+        0.888139947210597
+      ],
+      "mean_whole_window_verify_ms": 35.746185
+    },
+    {
+      "depth": 1,
+      "probability_bin": [
+        0.9,
+        0.95
+      ],
+      "tested": 33,
+      "accepted": 31,
+      "acceptance": 0.9393939393939394,
+      "wilson95": [
+        0.8039341828220181,
+        0.9832194695709291
+      ],
+      "mean_whole_window_verify_ms": 39.137033333333335
+    },
+    {
+      "depth": 1,
+      "probability_bin": [
+        0.95,
+        1.0
+      ],
+      "tested": 170,
+      "accepted": 165,
+      "acceptance": 0.9705882352941176,
+      "wilson95": [
+        0.9330049264031828,
+        0.9873731649167314
+      ],
+      "mean_whole_window_verify_ms": 43.47599294117647
+    },
+    {
+      "depth": 2,
+      "probability_bin": [
+        0.75,
+        0.8
+      ],
+      "tested": 9,
+      "accepted": 7,
+      "acceptance": 0.7777777777777778,
+      "wilson95": [
+        0.4525833436728054,
+        0.9367762376877727
+      ],
+      "mean_whole_window_verify_ms": 44.71112222222222
+    },
+    {
+      "depth": 2,
+      "probability_bin": [
+        0.8,
+        0.85
+      ],
+      "tested": 10,
+      "accepted": 9,
+      "acceptance": 0.9,
+      "wilson95": [
+        0.5958436145024278,
+        0.9821242504842788
+      ],
+      "mean_whole_window_verify_ms": 45.613659999999996
+    },
+    {
+      "depth": 2,
+      "probability_bin": [
+        0.85,
+        0.9
+      ],
+      "tested": 14,
+      "accepted": 8,
+      "acceptance": 0.5714285714285714,
+      "wilson95": [
+        0.3259026690286936,
+        0.7861949006959948
+      ],
+      "mean_whole_window_verify_ms": 43.85503571428571
+    },
+    {
+      "depth": 2,
+      "probability_bin": [
+        0.9,
+        0.95
+      ],
+      "tested": 24,
+      "accepted": 20,
+      "acceptance": 0.8333333333333334,
+      "wilson95": [
+        0.6414652961213058,
+        0.9332143199927109
+      ],
+      "mean_whole_window_verify_ms": 47.62177916666667
+    },
+    {
+      "depth": 2,
+      "probability_bin": [
+        0.95,
+        1.0
+      ],
+      "tested": 93,
+      "accepted": 88,
+      "acceptance": 0.946236559139785,
+      "wilson95": [
+        0.8802500214822403,
+        0.976819667577007
+      ],
+      "mean_whole_window_verify_ms": 47.47537311827957
+    }
+  ],
+  "limits": [
+    "Full serve-engine settings; neuro prompt, not original Hermes or Python HTTP replay",
+    "Different free-generation sequences and only two runs per timed arm",
+    "Top2/full-head/confidence diagnostic speeds excluded from performance claims",
+    "Confidence bins observe only submitted drafts reached before prefix rejection; gate >=0.75",
+    "No low-confidence acceptance or matched marginal verify costs; dynamic candidate measurements apply only when present"
+  ],
+  "confidence_rows": 416,
+  "means": {
+    "baseline": 47.06910805798259,
+    "lookup3": 47.8189494945334
+  }
+}

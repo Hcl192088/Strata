@@ -1,0 +1,243 @@
+{
+  "formal_requests": 150,
+  "complete_blocks": 15,
+  "round_rates": {
+    "(1, 'C')": 46.90452944165625,
+    "(1, 'O')": 46.232880694516474,
+    "(1, 'P')": 51.162473712905985,
+    "(2, 'C')": 47.40805082884791,
+    "(2, 'O')": 45.76863148447016,
+    "(2, 'P')": 48.695641725045355,
+    "(3, 'C')": 46.51487001305633,
+    "(3, 'O')": 48.19852529082376,
+    "(3, 'P')": 47.681678068807074,
+    "(4, 'C')": 47.31437441541126,
+    "(4, 'O')": 48.32699431414748,
+    "(4, 'P')": 49.45858867892657,
+    "(5, 'C')": 46.606372920286525,
+    "(5, 'O')": 47.60717281403731,
+    "(5, 'P')": 49.230750564197145
+  },
+  "comparisons": {
+    "P_vs_O": {
+      "paired_round_pct": {
+        "n": 5,
+        "mean": 4.3474657906441205,
+        "ci95": [
+          -1.147841769981719,
+          9.84277335126996
+        ]
+      },
+      "round_deltas_pct": [
+        10.662526202859324,
+        6.3952321615042385,
+        -1.0723299497196193,
+        2.341536817752843,
+        3.410363720823817
+      ],
+      "paired_point_pct": {
+        "n": 10,
+        "mean": 4.418456999730681,
+        "ci95": [
+          2.5893109954921694,
+          6.247603003969193
+        ]
+      },
+      "point_mean_deltas_pct": {
+        "p01": 2.9928432709060178,
+        "p02": 2.8427960608674763,
+        "p03": 1.2108549934039914,
+        "p04": 4.207567101604575,
+        "p05": 4.456089446263074,
+        "p06": 9.404674427451388,
+        "p07": 1.4546135933016437,
+        "p08": 6.521327100591049,
+        "p09": 6.846441400337933,
+        "p10": 4.247362602579667
+      },
+      "note": "Point CI clusters repetitions within each prompt; round CI treats complete ten-prompt blocks as independent. Output length/window mix may differ."
+    },
+    "P_vs_C": {
+      "paired_round_pct": {
+        "n": 5,
+        "mean": 4.893024060215163,
+        "ci95": [
+          1.5720778757085996,
+          8.213970244721727
+        ]
+      },
+      "round_deltas_pct": [
+        9.077895721235452,
+        2.7159751849868075,
+        2.5084624667836897,
+        4.531845321866701,
+        5.630941606203166
+      ],
+      "paired_point_pct": {
+        "n": 10,
+        "mean": 5.39637018334842,
+        "ci95": [
+          2.9446808352226106,
+          7.848059531474229
+        ]
+      },
+      "point_mean_deltas_pct": {
+        "p01": 4.341995179744504,
+        "p02": 3.1876969405519784,
+        "p03": 7.487706026650263,
+        "p04": 3.8212740626083397,
+        "p05": 3.9630117006592624,
+        "p06": 8.77780080560239,
+        "p07": -1.2357214554035205,
+        "p08": 10.641954486413168,
+        "p09": 8.14599135695607,
+        "p10": 4.831992729701744
+      },
+      "note": "Point CI clusters repetitions within each prompt; round CI treats complete ten-prompt blocks as independent. Output length/window mix may differ."
+    },
+    "O_vs_C": {
+      "paired_round_pct": {
+        "n": 5,
+        "mean": 0.6034190694414843,
+        "ci95": [
+          -3.042163245994513,
+          4.249001384877482
+        ]
+      },
+      "round_deltas_pct": [
+        -1.4319485881960081,
+        -3.4581032455781924,
+        3.6196065415099232,
+        2.1401950490681942,
+        2.1473455904035044
+      ],
+      "paired_point_pct": {
+        "n": 10,
+        "mean": 1.5989874635904011,
+        "ci95": [
+          0.0018170194878841528,
+          3.196157907692918
+        ]
+      },
+      "point_mean_deltas_pct": {
+        "p01": 2.5048382409714853,
+        "p02": 0.3415478241583947,
+        "p03": 6.196443242960745,
+        "p04": -0.14746016522928737,
+        "p05": -0.3675387259370311,
+        "p06": 0.9699437557074208,
+        "p07": -0.7133970513847256,
+        "p08": 4.250403948713781,
+        "p09": 2.3737091091865965,
+        "p10": 0.5813844567566329
+      },
+      "note": "Point CI clusters repetitions within each prompt; round CI treats complete ten-prompt blocks as independent. Output length/window mix may differ."
+    }
+  },
+  "phase_diagnostics": {
+    "OD": {
+      "requests": 10,
+      "windows": 908.0,
+      "ms_window": {
+        "cpu_ms": 23.816906057268724,
+        "gu_ms": 12.138029515418502,
+        "quant_ms": 0.14840616740088106,
+        "down_ms": 5.235773017621145,
+        "pipeline_ms": 0.0,
+        "join_ms": 5.080013986784141,
+        "lru_ms": 1.1887818281938327,
+        "cpu_residual_ms": 0.025901541850220255
+      },
+      "combined_pool_ms_window": 17.52220870044053,
+      "separate_overlapping_ms_window": {
+        "helper_ms": 8.517802863436124,
+        "direct_ms": 8.603367400881057,
+        "copy_ms": 1.7562454845814977,
+        "issue_wait_ms": 6.829866850220265,
+        "ready_ms": 4.037902753303965
+      },
+      "note": "One diagnostic block per arm, changed outputs/window mix; not a statistical speed verdict."
+    },
+    "PD": {
+      "requests": 10,
+      "windows": 900.0,
+      "ms_window": {
+        "cpu_ms": 21.145488777777775,
+        "gu_ms": 0.0,
+        "quant_ms": 0.0,
+        "down_ms": 0.0,
+        "pipeline_ms": 15.412341111111111,
+        "join_ms": 4.6510985555555555,
+        "lru_ms": 1.0446197777777777,
+        "cpu_residual_ms": 0.037429333333331746
+      },
+      "combined_pool_ms_window": 15.412341111111111,
+      "separate_overlapping_ms_window": {
+        "helper_ms": 7.576304444444444,
+        "direct_ms": 7.646834444444444,
+        "copy_ms": 1.498785777777778,
+        "issue_wait_ms": 6.131573,
+        "ready_ms": 3.4141854444444446
+      },
+      "note": "One diagnostic block per arm, changed outputs/window mix; not a statistical speed verdict."
+    }
+  },
+  "arm_summary": {
+    "C": {
+      "requests": 50,
+      "pooled_tok_s": 46.9588401073669,
+      "round_rate": {
+        "n": 5,
+        "mean": 46.94963952385166,
+        "ci95": [
+          46.44831477285913,
+          47.45096427484419
+        ]
+      },
+      "output_tokens": 9106,
+      "windows": 4860.0,
+      "tokens_per_window": 1.8736625514403291,
+      "decode_MB": 107752.4,
+      "decode_blobs": 58549
+    },
+    "O": {
+      "requests": 50,
+      "pooled_tok_s": 47.21753794266442,
+      "round_rate": {
+        "n": 5,
+        "mean": 47.226840919599034,
+        "ci95": [
+          45.78235661142123,
+          48.67132522777684
+        ]
+      },
+      "output_tokens": 9044,
+      "windows": 4715.0,
+      "tokens_per_window": 1.9181336161187699,
+      "decode_MB": 107776.0,
+      "decode_blobs": 58504
+    },
+    "P": {
+      "requests": 50,
+      "pooled_tok_s": 49.37278486232675,
+      "round_rate": {
+        "n": 5,
+        "mean": 49.24582654997643,
+        "ci95": [
+          47.66687431668921,
+          50.824778783263646
+        ]
+      },
+      "output_tokens": 8740,
+      "windows": 4484.0,
+      "tokens_per_window": 1.9491525423728813,
+      "decode_MB": 102574.9,
+      "decode_blobs": 55710
+    }
+  },
+  "notes": [
+    "SMOKE/CHK/reference-recompute speed excluded. No current-best mutation.",
+    "Formal promotion requires preregistered >=3% gain and positive paired CI; partial rounds cannot establish success.",
+    "Absolute >50 pooled tok/s is not evidence that all workloads or runs exceed 50."
+  ]
+}

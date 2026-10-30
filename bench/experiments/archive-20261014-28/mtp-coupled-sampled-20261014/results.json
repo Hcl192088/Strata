@@ -1,0 +1,30 @@
+[
+  {
+    "name": "sampled-off-01",
+    "done": "DONE 1024 28912 27281.7 23133.3 length 358 447 0 319027 463472 124713 3097 5695.9 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "EDE51B402832EAA7ED6B958694C579557D381D287A5AA913C344401ABAA6703F",
+    "exit_code": 0
+  },
+  {
+    "name": "sampled-on-01",
+    "done": "DONE 1024 28912 26265.4 24900.8 length 347 435 0 301420 457642 134629 4138 7595.0 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "49EFE83BCE379C9484E890E8DE00048F986BDDFC42F20C24A20BBC4331EF95F6",
+    "exit_code": 0
+  },
+  {
+    "name": "sampled-on-02",
+    "done": "DONE 1024 28912 26422.1 25744.1 length 377 514 0 304772 475301 145626 4639 8425.5 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "34548153615AAB4905230AC6584B7468A88F6CBE12A93A068C4C9E5789C2D2EB",
+    "exit_code": 0
+  },
+  {
+    "name": "sampled-off-02",
+    "done": "DONE 1024 28912 26311.8 25571.7 length 381 512 0 310619 475237 139774 4764 8579.8 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "14643FFCF49B77EFDC2C4F6543B3E64764E36AB8A57A04F31D10DC204E8FF86E",
+    "exit_code": 0
+  }
+]

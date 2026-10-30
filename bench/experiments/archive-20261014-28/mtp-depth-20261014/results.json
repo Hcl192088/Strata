@@ -1,0 +1,74 @@
+[
+  {
+    "name": "control-01",
+    "done": "DONE 1024 28912 27624.2 21683.3 length 436 504 0 305440 452499 125613 2733 4839.2 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "868121A6473AE2E0B6764856DB6134F40909233D3AF99E9BBC69F8F6FB9F6B51",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 3
+  },
+  {
+    "name": "depth4-01",
+    "done": "DONE 1024 28912 26455.7 22952.9 length 404 486 0 306714 459317 127519 3523 6406.1 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "839F582C92016DDD7A040A2B2DFA1A67A3FD21C73D8B932848D6D4ACA3C7841A",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 4
+  },
+  {
+    "name": "depth4-02",
+    "done": "DONE 1024 28912 26075.6 21771.6 length 439 546 0 329288 472727 118467 3100 5622.7 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "688B053F69B1600D7CD4740DF2CE46F268C10D28B789B850C1B485B08E05DFAB",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 4
+  },
+  {
+    "name": "control-02",
+    "done": "DONE 1024 28912 26398.0 21081.9 length 393 459 0 318902 454231 117362 1964 3493.2 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "698ECEA3A12AB5C0E0C2E6D31C70CD98D1EB55D38771773F6E4D6B68FAF464D7",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 3
+  },
+  {
+    "name": "control-03",
+    "done": "DONE 1024 28912 26335.1 21346.2 length 421 503 0 319033 460892 119432 3051 5372.4 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "15B5A5C858C28B678A4FE3F135962D82DB13BF3C1696B7D7F6CEC900D305E458",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 3
+  },
+  {
+    "name": "depth4-03",
+    "done": "DONE 1024 28912 25948.6 23571.5 length 381 461 0 314091 460345 123980 3449 6269.6 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "DB7C194E91E476F0423DB8AAA66E0B09D85C9429A8C309CD5BE58F5EB92E64D8",
+    "exit_code": 0,
+    "diagnostic_only": false,
+    "mtp_max_t": 4
+  },
+  {
+    "name": "trace-depth3",
+    "done": "DONE 1024 28912 26045.4 21733.2 length 382 444 0 320971 453545 114391 2541 4532.8 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "C4342AD4105635666C43C1718D55C3E721501D333FA43BFEE0248748460D759A",
+    "exit_code": 0,
+    "diagnostic_only": true,
+    "mtp_max_t": 3
+  },
+  {
+    "name": "trace-depth4",
+    "done": "DONE 1024 28912 27926.7 22141.3 length 418 497 0 319367 460138 117664 2571 4554.9 28912 0",
+    "output_tokens": 1024,
+    "token_sha256": "5E80A056BD9235C739408A93ED432B9E89CECD583CEA4CBF0C3DF9D77C125D00",
+    "exit_code": 0,
+    "diagnostic_only": true,
+    "mtp_max_t": 4
+  }
+]
