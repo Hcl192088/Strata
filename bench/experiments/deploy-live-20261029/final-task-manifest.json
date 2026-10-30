@@ -1,0 +1,10 @@
+﻿{
+    "action":  {
+                   "Execute":  "powershell.exe",
+                   "Arguments":  "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\Users\\User\\Strata-Adrian-control\\tools\\start_task020_api_s2k_mt1.ps1",
+                   "WorkingDirectory":  null
+               },
+    "launcher_sha256":  "192B016AAE303C61B1639833D2BA545804164FE12C44BC7904FD019CFCC564ED",
+    "best_sha256":  "78C08906E93F4A93FA37BAE2453951D135BA97911312366197E244A6E30283F1",
+    "config_sha256":  "F23F1AAD8E385987708D6DFB854AD139D513FE398151CCCC5FBD43CFE303EB6F"
+}

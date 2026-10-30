@@ -1,0 +1,54 @@
+{
+  "task_id": "LUNA-20261012-027",
+  "authorization": "user \u540c\u610f NATIVE_PIPE_PO_CONFIRM",
+  "controller_pid": 31380,
+  "started_utc": "2026-10-29T00:32:04.027891+00:00",
+  "completed": [
+    {
+      "index": 1,
+      "round": 6,
+      "arm": "O",
+      "rows": 10,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipeline-po-confirm-20261029\\out\\block-01-O-r6"
+    },
+    {
+      "index": 2,
+      "round": 6,
+      "arm": "P",
+      "rows": 10,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipeline-po-confirm-20261029\\out\\block-02-P-r6"
+    },
+    {
+      "index": 3,
+      "round": 7,
+      "arm": "P",
+      "rows": 10,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipeline-po-confirm-20261029\\out\\block-03-P-r7"
+    },
+    {
+      "index": 4,
+      "round": 7,
+      "arm": "O",
+      "rows": 10,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipeline-po-confirm-20261029\\out\\block-04-O-r7"
+    }
+  ],
+  "phase": "DONE",
+  "updated_utc": "2026-10-29T00:48:25.776970+00:00",
+  "current": {
+    "index": 4,
+    "round": 7,
+    "arm": "O"
+  },
+  "outcome": "PASS",
+  "round8_ran": false,
+  "formal_requests": 40,
+  "before_restore_phase": "MEASURE_COMPLETE",
+  "restored": true,
+  "verified": true,
+  "ended_utc": "2026-10-29T00:48:25.776970+00:00"
+}

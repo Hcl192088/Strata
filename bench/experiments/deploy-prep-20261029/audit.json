@@ -1,0 +1,254 @@
+{
+  "verified": true,
+  "verdict": "READY_REBUILT_SHA_DIFFERS",
+  "blocks": {
+    "SMOKE": {
+      "requests": 3,
+      "values_compared_at_least": 232883200,
+      "mismatches": 0,
+      "observed_pairs": [
+        [
+          16,
+          42
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          17,
+          42
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          18,
+          42
+        ],
+        [
+          21,
+          20
+        ],
+        [
+          21,
+          42
+        ],
+        [
+          22,
+          20
+        ],
+        [
+          22,
+          42
+        ]
+      ],
+      "missing_pairs": [
+        [
+          16,
+          20
+        ]
+      ],
+      "log_bytes": 48051,
+      "log_lines": 454,
+      "log_sha256": "A86437AC5F883CC9FCEC5790FAB591864D3F43BEA4E1ADDAA9D50DB5FEFA8404",
+      "meta": {
+        "block": 0,
+        "round": 0,
+        "arm": "SMOKE",
+        "binary": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "status": "OK",
+        "binary_sha256": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+        "priority_gate": {
+          "pid": 27280,
+          "created": 1793236513.2851086,
+          "priority": 32768,
+          "verified_at": 1793236533.9339688,
+          "before_first_request": true
+        },
+        "load_s": 21.2,
+        "startup": {
+          "slots": "3153",
+          "ram_budget_gib": "20.00",
+          "locked_mib": "20479",
+          "resident_gib": "20.00",
+          "pinned_gib": "0.00",
+          "pool_line": "9 pool workers on logical processors 2,4,6,8,10,12,13,14,15, the host thread on 0 (draining too) (--host-core first)",
+          "tail_skip_line": "STRATA_ROUTE_TAIL_SKIP=7 is ON (default): a missed expert that every token of a verify window routes at rank 7 or lower is skipped (+10..20% decode on 12-16 GB cards that miss experts, answers differ slightly from 0.1.41); STRATA_ROUTE_TAIL_SKIP=0 turns it off",
+          "engine_version": "0.1.42",
+          "ram_lru_line": "RAM_LRU enabled: same-layer fixed arena; byte parity checks=0",
+          "vram_free_line": "254 MiB of VRAM free with everything loaded - LOW: requests may stall; add --vram-reserve-mib 958 to the config's args (or lower --max-context)",
+          "pcie_line": "PCIe probe: 24.3 GB/s host->device (best of 24.3 24.3 24.3 24.3) -> pcie_frac 0.55 (default 0.55)",
+          "registered_gib": null,
+          "page_lock_refused": "page-locking refused (out of memory)",
+          "chunk_line": null,
+          "async_on_line": null,
+          "async_off_line": null,
+          "hybrid_line": null,
+          "capacity_ok": true,
+          "capacity_detail": "",
+          "strict": true
+        },
+        "rows": 3
+      }
+    },
+    "CHK": {
+      "requests": 10,
+      "values_compared_at_least": 747256320,
+      "mismatches": 0,
+      "observed_pairs": [
+        [
+          16,
+          20
+        ],
+        [
+          16,
+          42
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          17,
+          42
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          18,
+          42
+        ],
+        [
+          21,
+          20
+        ],
+        [
+          21,
+          42
+        ],
+        [
+          22,
+          20
+        ],
+        [
+          22,
+          42
+        ]
+      ],
+      "missing_pairs": [],
+      "log_bytes": 117363,
+      "log_lines": 1103,
+      "log_sha256": "3970AEDA915B51BE9A510D9C3E4B05BCBE81F74FD5BE3350FAFF82C153A8F661",
+      "meta": {
+        "block": 1,
+        "round": 0,
+        "arm": "CHK",
+        "binary": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "status": "OK",
+        "binary_sha256": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+        "priority_gate": {
+          "pid": 23492,
+          "created": 1793236608.5365272,
+          "priority": 32768,
+          "verified_at": 1793236628.8974042,
+          "before_first_request": true
+        },
+        "load_s": 20.9,
+        "startup": {
+          "slots": "3153",
+          "ram_budget_gib": "20.00",
+          "locked_mib": "20479",
+          "resident_gib": "20.00",
+          "pinned_gib": "0.00",
+          "pool_line": "9 pool workers on logical processors 2,4,6,8,10,12,13,14,15, the host thread on 0 (draining too) (--host-core first)",
+          "tail_skip_line": "STRATA_ROUTE_TAIL_SKIP=7 is ON (default): a missed expert that every token of a verify window routes at rank 7 or lower is skipped (+10..20% decode on 12-16 GB cards that miss experts, answers differ slightly from 0.1.41); STRATA_ROUTE_TAIL_SKIP=0 turns it off",
+          "engine_version": "0.1.42",
+          "ram_lru_line": "RAM_LRU enabled: same-layer fixed arena; byte parity checks=0",
+          "vram_free_line": "254 MiB of VRAM free with everything loaded - LOW: requests may stall; add --vram-reserve-mib 958 to the config's args (or lower --max-context)",
+          "pcie_line": "PCIe probe: 24.5 GB/s host->device (best of 24.4 24.5 24.4 24.4) -> pcie_frac 0.55 (default 0.55)",
+          "registered_gib": null,
+          "page_lock_refused": "page-locking refused (out of memory)",
+          "chunk_line": null,
+          "async_on_line": null,
+          "async_off_line": null,
+          "hybrid_line": null,
+          "capacity_ok": true,
+          "capacity_detail": "",
+          "strict": true
+        },
+        "rows": 10
+      }
+    }
+  },
+  "engine_log_bytes": 165414,
+  "engine_log_lines": 1557,
+  "inputs_sha256": {
+    "p01.json": "0F2FE02AD111D5670EE86D0731138BF6E8EC056A8B30CFF1A42D8E210AF46932",
+    "p02.json": "7FF09D8D22EB1171DA047E18D5A7449EFF5B31C72777E0B34E4923140604F78A",
+    "p03.json": "9EA8A00A14423C1A19EB761316E80D4E5C4644977A3D24D6E680E0F8BA7DB21E",
+    "p04.json": "79A48DB18CA3712A05A774355CFC81D924429143DBD19BB80441907073E23B22",
+    "p05.json": "9C155A198F7C681F86F145E74C035446C9B28415056D138DA6BD3E2BEC23E4F1",
+    "p06.json": "34B446438BE990E821D9CC0B12C4616B4C2E2530FA739C0A1898F350F11EFA62",
+    "p07.json": "0189C997B6C84F15A725F18D07ED83E1044F0F826456117BE71209725A7025CA",
+    "p08.json": "8356EDC11E79DA38848D44A8ED449A186C1F7E4269371211D1D95E38AC654A1E",
+    "p09.json": "636DCCD886B697443B584FF3CA90594B89449A6FAD40970D368C5D4DCABB8DFA",
+    "p10.json": "AC5509507DAB3DD78EAA87DF7BE7407B534AC06F430A71C18CD547C321E51951"
+  },
+  "harness_sha256": {
+    "next_steps_ab_20261018.py": "D5C1AA1C871D71EBD472721E55ACFCC13808E64E8892EFDF1385DF73ED0285B8",
+    "replay_ab_20261027.py": "CDFF1852B8645829F9BAC26AA9F7FDF990B2DFB492C247DEE5BD722DFDF2326B"
+  },
+  "main_unchanged": true,
+  "worktree_clean": true,
+  "live": {
+    "verified": true,
+    "pid": 27444,
+    "health": {
+      "status": "ok",
+      "max_context": 100000,
+      "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+      "images": false,
+      "api_key": false,
+      "loaded": true,
+      "service": "strata"
+    },
+    "engine": {
+      "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+      "max_context": 100000,
+      "images": false,
+      "version": "0.1.42",
+      "logit_bias": 1,
+      "context": 100000,
+      "kv": "q4_0",
+      "kv_resident": 20480,
+      "expert_slots": 3153,
+      "expert_cache_mib": 5245,
+      "expert_slots_primary": 3153,
+      "expert_cache_primary_mib": 5245,
+      "spec": 6,
+      "mtp_max": 3,
+      "lookup": 3,
+      "vram_free_mib": 254,
+      "cvec": 0,
+      "arena_mib": 20479,
+      "pool_workers": 9,
+      "pcie_frac": "0.55",
+      "spec_min_p": "0.75",
+      "conversation_cache_mib": 0,
+      "conversation_cache_slots": 4,
+      "conversation_cache_min_free_mib": 2560,
+      "conversation_cache_min_tokens": 0,
+      "tail_role_token": -1,
+      "vram_elastic": 0,
+      "engine": "0.1.42"
+    },
+    "binary_sha256": "385EF64EE24BDF3BD4B309264FA811901DF9256B92CE4589BAEC70B3F26B30F5",
+    "config_sha256": "F23F1AAD8E385987708D6DFB854AD139D513FE398151CCCC5FBD43CFE303EB6F"
+  },
+  "candidate_config_sha256": "5F574C8EA6F4820F1166AC0E3B0F8E9B4B0C0FB7296215CD8D0027EBD0C94CDE",
+  "original_config_sha256": "F23F1AAD8E385987708D6DFB854AD139D513FE398151CCCC5FBD43CFE303EB6F"
+}

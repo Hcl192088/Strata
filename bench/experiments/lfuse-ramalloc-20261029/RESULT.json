@@ -1,0 +1,160 @@
+{
+  "status": "STOPPED_BY_USER_NO_PROMOTION",
+  "completed_pairs": 6,
+  "formal_requests": 120,
+  "smoke_requests": 9,
+  "excluded_partial_round": 7,
+  "mean_pair_delta_percent": -1.2552840268164038,
+  "negative_pairs": 5,
+  "arms": {
+    "C": {
+      "requests": 60,
+      "tokens": 11523,
+      "decode_ms": 243531.0,
+      "pooled_tok_s": 47.316358081722655,
+      "ms_window": 38.55736225459151,
+      "gpu_wait_ms": 11.659107029765675,
+      "cpu_ms": 21.735463901203293,
+      "tokens_per_window": 1.8240516149461683
+    },
+    "F": {
+      "requests": 60,
+      "tokens": 11635,
+      "decode_ms": 249152.4,
+      "pooled_tok_s": 46.69832600448561,
+      "ms_window": 38.58061164447197,
+      "gpu_wait_ms": 11.670794363580056,
+      "cpu_ms": 21.727310312790337,
+      "tokens_per_window": 1.801884484360483
+    }
+  },
+  "per_point": [
+    {
+      "point": "p01",
+      "C": 32.84351500013286,
+      "F": 32.80777193820672,
+      "delta_percent": -0.10882836969793308
+    },
+    {
+      "point": "p02",
+      "C": 45.722372664552914,
+      "F": 45.09673652634334,
+      "delta_percent": -1.368336990732344
+    },
+    {
+      "point": "p03",
+      "C": 40.94937353570337,
+      "F": 40.17950845069015,
+      "delta_percent": -1.8800411789987037
+    },
+    {
+      "point": "p04",
+      "C": 44.849860179220755,
+      "F": 45.45123990982474,
+      "delta_percent": 1.3408731447564382
+    },
+    {
+      "point": "p05",
+      "C": 47.260055360712556,
+      "F": 47.24404067259111,
+      "delta_percent": -0.03388630842519058
+    },
+    {
+      "point": "p06",
+      "C": 49.18241192454989,
+      "F": 48.99529280761249,
+      "delta_percent": -0.3804594155009222
+    },
+    {
+      "point": "p07",
+      "C": 49.35292827374424,
+      "F": 46.642491486420234,
+      "delta_percent": -5.491947250404506
+    },
+    {
+      "point": "p08",
+      "C": 54.16025881711526,
+      "F": 53.226586900101175,
+      "delta_percent": -1.7239059365776854
+    },
+    {
+      "point": "p09",
+      "C": 50.794367469029545,
+      "F": 49.5774456579411,
+      "delta_percent": -2.3957810121967404
+    },
+    {
+      "point": "p10",
+      "C": 50.33318073147159,
+      "F": 49.73030782107319,
+      "delta_percent": -1.197764380547972
+    }
+  ],
+  "full_preregistered_8round_CI": "NOT_COMPUTED_USER_STOPPED",
+  "quality": "NO_OPERATOR_OR_SEMANTIC_PARITY_PROOF",
+  "restoration": {
+    "verified": true,
+    "pid": 1356,
+    "priority": 32768,
+    "binary_sha256": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+    "config_sha256": "060F2FBCCC54543904C6A14660C78581782DD0DCA5B972D8DA27DF4946893D93",
+    "health": {
+      "status": "ok",
+      "max_context": 100000,
+      "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+      "images": false,
+      "api_key": false,
+      "loaded": true,
+      "service": "strata"
+    },
+    "engine": {
+      "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+      "max_context": 100000,
+      "images": false,
+      "version": "0.1.42",
+      "logit_bias": 1,
+      "context": 100000,
+      "kv": "q4_0",
+      "kv_resident": 20480,
+      "expert_slots": 3153,
+      "expert_cache_mib": 5245,
+      "expert_slots_primary": 3153,
+      "expert_cache_primary_mib": 5245,
+      "spec": 6,
+      "mtp_max": 3,
+      "lookup": 3,
+      "vram_free_mib": 254,
+      "cvec": 0,
+      "arena_mib": 20479,
+      "pool_workers": 9,
+      "pcie_frac": "0.55",
+      "spec_min_p": "0.75",
+      "conversation_cache_mib": 0,
+      "conversation_cache_slots": 4,
+      "conversation_cache_min_free_mib": 2560,
+      "conversation_cache_min_tokens": 0,
+      "tail_role_token": -1,
+      "vram_elastic": 0,
+      "engine": "0.1.42"
+    },
+    "startup": {
+      "slots": "3153",
+      "ram_budget_gib": "20.00",
+      "locked_mib": "20479",
+      "resident_gib": "20.00",
+      "pinned_gib": "0.00",
+      "pool_line": "9 pool workers on logical processors 2,4,6,8,10,12,13,14,15, the host thread on 0 (draining too) (--host-core first)",
+      "tail_skip_line": "STRATA_ROUTE_TAIL_SKIP=7 is ON (default): a missed expert that every token of a verify window routes at rank 7 or lower is skipped (+10..20% decode on 12-16 GB cards that miss experts, answers differ slightly from 0.1.41); STRATA_ROUTE_TAIL_SKIP=0 turns it off",
+      "engine_version": "0.1.42",
+      "ram_lru_line": "RAM_LRU enabled: same-layer fixed arena; byte parity checks=0",
+      "vram_free_line": "254 MiB of VRAM free with everything loaded - LOW: requests may stall; add --vram-reserve-mib 958 to the config's args (or lower --max-context)",
+      "pcie_line": "PCIe probe: 24.5 GB/s host->device (best of 24.4 24.4 24.4 24.5) -> pcie_frac 0.55 (default 0.55)",
+      "registered_gib": null,
+      "page_lock_refused": "page-locking refused (out of memory)",
+      "chunk_line": null,
+      "async_on_line": null,
+      "async_off_line": null,
+      "hybrid_line": null
+    }
+  }
+}

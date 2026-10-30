@@ -1,0 +1,19 @@
+--- C:\Users\User\Strata-Adrian\runs\iq3-campaign-020\server-task020-8080-v0142-s2k-mt1.json
++++ C:\Users\User\Strata-Adrian-control\runs\native-pipe-deploy-prep-20261029\candidate-live.json
+@@ -1,6 +1,6 @@
+ {
+     "api_monitor": true,
+-    "exe": "C:\\Users\\User\\Strata-Adrian-control\\runs\\miss-overlap-20261027\\build\\strata.exe",
++    "exe": "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+     "cwd": "C:\\Users\\User\\Strata-Adrian-control\\runs\\miss-overlap-20261027\\build",
+     "tokenizer": "C:\\Users\\User\\Strata-IQ3-20261008\\packs\\iq3_xxs\\tokenizer",
+     "model_name": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+@@ -67,6 +67,7 @@
+         "STRATA_RAM_LRU_CHECK": "0",
+         "STRATA_MISS_OVERLAP": "1",
+         "STRATA_MISS_OVERLAP_SPIN_US": "2000",
+-        "STRATA_IQ3S_MT1": "1"
++        "STRATA_IQ3S_MT1": "1",
++        "STRATA_NATIVE_PIPE": "1"
+     }
+ }

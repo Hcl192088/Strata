@@ -1,0 +1,412 @@
+{
+  "vpdpbusd": 152,
+  "vpdpwssd": 97,
+  "gather": 36,
+  "functions": [
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$02@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 29,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$02@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 35,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$02@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 50,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$02@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 50,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$02@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 35,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$01@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 21,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$01@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 26,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm15",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm3",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$01@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 40,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$01@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 40,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$01@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 26,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm15",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm3",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$00@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 11,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm15",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0",
+        "vmovups\tYMMWORD PTR d4$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$00@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 10,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm11",
+        "vmovdqu\tYMMWORD PTR tv1697[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv1671[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$00@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 27,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$00@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 18,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$00@gather@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 12,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm13",
+        "vmovdqu\tYMMWORD PTR tv2388[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv2387[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$02@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 29,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$02@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 35,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm15",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$02@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 50,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$02@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 50,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$02@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 35,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$01@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 21,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$01@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 26,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm15",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm3",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$01@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 40,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$01@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 40,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$01@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 26,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm15",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm3",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$00@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 10,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm15",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0",
+        "vmovdqu\tymm15, YMMWORD PTR isum$1$[rbp]"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$00@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 10,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm11",
+        "vmovdqu\tYMMWORD PTR tv6564[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv6536[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$00@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 27,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$00@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 18,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$00@vnni@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 12,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm13",
+        "vmovdqu\tYMMWORD PTR tv2388[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv2387[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$02@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 29,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$02@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 34,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$02@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 53,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$02@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 53,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$02@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 34,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovups\tYMMWORD PTR acc$4$[rbp], ymm5"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$01@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 21,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$01@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 24,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$01@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 42,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$01@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 42,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$01@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 24,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$2$[rbp], ymm3",
+        "vmovups\tYMMWORD PTR acc$3$[rbp], ymm4",
+        "vmovdqu\tYMMWORD PTR isum$1$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_s_r4_q8_k@$00@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 7,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm13",
+        "vmovups\tYMMWORD PTR d4$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR helper$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq3_xxs_r4_q8_k@$00@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 10,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm11",
+        "vmovdqu\tYMMWORD PTR tv6652[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv6624[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_s_r4_q8_k@$00@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 27,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xs_r4_q8_k@$00@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 20,
+      "examples": [
+        "vmovdqu\tYMMWORD PTR shuffles$1$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$2$[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR shuffles$3$[rbp], ymm0"
+      ]
+    },
+    {
+      "function": "??$mul_mat_iq2_xxs_r4_q8_k@$00@old@@YAXHPEBX_KAEBUDataInfo@@H@Z",
+      "YMM_stack_instructions": 10,
+      "examples": [
+        "vmovups\tYMMWORD PTR acc$1$[rbp], ymm12",
+        "vmovdqu\tYMMWORD PTR tv2423[rbp], ymm0",
+        "vmovdqu\tYMMWORD PTR tv2398[rbp], ymm0"
+      ]
+    }
+  ]
+}

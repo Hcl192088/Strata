@@ -1,0 +1,1225 @@
+{
+  "pre_gate": {
+    "at": 1793268834.7659037,
+    "processes": [
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 5280,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 4352
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 11236,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 5280
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 29576,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 11236
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 22388,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\model_layout.py"
+        ],
+        "pid": 12548
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 23344,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\model_layout.py"
+        ],
+        "pid": 22388
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "name": "strata.exe",
+        "ppid": 4352,
+        "cmdline": [
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+          "--serve",
+          "--pack",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\packs\\iq3_xxs",
+          "--native",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+          "--ple-gguf",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+          "--mtp",
+          "C:\\Users\\User\\Strata-v0.1.34-mtp-test-20261002\\mtp\\rt",
+          "--spec",
+          "6",
+          "--spec-min-p",
+          "0.75",
+          "--max-context",
+          "100000",
+          "--kv",
+          "q4_0",
+          "--kv-resident",
+          "20480",
+          "--expert-profile",
+          "C:\\Users\\User\\Strata-v0.1.38-ab-20261003\\work-note-transfer-chat-20261005\\learned-heart.bin",
+          "--expert-cache",
+          "3604",
+          "--pool-workers",
+          "9",
+          "--prefill",
+          "auto",
+          "--stats",
+          "--max-new",
+          "1024",
+          "--suffix-draft",
+          "3",
+          "--resident-budget-gib",
+          "20",
+          "--mtp-max-t",
+          "3",
+          "--pool-affinity",
+          "all",
+          "--adapt-every",
+          "3",
+          "--adapt-swaps",
+          "16",
+          "--adapt-decay",
+          "0.60",
+          "--ple-io",
+          "direct",
+          "--mtp-hnorm",
+          "stream"
+        ],
+        "pid": 27744
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 12988,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 29576
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 32632,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ],
+        "pid": 32348
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 1504,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ],
+        "pid": 32632
+      }
+    ],
+    "metrics": {
+      "state": "idle",
+      "engine": {
+        "expert_slots": 3153,
+        "arena_mib": 20479,
+        "pool_workers": 9,
+        "spec": 6,
+        "mtp_max": 3
+      }
+    },
+    "available_bytes": 3296768000
+  },
+  "files": [
+    {
+      "path": "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "size": 47039860096,
+      "mtime_ns": 1791459656161703400,
+      "header_end": 11024251,
+      "version": 3
+    },
+    {
+      "path": "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+      "size": 28800138432,
+      "mtime_ns": 1791460399623227500,
+      "header_end": 173,
+      "version": 3
+    }
+  ],
+  "selected_tensors": [
+    {
+      "name": "output.weight",
+      "dims": [
+        2560,
+        248320
+      ],
+      "type": 13,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf"
+    },
+    {
+      "name": "blk.1.attn_gate.weight",
+      "dims": [
+        2560,
+        6144
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.3.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.3.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.4.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.5.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.6.ffn_up_shexp.weight",
+      "dims": [
+        2560,
+        640
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1344000,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.7.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.9.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.10.attn_gate.weight",
+      "dims": [
+        2560,
+        6144
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.10.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.11.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.12.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.13.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.15.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.15.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.16.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.17.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.18.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.19.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.20.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.22.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.22.ffn_up_shexp.weight",
+      "dims": [
+        2560,
+        640
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1344000,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.23.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.23.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.23.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.24.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.25.attn_gate.weight",
+      "dims": [
+        2560,
+        6144
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.25.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.25.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.27.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.27.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.27.attn_q.weight",
+      "dims": [
+        2560,
+        12288
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 25804800,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.27.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.28.attn_gate.weight",
+      "dims": [
+        2560,
+        6144
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.28.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.29.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.30.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.30.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.31.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.31.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.31.attn_q.weight",
+      "dims": [
+        2560,
+        12288
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 25804800,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.31.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.32.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.33.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.34.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.34.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.35.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.35.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.35.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.35.ffn_up_shexp.weight",
+      "dims": [
+        2560,
+        640
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1344000,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.36.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.36.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.38.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.38.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.39.attn_k.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.39.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.39.attn_q.weight",
+      "dims": [
+        2560,
+        12288
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 25804800,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.39.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.40.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.40.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.42.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.42.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.43.attn_output.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.43.attn_q.weight",
+      "dims": [
+        2560,
+        12288
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 25804800,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.43.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.44.attn_qkv.weight",
+      "dims": [
+        2560,
+        10240
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 21504000,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.44.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.45.attn_gate.weight",
+      "dims": [
+        2560,
+        6144
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.45.ffn_gate_shexp.weight",
+      "dims": [
+        2560,
+        640
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1344000,
+      "eligible_shape": false
+    },
+    {
+      "name": "blk.46.ssm_out.weight",
+      "dims": [
+        6144,
+        2560
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 12902400,
+      "eligible_shape": true
+    },
+    {
+      "name": "blk.47.attn_v.weight",
+      "dims": [
+        2560,
+        512
+      ],
+      "type": 14,
+      "shard": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+      "bytes": 1075200,
+      "eligible_shape": false
+    }
+  ],
+  "q6_total_count": 71,
+  "q6_total_bytes": 864460800,
+  "q6_shape_eligible_count": 52,
+  "q6_shape_eligible_bytes": 842956800,
+  "q8_count": 0,
+  "post_gate": {
+    "at": 1793268836.03018,
+    "processes": [
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 5280,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 4352
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 11236,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 5280
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 29576,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 11236
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 22388,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\model_layout.py"
+        ],
+        "pid": 12548
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 23344,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\model_layout.py"
+        ],
+        "pid": 22388
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "name": "strata.exe",
+        "ppid": 4352,
+        "cmdline": [
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+          "--serve",
+          "--pack",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\packs\\iq3_xxs",
+          "--native",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+          "--ple-gguf",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+          "--mtp",
+          "C:\\Users\\User\\Strata-v0.1.34-mtp-test-20261002\\mtp\\rt",
+          "--spec",
+          "6",
+          "--spec-min-p",
+          "0.75",
+          "--max-context",
+          "100000",
+          "--kv",
+          "q4_0",
+          "--kv-resident",
+          "20480",
+          "--expert-profile",
+          "C:\\Users\\User\\Strata-v0.1.38-ab-20261003\\work-note-transfer-chat-20261005\\learned-heart.bin",
+          "--expert-cache",
+          "3604",
+          "--pool-workers",
+          "9",
+          "--prefill",
+          "auto",
+          "--stats",
+          "--max-new",
+          "1024",
+          "--suffix-draft",
+          "3",
+          "--resident-budget-gib",
+          "20",
+          "--mtp-max-t",
+          "3",
+          "--pool-affinity",
+          "all",
+          "--adapt-every",
+          "3",
+          "--adapt-swaps",
+          "16",
+          "--adapt-decay",
+          "0.60",
+          "--ple-io",
+          "direct",
+          "--mtp-hnorm",
+          "stream"
+        ],
+        "pid": 27744
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 12988,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ],
+        "pid": 29576
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "name": "python.exe",
+        "ppid": 32632,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ],
+        "pid": 32348
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "name": "python.exe",
+        "ppid": 1504,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ],
+        "pid": 32632
+      }
+    ],
+    "metrics": {
+      "state": "idle",
+      "engine": {
+        "expert_slots": 3153,
+        "arena_mib": 20479,
+        "pool_workers": 9,
+        "spec": 6,
+        "mtp_max": 3
+      }
+    },
+    "available_bytes": 3296514048
+  }
+}

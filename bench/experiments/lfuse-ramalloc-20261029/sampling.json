@@ -1,0 +1,92 @@
+{
+  "p01": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1001,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p02": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1002,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p03": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1003,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p04": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1004,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p05": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1005,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p06": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1006,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p07": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1007,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p08": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1008,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p09": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1009,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  },
+  "p10": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "seed": 1010,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium"
+  }
+}

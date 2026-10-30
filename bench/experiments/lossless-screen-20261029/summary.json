@@ -1,0 +1,217 @@
+{
+  "coverage_layers": 48,
+  "raw_results_sha256": "7CE94346B0D4BC0FF1F8B16E311EB76FE5919D5B290FA09527A35829A363D95D",
+  "sampled_experts": 96,
+  "status": "COMPLETED",
+  "gpu_decision": "NO_GO_CURRENT_FLAGS_DEFER_NEW_LAYOUT",
+  "gpu_q6_shape_eligible_count": 52,
+  "summary": {
+    "xpress_huff": {
+      "samples": 96,
+      "raw_bytes": 167628800,
+      "compressed_bytes": 165016138,
+      "ratio": 0.98441400284438,
+      "saving_percent": 1.5585997155620035,
+      "decode_GB_s": 0.23997269711340471,
+      "median_expert_decode_ms": 7.384750002529472,
+      "ideal_20GiB_equivalent_GiB": 20.31665533221969,
+      "screen_pass": false,
+      "by_pair": {
+        "16/20": {
+          "samples": 2,
+          "ratio": 0.9922412817028986,
+          "decode_GB_s": 0.2383548335775999
+        },
+        "16/42": {
+          "samples": 16,
+          "ratio": 0.9722841988357843,
+          "decode_GB_s": 0.2270734575621465
+        },
+        "17/20": {
+          "samples": 8,
+          "ratio": 0.9921905768407534,
+          "decode_GB_s": 0.2641926876936582
+        },
+        "17/42": {
+          "samples": 12,
+          "ratio": 0.9752093986742424,
+          "decode_GB_s": 0.22978532446951527
+        },
+        "18/20": {
+          "samples": 6,
+          "ratio": 0.9915320159313725,
+          "decode_GB_s": 0.23706630411728857
+        },
+        "18/42": {
+          "samples": 6,
+          "ratio": 0.9773017723880597,
+          "decode_GB_s": 0.2288687993516004
+        },
+        "21/20": {
+          "samples": 12,
+          "ratio": 0.9945143658424909,
+          "decode_GB_s": 0.23999896972310625
+        },
+        "21/42": {
+          "samples": 14,
+          "ratio": 0.9824701106898239,
+          "decode_GB_s": 0.24607721347381464
+        },
+        "22/20": {
+          "samples": 8,
+          "ratio": 0.9934556361607143,
+          "decode_GB_s": 0.24602059009089172
+        },
+        "22/42": {
+          "samples": 12,
+          "ratio": 0.9773061219985876,
+          "decode_GB_s": 0.2427684346137196
+        }
+      }
+    },
+    "zlib1": {
+      "samples": 96,
+      "raw_bytes": 167628800,
+      "compressed_bytes": 165052461,
+      "ratio": 0.9846306899530392,
+      "saving_percent": 1.536931004696085,
+      "decode_GB_s": 0.31643096992156966,
+      "median_expert_decode_ms": 5.258799996227026,
+      "ideal_20GiB_equivalent_GiB": 20.312184257585834,
+      "screen_pass": false,
+      "by_pair": {
+        "16/20": {
+          "samples": 2,
+          "ratio": 0.9922177875905797,
+          "decode_GB_s": 0.23168028561474305
+        },
+        "16/42": {
+          "samples": 16,
+          "ratio": 0.9740343041513481,
+          "decode_GB_s": 0.2706776270605544
+        },
+        "17/20": {
+          "samples": 8,
+          "ratio": 0.9919921875,
+          "decode_GB_s": 0.26003499504905
+        },
+        "17/42": {
+          "samples": 12,
+          "ratio": 0.9760700757575758,
+          "decode_GB_s": 0.31568562956170915
+        },
+        "18/20": {
+          "samples": 6,
+          "ratio": 0.991558287377451,
+          "decode_GB_s": 0.2171649465010772
+        },
+        "18/42": {
+          "samples": 6,
+          "ratio": 0.9785455534825871,
+          "decode_GB_s": 0.20695813056600243
+        },
+        "21/20": {
+          "samples": 12,
+          "ratio": 0.9938075563759158,
+          "decode_GB_s": 0.3774083150168424
+        },
+        "21/42": {
+          "samples": 14,
+          "ratio": 0.9823063310298434,
+          "decode_GB_s": 0.4633623665084914
+        },
+        "22/20": {
+          "samples": 8,
+          "ratio": 0.9926298701298701,
+          "decode_GB_s": 0.3673653850264941
+        },
+        "22/42": {
+          "samples": 12,
+          "ratio": 0.9779789018361582,
+          "decode_GB_s": 0.4214922739337211
+        }
+      }
+    },
+    "lzma1": {
+      "samples": 96,
+      "raw_bytes": 167628800,
+      "compressed_bytes": 165681408,
+      "ratio": 0.9883827122785583,
+      "saving_percent": 1.161728772144166,
+      "decode_GB_s": 0.0461641065207743,
+      "median_expert_decode_ms": 28.25279999524355,
+      "ideal_20GiB_equivalent_GiB": 20.235076708184423,
+      "screen_pass": false,
+      "by_pair": {
+        "16/20": {
+          "samples": 2,
+          "ratio": 0.9962103713768116,
+          "decode_GB_s": 0.031964300736569515
+        },
+        "16/42": {
+          "samples": 16,
+          "ratio": 0.9787959558823529,
+          "decode_GB_s": 0.05034138329442965
+        },
+        "17/20": {
+          "samples": 8,
+          "ratio": 0.9959821810787671,
+          "decode_GB_s": 0.03475060888123787
+        },
+        "17/42": {
+          "samples": 12,
+          "ratio": 0.9800738636363636,
+          "decode_GB_s": 0.04985962227405314
+        },
+        "18/20": {
+          "samples": 6,
+          "ratio": 0.9964880514705883,
+          "decode_GB_s": 0.03995259302398915
+        },
+        "18/42": {
+          "samples": 6,
+          "ratio": 0.9837729322139304,
+          "decode_GB_s": 0.059773583862668886
+        },
+        "21/20": {
+          "samples": 12,
+          "ratio": 0.9966666666666667,
+          "decode_GB_s": 0.04140210164877674
+        },
+        "21/42": {
+          "samples": 14,
+          "ratio": 0.9850293542074364,
+          "decode_GB_s": 0.06809339938352361
+        },
+        "22/20": {
+          "samples": 8,
+          "ratio": 0.9961173396915585,
+          "decode_GB_s": 0.035058638566053665
+        },
+        "22/42": {
+          "samples": 12,
+          "ratio": 0.981496071680791,
+          "decode_GB_s": 0.05519524714885123
+        }
+      }
+    }
+  },
+  "sampled_bytes": 167628800,
+  "coverage_format_pairs": 10,
+  "decision": "NO_GO_FOR_TESTED_CODECS",
+  "peak_working_set_bytes": 52002816,
+  "gpu_q6_shape_eligible_bytes": 842956800,
+  "parity_comparisons": 2016,
+  "parity_failures": 0,
+  "config_sha256": "060F2FBCCC54543904C6A14660C78581782DD0DCA5B972D8DA27DF4946893D93",
+  "gpu_q6_count": 71,
+  "elapsed_s": 128.58963799476624,
+  "task_id": "LUNA-20261012-027",
+  "source": {
+    "source_repo": "Hcl192088/Strata",
+    "commit": "f520bc5e9d31c93caeb296b059e3a3eaa16e493f",
+    "annotated_tag": "native-pipe-generic-20261029"
+  },
+  "binary_sha256": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+  "gpu_q8_count": 0
+}

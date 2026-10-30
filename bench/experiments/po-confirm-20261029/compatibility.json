@@ -1,0 +1,49 @@
+{
+  "verified": true,
+  "blocks": [
+    {
+      "index": 5,
+      "equal_except_log": true
+    },
+    {
+      "index": 6,
+      "equal_except_log": true
+    },
+    {
+      "index": 7,
+      "equal_except_log": true
+    },
+    {
+      "index": 8,
+      "equal_except_log": true
+    },
+    {
+      "index": 10,
+      "equal_except_log": true
+    },
+    {
+      "index": 12,
+      "equal_except_log": true
+    },
+    {
+      "index": 14,
+      "equal_except_log": true
+    },
+    {
+      "index": 15,
+      "equal_except_log": true
+    },
+    {
+      "index": 16,
+      "equal_except_log": true
+    },
+    {
+      "index": 17,
+      "equal_except_log": true
+    }
+  ],
+  "harness_sha256": {
+    "next_steps_ab_20261018.py": "D5C1AA1C871D71EBD472721E55ACFCC13808E64E8892EFDF1385DF73ED0285B8",
+    "replay_ab_20261027.py": "CDFF1852B8645829F9BAC26AA9F7FDF990B2DFB492C247DEE5BD722DFDF2326B"
+  }
+}

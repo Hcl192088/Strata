@@ -1,0 +1,68 @@
+{
+  "CimClass": {
+    "CimSuperClassName": "MSFT_TaskAction",
+    "CimSuperClass": {
+      "CimSuperClassName": null,
+      "CimSuperClass": null,
+      "CimClassProperties": "Id",
+      "CimClassQualifiers": "",
+      "CimClassMethods": "",
+      "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+    },
+    "CimClassProperties": [
+      "Id",
+      "Arguments",
+      "Execute",
+      "WorkingDirectory"
+    ],
+    "CimClassQualifiers": [],
+    "CimClassMethods": [],
+    "CimSystemProperties": {
+      "Namespace": "Root/Microsoft/Windows/TaskScheduler",
+      "ServerName": "DESKTOP-LKMLUPC",
+      "ClassName": "MSFT_TaskExecAction",
+      "Path": null
+    }
+  },
+  "CimInstanceProperties": [
+    {
+      "Name": "Id",
+      "Value": null,
+      "CimType": 14,
+      "Flags": "Property, NotModified, NullValue",
+      "IsValueModified": false
+    },
+    {
+      "Name": "Arguments",
+      "Value": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\Users\\User\\Strata-Adrian-control\\tools\\start_task020_api_s2k_mt1.ps1",
+      "CimType": 14,
+      "Flags": "Property, NotModified",
+      "IsValueModified": false
+    },
+    {
+      "Name": "Execute",
+      "Value": "powershell.exe",
+      "CimType": 14,
+      "Flags": "Property, NotModified",
+      "IsValueModified": false
+    },
+    {
+      "Name": "WorkingDirectory",
+      "Value": null,
+      "CimType": 14,
+      "Flags": "Property, NotModified, NullValue",
+      "IsValueModified": false
+    }
+  ],
+  "CimSystemProperties": {
+    "Namespace": "Root/Microsoft/Windows/TaskScheduler",
+    "ServerName": "DESKTOP-LKMLUPC",
+    "ClassName": "MSFT_TaskExecAction",
+    "Path": null
+  },
+  "Id": null,
+  "Arguments": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\Users\\User\\Strata-Adrian-control\\tools\\start_task020_api_s2k_mt1.ps1",
+  "Execute": "powershell.exe",
+  "WorkingDirectory": null,
+  "PSComputerName": null
+}

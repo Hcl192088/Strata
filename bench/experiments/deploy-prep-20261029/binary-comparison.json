@@ -1,0 +1,98 @@
+{
+  "original": {
+    "path": "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipeline-20261029\\build\\strata.exe",
+    "bytes": 52460544,
+    "sha256": "3F98913EDB0B01D5D5DD3282412725141C298BF5CC9E890DD286AA0720C27230",
+    "pe_timestamp": 1793208621,
+    "pe_time_utc": "2026-10-28T17:30:21+00:00",
+    "pe_offset": 280,
+    "sections": {
+      ".text": {
+        "bytes": 5381632,
+        "sha256": "9242273F0811406C646BF00CB64E1B0547CE36F5ED7F1A7E83BDCF44B413A421"
+      },
+      ".rdata": {
+        "bytes": 1408000,
+        "sha256": "21A441E88EB5834F4D654BEF9C1E4B70C2C4C78674E1E2BD6CBE936EC7D19B53"
+      },
+      ".data": {
+        "bytes": 36352,
+        "sha256": "3B0476D427E3836ABB016A71BEE9636FB05D6F682104F9C1B8AB7DB5308FEF30"
+      },
+      ".pdata": {
+        "bytes": 134656,
+        "sha256": "C4F25CA2EFB2700E2DAA07A70F65B6375BEAE596768C34D1A8457EFD9AF33B56"
+      },
+      ".nv_fatb": {
+        "bytes": 45492736,
+        "sha256": "79C1A879A9CAF1ED1EAE63BB5251AA4E98AD769E84F9BFA8FEC34D02B423FF1D"
+      },
+      ".nvFatBi": {
+        "bytes": 1536,
+        "sha256": "2E1E1F909808F2084658ECB20769B6F0C12149E83677E835530EEB5EBECAF154"
+      },
+      ".rsrc": {
+        "bytes": 512,
+        "sha256": "377B1C057CE9A9F0D4E564D739EB83B7C8D0D0EE99171736070563A8BFADFD4C"
+      },
+      ".reloc": {
+        "bytes": 4096,
+        "sha256": "8F7C5D25CAEC9DD61017804DF16004D206FCFA36927DD0DFB1471B52B8693BF9"
+      }
+    }
+  },
+  "fresh": {
+    "path": "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+    "bytes": 52461056,
+    "sha256": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+    "pe_timestamp": 1793236491,
+    "pe_time_utc": "2026-10-29T01:14:51+00:00",
+    "pe_offset": 280,
+    "sections": {
+      ".text": {
+        "bytes": 5381632,
+        "sha256": "6AC58880E406559FDB0CE3B0FE2B3CCD84BA4294F683BAA04D84FEBB335A90F8"
+      },
+      ".rdata": {
+        "bytes": 1408000,
+        "sha256": "992FDAE19F8679E913A9EEC67EDE0B34C5742C76633CE62032A0DCB661B5A69E"
+      },
+      ".data": {
+        "bytes": 36352,
+        "sha256": "20A4E0F58DB29CB5FC670597D474E06CEB77556D1DE90EC61902CB39B83757E1"
+      },
+      ".pdata": {
+        "bytes": 134656,
+        "sha256": "C4F25CA2EFB2700E2DAA07A70F65B6375BEAE596768C34D1A8457EFD9AF33B56"
+      },
+      ".nv_fatb": {
+        "bytes": 45493248,
+        "sha256": "E76B1FCC1ED96DF8C6C9368F3A639D4B83CA6B4AB5C9BBEA4A91AD1E65AF374D"
+      },
+      ".nvFatBi": {
+        "bytes": 1536,
+        "sha256": "28B5C847ABB2A8B7EC6EAC4B0C5487568B4EF983308C352E6EBC65EB50A71B2D"
+      },
+      ".rsrc": {
+        "bytes": 512,
+        "sha256": "377B1C057CE9A9F0D4E564D739EB83B7C8D0D0EE99171736070563A8BFADFD4C"
+      },
+      ".reloc": {
+        "bytes": 4096,
+        "sha256": "DB601471FBF2FFA7AFF7AD4FB20D366BD641BA878730D88F798B7FE75FD13D6A"
+      }
+    }
+  },
+  "equal_after_zeroing_coff_timestamp": false,
+  "section_equal": {
+    ".text": false,
+    ".rdata": false,
+    ".data": false,
+    ".pdata": true,
+    ".nv_fatb": false,
+    ".nvFatBi": false,
+    ".rsrc": true,
+    ".reloc": false
+  },
+  "scope": "PE header and section observations; no claim all differing bytes are timestamp-only. Fresh vs incremental build and source/build paths differ."
+}

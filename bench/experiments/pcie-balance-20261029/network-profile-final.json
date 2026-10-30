@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "TANetRoaming",
+    "InterfaceAlias": "Wi-Fi 2",
+    "IPv4Connectivity": 4
+  },
+  {
+    "Name": "Tailscale",
+    "InterfaceAlias": "Tailscale",
+    "IPv4Connectivity": 3
+  }
+]

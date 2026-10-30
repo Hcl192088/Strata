@@ -1,0 +1,461 @@
+diff --git a/docs/DETAILS.md b/docs/DETAILS.md
+index 3f673bff..68233ee0 100644
+--- a/docs/DETAILS.md
++++ b/docs/DETAILS.md
+@@ -1635,6 +1635,11 @@ from the old default, as any change of the share does (CPU and GPU round differe
+ (run-to-run floor 0.0013) and 0.0011 on the A4000 (floor 0.0012; at that time the share was 0.25).
+ The sweeps behind the constant: `phaseA-tests/notes-142-pciefrac.md`.
+ 
++`STRATA_PCIE_BALANCE=1` (opt-in, CUDA, one GPU, no `--batch`, no `--pcie-frac`; #1548 by sergiywith / stuchapin909): instead of one share for every layer, each verify layer
++reads over PCIe the number of its missed experts that balances the two sides. The spin kernels stamp the GPU's clock (the plan's arrival, the PCIe part's start, the wait for the CPU rows),
++the host times its pool, and least squares with forgetting fit the pool's `a + c*n_cpu + d*n_pcie` and the GPU's `g0 + g*n_pcie`; the engine prints the fit (`pcie model`) at the end of `generate`.
++Every 64th layer with a miss moves one expert to the other side so both fits stay measured. Unset, nothing changes (the logits equal the build before).
++
+ ## More opt-in switches measured for 0.1.41 (all off unless you set them)
+ 
+ None of these changes the default answers; each was measured against the default with interleaved off/on pairs of whole
+diff --git a/include/strata/core/expert_source.hpp b/include/strata/core/expert_source.hpp
+index e0be499f..811eb756 100644
+--- a/include/strata/core/expert_source.hpp
++++ b/include/strata/core/expert_source.hpp
+@@ -26,6 +26,8 @@
+ #include "strata/core/hit_hook.hpp"
+ #include "strata/kernels/cpu/pool.hpp"
+ 
++#include <algorithm>
++#include <cmath>
+ #include <atomic>
+ #include <cstdint>
+ #include <cstddef>
+@@ -319,6 +321,97 @@ struct GpuPlanSink {
+     /// kernel reads the mapped arena directly; 2 = a copy kernel stages it inside the graph.  For 1 and 2 `ptr2`
+     /// holds the arena's device alias.
+     int pcie_mode = 0;
++    int32_t cpu_jobs = 0;   ///< host only: the distinct experts the pool computes for the layer just published
++};
++
++/// Verifier::set_pcie_balance: a verify window's costs, fitted to each layer's measured times (ms, least squares with
++/// forgetting): the CPU pool's time with n_c CPU and n_p PCIe experts, a + c n_c + d n_p (none: p0) - d is the PCIe
++/// copies' DRAM reads slowing the pool, as the pool and the link read the same RAM - and the GPU's, g0 + g n_p.  A
++/// layer then reads over PCIe the m of its nmiss misses that minimizes max(GPU, CPU). Measured: an RTX 5090 + 9950X3D
++/// pool is DRAM-bound (moving experts to PCIe left the pool's time where it was, d ~ c: few move), one worker on
++/// ggml-cpu's dot is not (d ~ 0: most move). Until both fits have data, and while `on` is off, pcie_num's share.
++struct PcieModel {
++    bool on = false;
++    double a = 0, c = 0, d = 0, p0 = 0, g0 = 0, g = 0;   ///< the fits (read by `pick`)
++    int np0 = 0;
++    double A[3][3] = {}, B[3] = {};   ///< the CPU fit's normal equations, [1, n_c, n_p]
++    double C[2][2] = {}, D[2] = {};   ///< the GPU fit's, [1, n_p]
++    int ncpu = 0, ngpu = 0, ngpu_p = 0;   ///< samples in each (ngpu_p: with a PCIe expert)
++    uint32_t explore = 0;
++    static void mean(double& v, int& n, double x) {   // the first 16 evenly, then 1/20 each
++        if (n < 16) v += (x - v) / ++n;
++        else v += 0.05 * (x - v);
++    }
++    /// One layer's times: the pool's `p` with `n_c` CPU and `n_p` PCIe experts, the GPU's `gpu` (ms).
++    void sample(int n_c, int n_p, double p, double gpu) {
++        constexpr double lam = 0.995;   // ~200 layers' memory: a few windows
++        if (n_c == 0) mean(p0, np0, p);
++        else {
++            const double x[3] = {1.0, (double) n_c, (double) n_p};
++            for (int i = 0; i < 3; ++i) {
++                B[i] = lam * B[i] + x[i] * p;
++                for (int j = 0; j < 3; ++j) A[i][j] = lam * A[i][j] + x[i] * x[j];
++            }
++            ++ncpu;
++        }
++        const double y[2] = {1.0, (double) n_p};
++        for (int i = 0; i < 2; ++i) {
++            D[i] = lam * D[i] + y[i] * gpu;
++            for (int j = 0; j < 2; ++j) C[i][j] = lam * C[i][j] + y[i] * y[j];
++        }
++        ++ngpu;
++        ngpu_p += n_p > 0;
++    }
++    /// Solve both fits (after a window). A ridge keeps a fit whose counts barely vary near its mean ratio.
++    void solve() {
++        if (ncpu >= 8) {
++            double M[3][4];
++            for (int i = 0; i < 3; ++i) {
++                for (int j = 0; j < 3; ++j) M[i][j] = A[i][j] + (i == j && i > 0 ? 1e-3 * A[0][0] : 0.0);
++                M[i][3] = B[i];
++            }
++            bool ok = true;
++            for (int k = 0; k < 3 && ok; ++k) {   // Gauss-Jordan, partial pivot
++                int piv = k;
++                for (int i = k + 1; i < 3; ++i) if (std::abs(M[i][k]) > std::abs(M[piv][k])) piv = i;
++                if (std::abs(M[piv][k]) < 1e-12) { ok = false; break; }
++                for (int j = 0; j < 4; ++j) std::swap(M[k][j], M[piv][j]);
++                for (int i = 0; i < 3; ++i) {
++                    if (i == k) continue;
++                    const double f = M[i][k] / M[k][k];
++                    for (int j = k; j < 4; ++j) M[i][j] -= f * M[k][j];
++                }
++            }
++            if (ok) {
++                a = std::max(M[0][3] / M[0][0], 0.0);
++                c = std::max(M[1][3] / M[1][1], 0.0);
++                d = std::clamp(M[2][3] / M[2][2], 0.0, c);   // a PCIe expert slows the pool at most as one of its own
++            }
++        }
++        if (ngpu >= 8 && ngpu_p >= 4) {
++            const double det = C[0][0] * C[1][1] - C[0][1] * C[1][0];
++            if (std::abs(det) > 1e-12) {
++                g0 = std::max((D[0] * C[1][1] - C[0][1] * D[1]) / det, 0.0);
++                g = std::max((C[0][0] * D[1] - C[1][0] * D[0]) / det, 0.0);
++            }
++        }
++    }
++    bool ready() const { return on && ncpu >= 8 && ngpu_p >= 4; }
++    /// The PCIe count for a layer of `nmiss` misses (`fixed`: pcie_num's).  Every 64th layer with a miss that would
++    /// keep them all on one side moves one to the other, so both fits keep seeing both.
++    int pick(int nmiss, int fixed) {
++        int m = fixed;
++        if (ready()) {
++            double best = 1e300;
++            for (int k = 0; k <= nmiss; ++k) {
++                const double cpu = nmiss - k > 0 ? a + c * (nmiss - k) + d * k : p0;
++                const double t = std::max(g0 + g * k, cpu);
++                if (t < best - 1e-6) { best = t; m = k; }
++            }
++        }
++        if (on && nmiss >= 1 && (++explore & 63u) == 0) m = m == 0 ? 1 : m == nmiss ? nmiss - 1 : m;
++        return m;
++    }
+ };
+ 
+ /// The adapter's own state.  One per session, reused every layer so the token path allocates nothing (P2.T10).
+@@ -444,6 +537,7 @@ struct ExpertDispatch {
+     /// each layer's distinct missed experts (the last ones in routing order) are read by the GPU over PCIe.
+     GpuPlanSink* plan = nullptr;
+     int pcie_num = 0;
++    PcieModel pcie_model;          ///< Verifier::set_pcie_balance: the PCIe count from measured costs
+     int64_t pcie_experts = 0;      ///< distinct experts the GPU read over PCIe in verify windows
+     /// #588: routed (token, expert) entries the GPU computed from outside its cache in verify windows: read over PCIe
+     /// (--pcie-frac, kind 1) or on another GPU (kind 2).  In neither cache_hits nor cache_refused.
+diff --git a/include/strata/core/verify.hpp b/include/strata/core/verify.hpp
+index 519fd43b..cee9c3f3 100644
+--- a/include/strata/core/verify.hpp
++++ b/include/strata/core/verify.hpp
+@@ -266,6 +266,17 @@ public:
+     void set_pcie_mode(int mode) { sink_.pcie_mode = mode; }
+     /// the pool never plans a PCIe share (--pcie-frac 0): the window skips that path.  Before the first run.
+ 
++    /// The PCIe count of each layer from measured costs (PcieModel) instead of a fixed share: the spin kernels stamp
++    /// each step's GPU work (the plan's arrival, the PCIe part's start, the wait for the CPU's rows; GPU clock), the host
++    /// times its pool, and after each window *model (the dispatch's) takes the costs. One GPU, no batch slots. Set
++    /// before `init` (the stamps are captured). `paused`: a request's own --pcie-frac holds meanwhile.
++    void set_pcie_balance(PcieModel* model) { bal_ = model; }
++    void pause_pcie_balance(bool paused) {
++        bal_paused_ = paused;
++        if (bal_ != nullptr && m_bal_ != nullptr) bal_->on = !paused;
++    }
++    bool pcie_balance_on() const { return bal_ != nullptr && m_bal_ != nullptr; }
++
+     double ms_wait = 0, ms_pool = 0, ms_host = 0, ms_commit = 0;
+     int64_t windows = 0;
+     /// STRATA_VERIFY_PROFILE=1 - GPU stage times of the windows since the last call (ms per
+@@ -427,6 +438,16 @@ private:
+     uint32_t* h_flag_ = nullptr; uint32_t* m_flag_ = nullptr;
+     uint32_t* h_flagA_ = nullptr; uint32_t* m_flagA_ = nullptr;  // the GPU plan is in place
+     uint32_t* h_flagB_ = nullptr; uint32_t* m_flagB_ = nullptr;  // the PCIe share's DMA copies have landed
++    // set_pcie_balance: per step (layer x group, stride 2 groups) the GPU's clock as the plan arrives, as the PCIe
++    // part starts and as it waits for the CPU rows (4 words a step); the pool's ms, its experts, the PCIe ones, and
++    // whether the step had a plan
++    unsigned long long* h_bal_ = nullptr; unsigned long long* m_bal_ = nullptr;
++    std::vector<double> bal_p_;
++    std::vector<int32_t> bal_nc_, bal_np_;
++    std::vector<char> bal_ok_;
++    PcieModel* bal_ = nullptr;
++    bool bal_paused_ = false;
++    void pcie_balance_window(int64_t steps, int G);
+     cudaEvent_t commit_done_ = nullptr;   // recorded after an async commit (set_commit_async); see wait_commit
+     bool commit_pending_ = false;
+     cudaStream_t copy_ = nullptr;                                 // the copy engine's stream (DMA of missed experts)
+diff --git a/include/strata/kernels/verify_kernels.hpp b/include/strata/kernels/verify_kernels.hpp
+index 777f12f8..d44b1031 100644
+--- a/include/strata/kernels/verify_kernels.hpp
++++ b/include/strata/kernels/verify_kernels.hpp
+@@ -41,6 +41,8 @@ void gdn_step_norm_multi(float* state, const float* h, int conv_channels, const
+ /// Spin until *flag >= value (a mapped host flag).  The value is fixed at capture, so several rings can be
+ /// outstanding at once (the split verify window keeps two).
+ void wait_flag_ge(const uint32_t* flag, uint32_t value, void* stream);
++/// As wait_flag_ge, with optional GPU clock stamps at entry and exit.
++void wait_flag_ge_stamped(const uint32_t* flag, uint32_t value, unsigned long long* t_in, unsigned long long* t_out, void* stream);
+ /// the GPU's %globaltimer (ns) into buf[i] (a one-thread kernel: the verify window's stage profiler).  Inside a PDL
+ /// stretch (pdl.hpp) the stamp passes the early launch on, so a profiled window keeps the chain it measures.
+ void gpu_stamp(unsigned long long* buf, int i, void* stream);
+diff --git a/src/core/expert_source.cpp b/src/core/expert_source.cpp
+index bf365f67..d1f14dac 100644
+--- a/src/core/expert_source.cpp
++++ b/src/core/expert_source.cpp
+@@ -3831,8 +3831,8 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+                 ++d.tail_experts;
+             }
+         }
+-        const bool pcie_ok = d.pcie_num > 0 && d.src->pcie_layer(d.layers);
+-        const int m = pcie_ok ? (nmiss * d.pcie_num) >> 8 : 0;
++        const bool pcie_ok = (d.pcie_num > 0 || d.pcie_model.on) && d.src->pcie_layer(d.layers);
++        const int m = pcie_ok ? d.pcie_model.pick(nmiss, (nmiss * d.pcie_num) >> 8) : 0;
+         int miss_rank = 0, groups = 0, entries = 0, fetches = 0;
+         GpuPlanSink& P = *d.plan;
+         const uint8_t* dma_src[64];
+@@ -4082,6 +4082,7 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+         }
+     }
+     const auto c3 = std::chrono::steady_clock::now();
++    if (d.plan != nullptr) d.plan->cpu_jobs = njobs;
+     pt("run", njobs);
+     if (njobs > njobs1) {   // njobs1 is 0 unless the overlap split the batch: then these are the experts that were read
+         if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], d.jobs_multi.data() + njobs1, njobs - njobs1);
+diff --git a/src/core/verify.cpp b/src/core/verify.cpp
+index 3e9ec069..e66a5f7a 100644
+--- a/src/core/verify.cpp
++++ b/src/core/verify.cpp
+@@ -444,7 +444,7 @@ Verifier::~Verifier() {
+         if (e) cudaEventDestroy(e);
+     if (arena_) cudaFree(arena_);
+     void* hosts[] = {h_tok_, h_step_, h_pos_, h_commit_, h_ple_, h_out_, h_x_, h_ids_, h_w_, h_seq_, h_flag_, h_ymiss_,
+-                     h_flagA_, h_plan_, h_flagB_, h_plan_err_};
++                     h_flagA_, h_plan_, h_flagB_, h_plan_err_, h_bal_};
+     for (void* h : hosts)
+         if (h) cudaFreeHost(h);
+ }
+@@ -550,6 +550,17 @@ bool Verifier::init(const WeightTable& wt, const ModelGeometry& g, SessionState&
+               mapped(64, (void**) &h_plan_err_, (void**) &m_plan_err_) &&
+               mapped(T * K * N * 4, (void**) &h_ymiss_, (void**) &m_ymiss_);
+     if (!ok) { err = "verify: mapped staging allocation failed"; return false; }
++    if (bal_ != nullptr) {   // set_pcie_balance: four stamp words per (layer, group)
++        if (!mapped((size_t) g.n_layers * 2 * 4 * 8, (void**) &h_bal_, (void**) &m_bal_)) {
++            err = "verify: mapped balance stamps allocation failed";
++            return false;
++        }
++        bal_p_.assign((size_t) g.n_layers * 2, 0.0);
++        bal_nc_.assign((size_t) g.n_layers * 2, 0);
++        bal_np_.assign((size_t) g.n_layers * 2, 0);
++        bal_ok_.assign((size_t) g.n_layers * 2, 0);
++        bal_->on = true;
++    }
+     // the GPU plan: counts(4) | start(cap+1) | dst(cap) | tok(cap) | pad | ptr(cap u64) | ptr2(cap u64) | start2(cap+1)
+     {
+         const int64_t cap = (int64_t) (T * K);
+@@ -1511,13 +1522,18 @@ bool Verifier::record_window(int T, cudaStream_t cs, std::string& err) {
+                 wait_flag_ge_or(m_flagA_, ring, skip_ + grp, cs);
+                 copy_i32_from_mapped_unless(pl, m_plan_ + (size_t) grp * (size_t) plan_i32_, plan_i32_, skip_ + grp, ring, cs);
+             } else {
+-                wait_flag_ge(m_flagA_, ring, cs);                  // the pool published this group's GPU plan
++                if (m_bal_ != nullptr)
++                    wait_flag_ge_stamped(m_flagA_, ring, nullptr, m_bal_ + ((l - lb_) * 2 + grp) * 4, cs);
++                else
++                    wait_flag_ge(m_flagA_, ring, cs);
+                 copy_i32_from_mapped(pl, m_plan_ + (size_t) grp * (size_t) plan_i32_, plan_i32_, cs);
+             }
+             stamp(l, 19, grp);
+             grouped(p_ptr, p_start, p_counts, 0, hit_out);
+             stamp(l, 20, grp);
+             if (device_plan_) wait_flag_ge_or(m_flagB_, ring, skip_ + grp, cs);
++            else if (m_bal_ != nullptr)   // set_pcie_balance: the PCIe part starts
++                wait_flag_ge_stamped(m_flagB_, ring, m_bal_ + ((l - lb_) * 2 + grp) * 4 + 1, nullptr, cs);
+             else wait_flag_ge(m_flagB_, ring, cs);                 // the PCIe share is in staging (DMA) or mapped
+             if (sink_.pcie_mode == 2) {                            // stage it with a copy kernel, then point at staging
+                 const int64_t per = G == 2 ? kStagingBlobs / 2 : kStagingBlobs;
+@@ -1535,7 +1551,10 @@ bool Verifier::record_window(int T, cudaStream_t cs, std::string& err) {
+                 copy_or_zero_from_mapped(parts_out, m_ymiss_ + (size_t) tb * K * N, (long long) n * K * N,
+                                          skip_ + grp, ring, cs);
+             } else {
+-                wait_flag_ge(m_flag_, ring, cs);               // the CPU's share is in the mapped rows
++                if (m_bal_ != nullptr)
++                    wait_flag_ge_stamped(m_flag_, ring, m_bal_ + ((l - lb_) * 2 + grp) * 4 + 2, nullptr, cs);
++                else
++                    wait_flag_ge(m_flag_, ring, cs);
+                 stamp(l, 23, grp);
+                 if (remote_opt_)   // #578: the helper's rows come back reduced; skip them as well
+                     remote_opt_->copy_rows(parts_out, m_ymiss_ + (size_t) tb * K * N, tb, n, p_dst, p_counts + 1, cs);
+@@ -2001,6 +2020,7 @@ bool Verifier::run(int T, const int32_t* tokens, int64_t pos0, PoolMultiFn pool,
+     trace_ev("WINDOW", -1, -1, pos0 * 16 + T);
+     ms_host += ms_since(t0);
+     VDBG("staged; launching\n");
++    if (h_bal_ != nullptr) std::memset(h_bal_, 0, (size_t) bal_p_.size() * 4 * 8);
+     if (ar_on() && h_plan_err_ != nullptr) *(volatile uint32_t*) h_plan_err_ = 0;
+     const cudaError_t le = cudaGraphLaunch(ar_off_ ? exec_nr_[T] : exec_[T], cs_);
+     trace_ev("LAUNCHED", -1, -1, (int64_t) le);
+@@ -2080,6 +2100,13 @@ bool Verifier::run(int T, const int32_t* tokens, int64_t pos0, PoolMultiFn pool,
+         progress_tick();
+         std::atomic_thread_fence(std::memory_order_seq_cst);
+         _mm_sfence();
++        if (h_bal_ != nullptr) {   // set_pcie_balance: the step's plan, its CPU and its PCIe experts
++            const size_t bi = (size_t) ((k / G) * 2 + grp);
++            bal_ok_[bi] = *(volatile uint32_t*) h_flagA_ == want;
++            bal_nc_[bi] = bal_ok_[bi] ? sink_.cpu_jobs : 0;
++            bal_np_[bi] = bal_ok_[bi] ? sink_.counts[2] : 0;
++            sink_.cpu_jobs = 0;
++        }
+         if (*(volatile uint32_t*) h_flagA_ != want) {        // the pool did not publish a plan: an empty one
+             sink_.counts[0] = 0;
+             sink_.counts[1] = 0;
+@@ -2102,6 +2129,7 @@ bool Verifier::run(int T, const int32_t* tokens, int64_t pos0, PoolMultiFn pool,
+             ms_host += ms_since(tp);
+         }
+         if (!(test_stall && k + 1 == steps)) *flag = want;
++        if (h_bal_ != nullptr) bal_p_[(size_t) ((k / G) * 2 + grp)] = ms_since(b);
+         ms_wait += std::chrono::duration<double, std::milli>(b - a).count();
+         ms_pool += ms_since(b);
+     }
+@@ -2127,6 +2155,7 @@ bool Verifier::run(int T, const int32_t* tokens, int64_t pos0, PoolMultiFn pool,
+         cudaStreamSynchronize(copy_);   // no host function of this window may raise flag B in the next one
+         copy_used_ = false;
+     }
++    if (h_bal_ != nullptr && !all_resident_ && !bal_paused_) pcie_balance_window(steps, G);
+     if (prof_on_ && G == 1) collect_profile();   // the window's GPU stage stamps
+     // ---- a sampled or penalized request: the head's sampling again, host-side so its parameters are this call's
+     // own (a captured kernel would replay the same draws forever).  Row t's draw is Philox(seed, pos0 + t): tied to
+@@ -2193,6 +2222,20 @@ bool Verifier::run(int T, const int32_t* tokens, int64_t pos0, PoolMultiFn pool,
+     return true;
+ }
+ 
++// set_pcie_balance: each stamped step's times into the model's fits (PcieModel::sample), solved once a window.
++void Verifier::pcie_balance_window(int64_t steps, int G) {
++    const volatile unsigned long long* st = h_bal_;
++    PcieModel& M = *bal_;
++    for (int64_t k = 0; k < steps; ++k) {
++        const size_t i = (size_t) ((k / G) * 2 + k % G);
++        if (!bal_ok_[i]) continue;
++        const unsigned long long ta = st[4 * i], tb = st[4 * i + 1], tw = st[4 * i + 2];
++        if (ta == 0 || tb < ta || tw < tb || tw - ta > 1000000000ull) continue;   // not stamped in this window
++        M.sample(bal_nc_[i], bal_np_[i], bal_p_[i], (double) (tw - ta) * 1e-6);
++    }
++    M.solve();
++}
++
+ void Verifier::set_plan_slot(int grp) {
+     const int64_t cap = sink_.cap;
+     int32_t* base = h_plan_ + (size_t) grp * (size_t) plan_i32_;
+diff --git a/src/kernels/cuda/verify_kernels.cu b/src/kernels/cuda/verify_kernels.cu
+index 6642f074..34177a54 100644
+--- a/src/kernels/cuda/verify_kernels.cu
++++ b/src/kernels/cuda/verify_kernels.cu
+@@ -971,6 +971,25 @@ __global__ void wait_flag_ge_kernel(const volatile uint32_t* flag, uint32_t valu
+     while (*flag < value) strata_spin_pause();
+     __threadfence_system();
+ }
++__device__ __forceinline__ unsigned long long now_ns() {   // gpu_stamp's clock
++    unsigned long long t;
++#if defined(STRATA_HIP_GFX906)
++    t = wall_clock64() * 40ull;
++#elif defined(__HIPCC__)
++    t = wall_clock64() * 10ull;
++#else
++    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(t));
++#endif
++    return t;
++}
++// wait_flag_ge, with the GPU's clock as it arrives (t_in) and as it leaves (t_out), either may be null
++__global__ void wait_flag_ge_stamped_kernel(const volatile uint32_t* flag, uint32_t value, volatile unsigned long long* t_in,
++                                            volatile unsigned long long* t_out) {
++    if (t_in != nullptr) *t_in = now_ns();
++    while (*flag < value) strata_spin_pause();
++    __threadfence_system();
++    if (t_out != nullptr) *t_out = now_ns();
++}
+ }  // namespace
+ 
+ namespace {
+@@ -1198,6 +1217,12 @@ void wait_flag_ge(const uint32_t* flag, uint32_t value, void* stream) {
+     check("wait_flag_ge");
+ }
+ 
++void wait_flag_ge_stamped(const uint32_t* flag, uint32_t value, unsigned long long* t_in, unsigned long long* t_out,
++                          void* stream) {
++    wait_flag_ge_stamped_kernel<<<1, 1, 0, (cudaStream_t) stream>>>(flag, value, t_in, t_out);
++    check("wait_flag_ge_stamped");
++}
++
+ void embedding_gather_dev(const uint8_t* codes, const float* scales, const float* offsets, const int32_t* tokens,
+                           int n_tok, int64_t n, int code_bits, int code_bias, int group_elems, uint64_t row_codes,
+                           uint64_t row_groups, float* out, void* stream) {
+diff --git a/src/program/generate.cpp b/src/program/generate.cpp
+index 1118459a..1b68a121 100644
+--- a/src/program/generate.cpp
++++ b/src/program/generate.cpp
+@@ -2690,6 +2690,14 @@ int main(int argc, char** argv) {
+             std::fprintf(stderr, "strata generate: PCIe probe failed -> pcie_frac default %.2f\n", base);
+         }
+     }
++    // STRATA_PCIE_BALANCE=1 (opt-in): each verify layer's PCIe count from measured costs (Verifier::set_pcie_balance)
++    // instead of the probe's fixed share above - the CPU's speed sets the right share as much as the link's.  IQ2_XS,
++    // one AVX2 pool worker (emulated on an RTX 5090 + 9950X3D): 16.8-17.2 -> 12.8-13.0 ms a round; the 9950X3D's own
++    // 16 workers: 12.2 either way.  One GPU, no batch slots, no --pcie-frac.
++    auto pcie_balance = [&]() {
++        const char* e = std::getenv("STRATA_PCIE_BALANCE");
++        return !pcie_given && native_pack && !multi_gpu && o.batch <= 0 && e != nullptr && std::strcmp(e, "1") == 0;
++    };
+     // the canonical Q2_0 pack's CPU kernels are AVX-512 only; a native pack runs on AVX2 CPUs as well
+     if (!native_pack) strata::kernels::cpu::cpu_require_expert_support();
+     else if (!strata::kernels::cpu::cpu_avx512_ok())
+@@ -7417,6 +7425,7 @@ int main(int argc, char** argv) {
+             for (int st = 0; st + 1 < n_stages; ++st) stage_ver_p(st, 1).set_next(&stage_ver_p(st + 1, 1), &split_drive_b);
+         }
+         ver.set_remote_expert_opt(remote_opt.get());
++        if (pcie_balance() && n_stages == 1) ver.set_pcie_balance(&drive.d.pcie_model);
+         if (batch_mtp) ver.set_batch_graph_limit(64);   // --batch-mtp only: slot rotation makes many layouts (LRU); 0.1.39 keeps all
+         if (!ver.init(wt, g, ss, vh, native_head.loaded() ? &native_head : nullptr,
+                       batch_mtp ? strata::kernels::kVerifyMaxT : std::max(o.spec, o.batch), err) ||
+@@ -9779,6 +9788,7 @@ int main(int argc, char** argv) {
+             // tuning keys (setup's calibration measures settings without restarting the engine): the PCIe share of
+             // the missed experts and the draft-probability floor, for this request only
+             double req_pcie_frac = o.pcie_frac, req_spec_min_p = o.spec_min_p;
++            bool req_pcie_set = false;
+             int req_aux_cpus = -1;   // aux_cpus=0|1: --aux-cpus for this request (-1 = the start-up value)
+             if (endp != nullptr) {   // GENI takes the same keys (#75: image requests were always greedy); its
+                                      // embedding file path is the first token without an =
+@@ -9805,7 +9815,7 @@ int main(int argc, char** argv) {
+                     else if (key == "penalty_freq") req_penalty_freq = fv;
+                     else if (key == "penalty_present") req_penalty_present = fv;
+                     else if (key == "seed") req_seed = std::strtoull(tok.c_str() + eq + 1, nullptr, 10);
+-                    else if (key == "pcie_frac") req_pcie_frac = std::clamp((double) fv, 0.0, 1.0);
++                    else if (key == "pcie_frac") { req_pcie_frac = std::clamp((double) fv, 0.0, 1.0); req_pcie_set = true; }
+                     else if (key == "spec_min_p") req_spec_min_p = std::clamp((double) fv, 0.0, 1.0);
+                     else if (key == "aux_cpus") req_aux_cpus = std::atoi(tok.c_str() + eq + 1) != 0 ? 1 : 0;
+                     // unknown keys are skipped: the ids start at the first token without '='
+@@ -10679,6 +10689,7 @@ int main(int argc, char** argv) {
+                     std::fprintf(stderr, "strata serve: aux cpus %s for this request%s\n", strata::aux_cpus::enabled() ? "ON" : "off",
+                                  want && !strata::aux_cpus::enabled() ? " (asked for, but no CPU is spare: see the start-up line)" : "");
+             }
++            ver.pause_pcie_balance(req_pcie_set);   // the measured costs keep across requests
+             drive.d.pcie_num = std::max(0, std::min(256, (int) (req_pcie_frac * 256.0 + 0.5)));
+             // a layer split: CUDA0's share as asked; a later GPU keeps its own (its link) unless the request sets one
+             for (int st = 0; st < split_drive.n; ++st)
+@@ -11723,6 +11734,12 @@ int main(int argc, char** argv) {
+                         (unsigned long long)(z.issued_bytes-cpd0.issued_bytes),(unsigned long long)(z.useful_bytes-cpd0.useful_bytes),
+                         (unsigned long long)(z.splits-cpd0.splits),(unsigned long long)(z.inlines-cpd0.inlines));
+                 }
++                if (ver.pcie_balance_on()) {
++                    const auto& pm = drive.d.pcie_model;
++                    std::fprintf(stderr, "PCIE_BALANCE fit ready=%d ncpu=%d ngpu=%d ngpu_p=%d explore=%u CPU_us=%.3f+%.3f*n_cpu+%.3f*n_pcie GPU_us=%.3f+%.3f*n_pcie (PCIe count per layer from these)\n",
++                                 pm.ready() ? 1 : 0, pm.ncpu, pm.ngpu, pm.ngpu_p, pm.explore,
++                                 1000*pm.a, 1000*pm.c, 1000*pm.d, 1000*pm.g0, 1000*pm.g);
++                }
+                 const double w = (double) dec_windows, L = (double) g.n_layers;
+                 std::fprintf(stderr, "strata decode timing: %lld windows, avg T %.2f, %.2f tokens/window, %.2f ms/window = "
+                                      "verify %.2f (GPU-reach wait %.2f + per-layer host %.2f [plan %.2f actq %.2f jobs %.2f "
+@@ -12484,6 +12501,7 @@ int main(int argc, char** argv) {
+         vh.blob = thits.blob;
+         vh.slot_off = xcache.slot_offsets();   // E-6: the device plan's pointers
+         vh.n_slots = xcache.slots();
++        if (pcie_balance()) ver.set_pcie_balance(&drive.d.pcie_model);
+         if (!ver.init(wt, g, ss, vh, native_head.loaded() ? &native_head : nullptr, o.spec, err)) {
+             std::fprintf(stderr, "strata generate: %s\n", err.c_str());
+             return 1;
+@@ -12928,6 +12946,12 @@ int main(int argc, char** argv) {
+             std::printf("%-24s %.2f distinct experts per layer read over PCIe (share %d/256 of the misses)\n",
+                         "pcie experts", (double) (drive.d.pcie_experts - pcie0) / (double) (rounds * g.n_layers),
+                         drive.d.pcie_num);
++        if (rounds > 0 && ver.pcie_balance_on()) {
++            const strata::core::PcieModel& pm = drive.d.pcie_model;
++            std::printf("%-24s CPU %.0f us + %.0f an expert + %.0f a PCIe one, GPU %.0f us + %.0f a PCIe expert (the "
++                        "PCIe count per layer from these)\n", "pcie model", 1000 * pm.a, 1000 * pm.c, 1000 * pm.d,
++                        1000 * pm.g0, 1000 * pm.g);
++        }
+         (void) pool_ms0;
+         if (use_mtp && rounds > 0)
+             std::printf("%-24s %.3f ms/round drafting (%lld rounds), MTP prompt %.1f ms, %.0f MiB of VRAM\n", "mtp",

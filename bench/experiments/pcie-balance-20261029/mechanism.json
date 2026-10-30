@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "registered_gib": 8.0,
+  "pcie": [
+    1.68,
+    1.0,
+    1.27
+  ],
+  "fits": [
+    "PCIE_BALANCE fit ready=1 ncpu=2762 ngpu=2784 ngpu_p=2261 explore=2767 CPU_us=188.824+59.787*n_cpu+0.000*n_pcie GPU_us=75.481+181.025*n_pcie (PCIe count per layer from these)",
+    "PCIE_BALANCE fit ready=1 ncpu=6102 ngpu=6144 ngpu_p=4400 explore=6107 CPU_us=71.114+67.979*n_cpu+0.000*n_pcie GPU_us=45.172+198.647*n_pcie (PCIe count per layer from these)",
+    "PCIE_BALANCE fit ready=1 ncpu=8737 ngpu=8784 ngpu_p=6240 explore=8742 CPU_us=433.604+88.955*n_cpu+0.000*n_pcie GPU_us=106.240+186.108*n_pcie (PCIe count per layer from these)"
+  ],
+  "pipe_active": true,
+  "startup": {
+    "slots": "3153",
+    "ram_budget_gib": "20.00",
+    "locked_mib": "12288",
+    "resident_gib": "20.00",
+    "pinned_gib": "8.00",
+    "pool_line": "9 pool workers on logical processors 2,4,6,8,10,12,13,14,15, the host thread on 0 (draining too) (--host-core first)",
+    "tail_skip_line": "STRATA_ROUTE_TAIL_SKIP=7 is ON (default): a missed expert that every token of a verify window routes at rank 7 or lower is skipped (+10..20% decode on 12-16 GB cards that miss experts, answers differ slightly from 0.1.41); STRATA_ROUTE_TAIL_SKIP=0 turns it off",
+    "engine_version": "0.1.42",
+    "ram_lru_line": "RAM_LRU enabled: same-layer fixed arena; byte parity checks=0",
+    "vram_free_line": "254 MiB of VRAM free with everything loaded - LOW: requests may stall; add --vram-reserve-mib 958 to the config's args (or lower --max-context)",
+    "pcie_line": "PCIe probe: 24.4 GB/s host->device (best of 24.4 24.3 24.4 24.4) -> pcie_frac 0.55 (default 0.55)",
+    "registered_gib": "8.00",
+    "page_lock_refused": "page-locking refused (out of memory)",
+    "chunk_line": null,
+    "async_on_line": null,
+    "async_off_line": null,
+    "hybrid_line": null,
+    "pin_total_mib": 20480.0,
+    "capacity_ok": true,
+    "capacity_detail": "locked+registered=20480.0 MiB (required 20480)",
+    "strict": true
+  }
+}

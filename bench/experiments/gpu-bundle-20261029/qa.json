@@ -1,0 +1,78 @@
+{
+  "manifest_files_verified": 249,
+  "blocks": [
+    {
+      "block": "block-00-SMOKE-r0",
+      "rows": 3,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-01-C-r1",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-02-G-r1",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-03-G-r2",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-04-C-r2",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-05-C-r3",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    },
+    {
+      "block": "block-06-G-r3",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "effective_env": true,
+      "pipe": true,
+      "log_switch_lines": []
+    }
+  ],
+  "formal_rows": 60,
+  "exact_pairs": 30,
+  "identical_pairs": 0
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "arm": "C",
+    "allowed_diff_only": true,
+    "config_sha256": "57143E345E63EC3C92A565F4B8987A3EE1AE3E4A7920096FD657EF8D4375ED2B"
+  },
+  {
+    "arm": "F",
+    "allowed_diff_only": true,
+    "config_sha256": "4BA2A676E7397BCFA7693C5117F2BC88EF3E541B96E01385C59A495997DD0ABE"
+  }
+]

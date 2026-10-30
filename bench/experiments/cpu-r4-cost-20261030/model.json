@@ -1,0 +1,40 @@
+{
+  "status": "CONDITIONAL_PLANNING_ONLY",
+  "dispatches": 53472,
+  "windows": 1114,
+  "limits": [
+    "Posthoc maximum per type across core/nt/variant is unrealizable optimism, not a selected kernel or live-weight estimate.",
+    "Scales all observed ready-prefix/cold duration by a full-row single-core microbenchmark ratio; scheduler, LRU/copy/noncompute portions may not scale.",
+    "Observed I/O offsets fixed, GPU/other window costs fixed, new packing costs excluded.",
+    "Not a global upper bound or measured engine speed; no quality gate."
+  ],
+  "uniform13": {
+    "saved_ms_window": 2.7096170694655677,
+    "conditional_speedup_percent": 7.886901753067721,
+    "dispatch_ms_window": 19.328886265708878
+  },
+  "best_per_type": {
+    "16": 1.6711228325954122,
+    "17": 1.1945740347464566,
+    "18": 1.314452483349123,
+    "21": 1.5111959177807723,
+    "22": 1.1091591161102334
+  },
+  "optimistic_posthoc": {
+    "saved_ms_window": 2.9339526406570595,
+    "conditional_speedup_percent": 8.59600668957241,
+    "dispatch_ms_window": 19.328886265708878
+  },
+  "worst_selected_per_type": {
+    "16": 0.9001494710858252,
+    "17": 0.7986988083970222,
+    "18": 0.8132094722931901,
+    "21": 0.9068403670010446,
+    "22": 0.6055848965332894
+  },
+  "pessimistic_proxy": {
+    "saved_ms_window": -3.2714244878220855,
+    "conditional_speedup_percent": -8.110241737231206,
+    "dispatch_ms_window": 19.328886265708878
+  }
+}

@@ -1,0 +1,658 @@
+{
+  "pre_gate": {
+    "at": 1793263290.665125,
+    "processes": [
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 4352,
+        "name": "python.exe",
+        "ppid": 5280,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 5280,
+        "name": "python.exe",
+        "ppid": 11236,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 11236,
+        "name": "python.exe",
+        "ppid": 29576,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 13048,
+        "name": "python.exe",
+        "ppid": 28408,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\gpu_audit_extra.py"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "pid": 27744,
+        "name": "strata.exe",
+        "ppid": 4352,
+        "cmdline": [
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+          "--serve",
+          "--pack",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\packs\\iq3_xxs",
+          "--native",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+          "--ple-gguf",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+          "--mtp",
+          "C:\\Users\\User\\Strata-v0.1.34-mtp-test-20261002\\mtp\\rt",
+          "--spec",
+          "6",
+          "--spec-min-p",
+          "0.75",
+          "--max-context",
+          "100000",
+          "--kv",
+          "q4_0",
+          "--kv-resident",
+          "20480",
+          "--expert-profile",
+          "C:\\Users\\User\\Strata-v0.1.38-ab-20261003\\work-note-transfer-chat-20261005\\learned-heart.bin",
+          "--expert-cache",
+          "3604",
+          "--pool-workers",
+          "9",
+          "--prefill",
+          "auto",
+          "--stats",
+          "--max-new",
+          "1024",
+          "--suffix-draft",
+          "3",
+          "--resident-budget-gib",
+          "20",
+          "--mtp-max-t",
+          "3",
+          "--pool-affinity",
+          "all",
+          "--adapt-every",
+          "3",
+          "--adapt-swaps",
+          "16",
+          "--adapt-decay",
+          "0.60",
+          "--ple-io",
+          "direct",
+          "--mtp-hnorm",
+          "stream"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 28408,
+        "name": "python.exe",
+        "ppid": 9892,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\gpu_audit_extra.py"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 29576,
+        "name": "python.exe",
+        "ppid": 12988,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 32348,
+        "name": "python.exe",
+        "ppid": 32632,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 32632,
+        "name": "python.exe",
+        "ppid": 1504,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ]
+      }
+    ],
+    "metrics": {
+      "state": "idle",
+      "engine": {
+        "expert_slots": 3153,
+        "arena_mib": 20479,
+        "pool_workers": 9,
+        "spec": 6,
+        "mtp_max": 3
+      }
+    },
+    "available_bytes": 3326877696
+  },
+  "source": "C:\\Users\\User\\native-pipe-generic-20261029",
+  "q6_callsite_scan": {
+    "files": 333,
+    "bytes": 6459821,
+    "matches": [
+      {
+        "path": "src\\core\\mtp.cpp",
+        "line": 659,
+        "sha256": "5B5D5240DC54E69D798D9D67B749A996F39AB0C83A576CB612E8208600CAC609",
+        "context": {
+          "655": "            std::fprintf(stderr, \"strata mtp: draft head over %lld tokens (%.1f MiB)\\n\", (long long) n_dvocab_,",
+          "656": "                         (double) (n_dvocab_ * row_bytes) / 1048576.0);",
+          "657": "            dhead_type_ = head->type();",
+          "658": "            if (q4_head_ && !make_q4_head(err)) return false;",
+          "659": "            if (dhead_type_ == 14 && strata::kernels::native_q6_k_packed_enabled())   // STRATA_Q6_PACKED=1",
+          "660": "                strata::kernels::native_q6_k_pack(dhead_, (int) (row_bytes / 210) * 256, (int) n_dvocab_,",
+          "661": "                                                  \"MTP draft head\");",
+          "662": "        }",
+          "663": "    }",
+          "664": "    if (coupled_draft_env() && cparams_ == nullptr && !setup_coupled(err)) return false;",
+          "665": "    return true;"
+        }
+      },
+      {
+        "path": "src\\core\\mtp.cpp",
+        "line": 660,
+        "sha256": "5B5D5240DC54E69D798D9D67B749A996F39AB0C83A576CB612E8208600CAC609",
+        "context": {
+          "656": "                         (double) (n_dvocab_ * row_bytes) / 1048576.0);",
+          "657": "            dhead_type_ = head->type();",
+          "658": "            if (q4_head_ && !make_q4_head(err)) return false;",
+          "659": "            if (dhead_type_ == 14 && strata::kernels::native_q6_k_packed_enabled())   // STRATA_Q6_PACKED=1",
+          "660": "                strata::kernels::native_q6_k_pack(dhead_, (int) (row_bytes / 210) * 256, (int) n_dvocab_,",
+          "661": "                                                  \"MTP draft head\");",
+          "662": "        }",
+          "663": "    }",
+          "664": "    if (coupled_draft_env() && cparams_ == nullptr && !setup_coupled(err)) return false;",
+          "665": "    return true;",
+          "666": "}"
+        }
+      },
+      {
+        "path": "src\\core\\native_head.cpp",
+        "line": 67,
+        "sha256": "E17CCE81478F0B424B3C855FCA5E1B11E4228F815D14234EC9DC60D341FD24F3",
+        "context": {
+          "63": "        bytes_ = bytes;",
+          "64": "        n_in_ = (int) n_in;",
+          "65": "        n_out_ = (int) n_out;",
+          "66": "        type_ = (int) tensor->type;",
+          "67": "        if (type_ == 14 && strata::kernels::native_q6_k_packed_enabled())   // STRATA_Q6_PACKED=1",
+          "68": "            strata::kernels::native_q6_k_pack(weights_, n_in_, n_out_, \"output head\");",
+          "69": "        return true;",
+          "70": "    } catch (const std::exception& error) {",
+          "71": "        err = std::string(\"native head: \") + error.what();",
+          "72": "        return false;",
+          "73": "    }"
+        }
+      },
+      {
+        "path": "src\\core\\native_head.cpp",
+        "line": 68,
+        "sha256": "E17CCE81478F0B424B3C855FCA5E1B11E4228F815D14234EC9DC60D341FD24F3",
+        "context": {
+          "64": "        n_in_ = (int) n_in;",
+          "65": "        n_out_ = (int) n_out;",
+          "66": "        type_ = (int) tensor->type;",
+          "67": "        if (type_ == 14 && strata::kernels::native_q6_k_packed_enabled())   // STRATA_Q6_PACKED=1",
+          "68": "            strata::kernels::native_q6_k_pack(weights_, n_in_, n_out_, \"output head\");",
+          "69": "        return true;",
+          "70": "    } catch (const std::exception& error) {",
+          "71": "        err = std::string(\"native head: \") + error.what();",
+          "72": "        return false;",
+          "73": "    }",
+          "74": "}"
+        }
+      },
+      {
+        "path": "src\\kernels\\cuda\\native_mmvq.cu",
+        "line": 1936,
+        "sha256": "555384EE4A66889079C780024401D6776D3B1384DDC0A28796B00C2D90DF2C96",
+        "context": {
+          "1932": "}",
+          "1933": "",
+          "1934": "void native_q8_0_packed_unregister(const void* gguf_weights) { q8_packed_registry().erase(gguf_weights); }",
+          "1935": "",
+          "1936": "bool native_q6_k_packed_enabled() {",
+          "1937": "    static const bool enabled = [] {",
+          "1938": "        const char* v = std::getenv(\"STRATA_Q6_PACKED\");",
+          "1939": "        return v && v[0] == '1' && v[1] == '\\0';",
+          "1940": "    }();",
+          "1941": "    return enabled;",
+          "1942": "}"
+        }
+      },
+      {
+        "path": "src\\kernels\\cuda\\native_mmvq.cu",
+        "line": 1944,
+        "sha256": "555384EE4A66889079C780024401D6776D3B1384DDC0A28796B00C2D90DF2C96",
+        "context": {
+          "1940": "    }();",
+          "1941": "    return enabled;",
+          "1942": "}",
+          "1943": "",
+          "1944": "bool native_q6_k_pack(const void* weights, int n_in, int n_out, const char* what) {",
+          "1945": "    if (!weights || n_in <= 0 || n_in % 256 || n_in / 256 < WARPS * WARP / 32 || n_out < 2048) return false;",
+          "1946": "    if (q6_packed_registry().count(weights)) return true;",
+          "1947": "    const std::size_t nb = std::size_t(n_in / 256) * std::size_t(n_out);",
+          "1948": "    const std::size_t bytes = nb * sizeof(Q6KBlock);",
+          "1949": "    std::vector<Q6KBlock> host(nb);",
+          "1950": "    if (cudaMemcpy(host.data(), weights, bytes, cudaMemcpyDeviceToHost) != cudaSuccess) { cudaGetLastError(); return false; }"
+        }
+      },
+      {
+        "path": "include\\strata\\kernels\\native_mmvq.hpp",
+        "line": 110,
+        "sha256": "DFBCCE6BF13D8F99A278661883AEECF5C568A5AC9644FBE2B74F0200733A853A",
+        "context": {
+          "106": "/// STRATA_Q6_PACKED=1 (opt-in): a packed copy of a Q6_K matrix (the output heads) - the same bytes as ql / qh /",
+          "107": "/// scales / d planes - that native_q6_k_mmvq calls on `weights` read instead (bitwise equal outputs). The copy is",
+          "108": "/// owned here: native_q6_k_pack builds it from the device matrix (false: not eligible or failed; nothing changes),",
+          "109": "/// native_q6_k_unpack frees it. STRATA_Q6P_SELFTEST=1 checks it bitwise and times it at load.",
+          "110": "bool native_q6_k_packed_enabled();",
+          "111": "bool native_q6_k_pack(const void* weights, int n_in, int n_out, const char* what);",
+          "112": "void native_q6_k_unpack(const void* weights);",
+          "113": "",
+          "114": "void native_q8_0_f32(const void* weights, const float* x, void* scratch_q8_1,",
+          "115": "                      float* y, int n_in, int n_out, int ncols, void* stream);",
+          "116": ""
+        }
+      },
+      {
+        "path": "include\\strata\\kernels\\native_mmvq.hpp",
+        "line": 111,
+        "sha256": "DFBCCE6BF13D8F99A278661883AEECF5C568A5AC9644FBE2B74F0200733A853A",
+        "context": {
+          "107": "/// scales / d planes - that native_q6_k_mmvq calls on `weights` read instead (bitwise equal outputs). The copy is",
+          "108": "/// owned here: native_q6_k_pack builds it from the device matrix (false: not eligible or failed; nothing changes),",
+          "109": "/// native_q6_k_unpack frees it. STRATA_Q6P_SELFTEST=1 checks it bitwise and times it at load.",
+          "110": "bool native_q6_k_packed_enabled();",
+          "111": "bool native_q6_k_pack(const void* weights, int n_in, int n_out, const char* what);",
+          "112": "void native_q6_k_unpack(const void* weights);",
+          "113": "",
+          "114": "void native_q8_0_f32(const void* weights, const float* x, void* scratch_q8_1,",
+          "115": "                      float* y, int n_in, int n_out, int ncols, void* stream);",
+          "116": "",
+          "117": "void native_iq4_nl_mmvq(const void* weights, const void* x_q8_1, float* y,"
+        }
+      }
+    ]
+  },
+  "prefill": {
+    "path": "C:\\Users\\User\\native-pipe-generic-20261029\\src\\prefill\\prefill.cpp",
+    "sha256": "1601EF385799E46E0E63066C76CDAF9DE94B0C091C40A419641A033947E2A851",
+    "total_lines": 4148,
+    "selected_lines": {
+      "296": "    const int big = r < 16 ? 16 : r > ring_cap() ? ring_cap() : r;",
+      "297": "    return (int64_t) T >= stream_all_min() ? big : STAGE;",
+      "298": "}",
+      "299": "constexpr int DQ = 2;              // dequantized-expert ring (FP16 gate/up + down)",
+      "300": "// The BF16-weight projections (hyper-connection, SSM alpha/beta, indexer, router, shared gate, PLE key/value) take",
+      "301": "// BF16 activations here and FP32 ones in decode. STRATA_PREFILL_BF16X2=1 adds each activation's BF16 remainder as a",
+      "302": "// second GEMM (Y = W.hi + W.lo, ~16 mantissa bits): a router that picks its top 10 from the same x decode would.",
+      "303": "// 2 = all but the hyper-connection's; 1 = the hyper-connection's too (its activations are 10240 wide and its up",
+      "304": "// projection writes as much: slower); 0 (the default: opt-in, it changes the prompt path's numbers) = off.",
+      "899": "}",
+      "900": "",
+      "901": "namespace {",
+      "902": "constexpr int64_t GEMM_SCRATCH = 32ll << 20;        // FP16 elements for the largest dequantized dense weight",
+      "903": "constexpr size_t GEMM_WS = 32u << 20;               // cuBLAS workspace",
+      "904": "",
+      "905": "// THE ATTENTION HALF AND THE MoE HALF SHARE THEIR BUFFERS.  A layer runs its attention (GDN or QSA), writes it back",
+      "906": "// into the residual, and only then its MoE, so the three sets of scratch are never live at once: one region the size",
+      "907": "// of the largest holds them all.  That is ~260 KB of the ~680 KB a prompt token cost - which is what lets a chunk",
+      "1889": "}",
+      "1890": "bool native_proj(Gemm& gm, const core::WeightRef* w, const uint16_t* X, float* Y, int64_t T, const std::string& name,",
+      "1891": "                 std::string& err, int64_t ldy = 0, int64_t ldx = 0) {",
+      "1892": "    if (!w->native_data) { err = \"prefill: \" + name + \" has no native GGUF blocks (run with --native)\"; return false; }",
+      "1893": "    gm.native(X, w->native_type, w->native_data, Y, T, w->ne1, w->ne0, ldy, 0.0f, ldx);",
+      "1894": "    return true;",
+      "1895": "}",
+      "1896": "bool bf16_proj(Gemm& gm, const core::WeightRef* w, const uint16_t* X, float* Y, int64_t T, const std::string& name,",
+      "1897": "               std::string& err, int64_t ldy = 0, const uint16_t* X_lo = nullptr, int64_t ldx = 0) {",
+      "1898": "    if (w->kind != core::WeightKind::Bf16InF32 || !w->data) { err = \"prefill: \" + name + \" is not a resident BF16 tensor\"; return false; }",
+      "1912": "               kPfWaitCopy, kPfDequant, kPfGemmGU, kPfGemmD, kPfCombine, kPfPle, kPfKvStage, kPfGdnConv, kPfGdnRec, kPfGdnOut,",
+      "1913": "               kPfCount };",
+      "1914": "const char* const kPfNames[kPfCount] = {\"embed+steps\", \"hc read\", \"gdn\", \"qsa proj\", \"qsa indexer\", \"qsa select\",",
+      "1915": "                                        \"qsa attn\", \"router+shared\", \"host grouping\", \"gather\", \"wait copy\", \"dequant\",",
+      "1916": "                                        \"gemm gate/up\", \"gemm down\", \"combine\", \"ple\", \"kv stage\", \"gdn conv+gates\",",
+      "1917": "                                        \"gdn recurrence\", \"gdn out proj\"};",
+      "1918": "struct PfTimer {",
+      "1919": "    bool on = std::getenv(\"STRATA_PREFILL_TIMING\") != nullptr;",
+      "1920": "    std::vector<cudaEvent_t> ev;",
+      "2064": "        return v == nullptr || std::atoi(v) != 0;",
+      "2065": "    }();",
+      "2066": "    const bool ple_batch = ple_on && ple_batch_env && strata::kernels::ple_native_postops_enabled() &&",
+      "2067": "                           (ss.ple.w.key_bf16 != nullptr || ss.ple.w.key_native_data != nullptr) &&",
+      "2068": "                           m.region_bytes / ((uint64_t) (3 * strata::kernels::NG_HC_DIM + N + 4) * 4 + (uint64_t) N * 2 + 4096) >= 64;",
+      "2069": "    const int32_t prev0[2] = {prev[0], prev[1]};",
+      "2070": "    auto ple_gather = [&m, &ss, tokens, n, prev0](int64_t c0, int buf, std::string& e) -> bool {",
+      "2071": "        const int64_t T = std::min(m.T, n - c0);",
+      "2072": "        auto at = [&](int64_t i) { return i < 2 ? prev0[i] : (int32_t) tokens[i - 2]; };   // prev0, then the tokens",
+      "2341": "            }",
+      "2342": "        };",
+      "2343": "        // D-5: the stream is issued by its own host thread, so the thread launching the layers' kernels never waits",
+      "2344": "        // behind a host copy of an unpinned blob (that wait left the GPU idle: the 'wait copy' / 'dequant' time of the",
+      "2345": "        // i-quant prompts).  The same copies in the same order into the same slots, and a slot is refilled only once",
+      "2346": "        // the compute stream has recorded that it is done with it: the same results.  STRATA_PREFILL_ISSUER=0: inline.",
+      "2347": "        static const bool issuer_on = [] {",
+      "2348": "            const char* v = std::getenv(\"STRATA_PREFILL_ISSUER\");",
+      "2349": "            return v == nullptr || std::atoi(v) != 0;",
+      "2458": "                        if (e16_lo) m.gemm.bf16(e16_lo, pw.key_bf16, key, nb, HD, N, 0, 1.0f);",
+      "2459": "                    } else {",
+      "2460": "                        to_f16(emb, e16, nb * N, m.cs);",
+      "2461": "                        m.gemm.native(e16, pw.key_native_type, pw.key_native_data, key, nb, HD, N);",
+      "2462": "                        to_bf16(emb, e16, nb * N, m.cs, e16_lo);",
+      "2463": "                    }",
+      "2464": "                    m.gemm.bf16(e16, pw.value_bf16, val, nb, N, N);",
+      "2465": "                    if (e16_lo) m.gemm.bf16(e16_lo, pw.value_bf16, val, nb, N, N, 0, 1.0f);",
+      "2466": "                    try {",
+      "2792": "                    // perf-review D-1: the whole chunk on tensor cores, one block per (query, KV head), FP32-level",
+      "2793": "                    // accuracy but not bitwise (qsa_prompt_attn.hpp). Q4_0 KV, or STRATA_PROMPT_ATTN_OLD=1: the",
+      "2794": "                    // decode kernel, 32 queries at a time (K8V4 runs the tensor kernel's mode 3: INT8 K,",
+      "2795": "                    // V dequantized from its q4_0 blocks to fp16 at gather)",
+      "2796": "                    static const bool old_attn = std::getenv(\"STRATA_PROMPT_ATTN_OLD\") != nullptr;",
+      "2797": "                    if (old_attn || !strata::kernels::qsa_prompt_attn_batch(m.q, pools, m.sel_ids, m.steps_dev, m.cap, s,",
+      "2798": "                                                                            m.attn, T, m.cs))",
+      "2799": "                        for (int64_t t0 = 0; t0 < T; t0 += m.attn_batch) {",
+      "2800": "                            const int64_t nb = std::min(m.attn_batch, T - t0);",
+      "3733": "                            }",
+      "3734": "                            const int q = (int) (j % DQ);",
+      "3735": "                            if (lay.native) {",
+      "3736": "                                // plan v0.3 P6: a native pack's layer, dequantized by llama.cpp's own formulas",
+      "3737": "                                const auto& f = lay.fmt[(size_t) l];",
+      "3738": "                                strata::kernels::iq_dequant_gu_f16(f.gu_type, blob_dev, blob_dev + f.up_off, f.n_ff, f.n_embd,",
+      "3739": "                                                                   m.dq_gu[q], m.cs);",
+      "3740": "                                strata::kernels::iq_dequant_f16(f.d_type, blob_dev + f.down_off, f.n_embd * f.n_ff, m.dq_d[q], m.cs);",
+      "3741": "                            } else {",
+      "3742": "                                blob_dequant_f16(blob_dev, m.dq_gu[q], m.dq_d[q], m.cs);",
+      "3743": "                            }",
+      "3744": "                            if (slot >= 0) { cudaEventRecord(m.used[slot], m.cs); m.used_of[slot] = slot; }",
+      "3745": "                            const int64_t o0 = m.off[(size_t) e], ne = m.cnt[(size_t) e];",
+      "3746": "                            pt.mark(kPfGemmGU, cs);",
+      "3747": "                            m.gemm.f16(m.Xs + o0 * N, m.dq_gu[q], m.GU + o0 * 1280, ne, 1280, N);"
+    }
+  },
+  "post_gate": {
+    "at": 1793263291.940398,
+    "processes": [
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 4352,
+        "name": "python.exe",
+        "ppid": 5280,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 5280,
+        "name": "python.exe",
+        "ppid": 11236,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 11236,
+        "name": "python.exe",
+        "ppid": 29576,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 13048,
+        "name": "python.exe",
+        "ppid": 28408,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\gpu_audit_extra.py"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+        "pid": 27744,
+        "name": "strata.exe",
+        "ppid": 4352,
+        "cmdline": [
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\build\\strata.exe",
+          "--serve",
+          "--pack",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\packs\\iq3_xxs",
+          "--native",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+          "--ple-gguf",
+          "C:\\Users\\User\\Strata-IQ3-20261008\\models\\IQ3_XXS\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+          "--mtp",
+          "C:\\Users\\User\\Strata-v0.1.34-mtp-test-20261002\\mtp\\rt",
+          "--spec",
+          "6",
+          "--spec-min-p",
+          "0.75",
+          "--max-context",
+          "100000",
+          "--kv",
+          "q4_0",
+          "--kv-resident",
+          "20480",
+          "--expert-profile",
+          "C:\\Users\\User\\Strata-v0.1.38-ab-20261003\\work-note-transfer-chat-20261005\\learned-heart.bin",
+          "--expert-cache",
+          "3604",
+          "--pool-workers",
+          "9",
+          "--prefill",
+          "auto",
+          "--stats",
+          "--max-new",
+          "1024",
+          "--suffix-draft",
+          "3",
+          "--resident-budget-gib",
+          "20",
+          "--mtp-max-t",
+          "3",
+          "--pool-affinity",
+          "all",
+          "--adapt-every",
+          "3",
+          "--adapt-swaps",
+          "16",
+          "--adapt-decay",
+          "0.60",
+          "--ple-io",
+          "direct",
+          "--mtp-hnorm",
+          "stream"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 28408,
+        "name": "python.exe",
+        "ppid": 9892,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\runs\\lossless-screen-20261029\\gpu_audit_extra.py"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 29576,
+        "name": "python.exe",
+        "ppid": 12988,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--run",
+          "-u",
+          "-m",
+          "serve.server",
+          "--engine",
+          "strata",
+          "--config",
+          "C:\\Users\\User\\Strata-Adrian\\runs\\iq3-campaign-020\\server-task020-8080-v0142-s2k-mt1.json",
+          "--host",
+          "<tailscale-host>",
+          "--port",
+          "8080"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "pid": 32348,
+        "name": "python.exe",
+        "ppid": 32632,
+        "cmdline": [
+          "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ]
+      },
+      {
+        "exe": "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+        "pid": 32632,
+        "name": "python.exe",
+        "ppid": 1504,
+        "cmdline": [
+          "C:\\Users\\User\\Strata\\archive\\legacy\\20261009\\Strata-lm-run-2026-09-28\\.venv\\Scripts\\python.exe",
+          "-u",
+          "C:\\Users\\User\\Strata-Adrian-control\\tools\\strata_memory_policy.py",
+          "--watch"
+        ]
+      }
+    ],
+    "metrics": {
+      "state": "idle",
+      "engine": {
+        "expert_slots": 3153,
+        "arena_mib": 20479,
+        "pool_workers": 9,
+        "spec": 6,
+        "mtp_max": 3
+      }
+    },
+    "available_bytes": 3326885888
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "pid": 32616,
+  "priority": 16384,
+  "mapping": [
+    {
+      "id": 256,
+      "group": 0,
+      "lp": 0,
+      "core": 0,
+      "efficiency": 1,
+      "flags": 0
+    },
+    {
+      "id": 257,
+      "group": 0,
+      "lp": 1,
+      "core": 0,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 258,
+      "group": 0,
+      "lp": 2,
+      "core": 2,
+      "efficiency": 1,
+      "flags": 0
+    },
+    {
+      "id": 259,
+      "group": 0,
+      "lp": 3,
+      "core": 2,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 260,
+      "group": 0,
+      "lp": 4,
+      "core": 4,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 261,
+      "group": 0,
+      "lp": 5,
+      "core": 4,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 262,
+      "group": 0,
+      "lp": 6,
+      "core": 6,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 263,
+      "group": 0,
+      "lp": 7,
+      "core": 6,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 264,
+      "group": 0,
+      "lp": 8,
+      "core": 8,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 265,
+      "group": 0,
+      "lp": 9,
+      "core": 8,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 266,
+      "group": 0,
+      "lp": 10,
+      "core": 10,
+      "efficiency": 1,
+      "flags": 1
+    },
+    {
+      "id": 267,
+      "group": 0,
+      "lp": 11,
+      "core": 10,
+      "efficiency": 1,
+      "flags": 0
+    },
+    {
+      "id": 268,
+      "group": 0,
+      "lp": 12,
+      "core": 12,
+      "efficiency": 0,
+      "flags": 1
+    },
+    {
+      "id": 269,
+      "group": 0,
+      "lp": 13,
+      "core": 13,
+      "efficiency": 0,
+      "flags": 1
+    },
+    {
+      "id": 270,
+      "group": 0,
+      "lp": 14,
+      "core": 14,
+      "efficiency": 0,
+      "flags": 1
+    },
+    {
+      "id": 271,
+      "group": 0,
+      "lp": 15,
+      "core": 15,
+      "efficiency": 0,
+      "flags": 1
+    }
+  ],
+  "selected_id": 256,
+  "readback": [
+    256
+  ],
+  "prior_selected": [],
+  "prior_group": 0,
+  "prior_mask": 65535,
+  "soft": {
+    "mode": "SetThreadSelectedCpuSets",
+    "n": 10000,
+    "outside": 3465,
+    "fraction": 0.3465,
+    "histogram": {
+      "0:0": 6535,
+      "0:11": 3400,
+      "0:2": 65
+    },
+    "initial": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "elapsed_s": 2.000381699996069,
+    "cpu_s": 0.015625
+  },
+  "hard": {
+    "mode": "SetThreadGroupAffinity",
+    "n": 10000,
+    "outside": 0,
+    "fraction": 0.0,
+    "histogram": {
+      "0:0": 10000
+    },
+    "initial": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "elapsed_s": 2.00060080003459,
+    "cpu_s": 0.0
+  }
+}

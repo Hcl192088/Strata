@@ -1,0 +1,23 @@
+{
+  "pid": 27444,
+  "creation": 1793236800.3002515,
+  "priority": 32768,
+  "env": {
+    "STRATA_ADAPT_IF_MISS": "1",
+    "STRATA_DECODE_TIMING": "1",
+    "STRATA_EXPERT_FILE_CACHE": "1",
+    "STRATA_FETCH_ADMIT": "0",
+    "STRATA_IQ3S_MT1": "1",
+    "STRATA_LOOKAHEAD": "0",
+    "STRATA_MISS_OVERLAP": "1",
+    "STRATA_MISS_OVERLAP_SPIN_US": "2000",
+    "STRATA_PF_FUSED": "1",
+    "STRATA_RAM_LRU": "1",
+    "STRATA_RAM_LRU_CHECK": "0",
+    "STRATA_RESIDENT_HEADROOM_GIB": "0.25"
+  },
+  "ram_budget_gib": "20.00",
+  "locked_mib": "20479",
+  "engine_log": "C:\\Users\\User\\Strata-Adrian-control\\runs\\miss-overlap-20261027\\s2k-mt1-api.engine.log",
+  "engine_log_sha256": "A222E3FD1384D5A6BDDDFB646A50D7C03E5A549382D56F09EC444FA618B7A252"
+}

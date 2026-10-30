@@ -1,0 +1,33 @@
+{
+  "task_id": "LUNA-20261012-027",
+  "authorization": "user \u6e96\u5099\u90e8\u7f72 pipeline NATIVE_PIPE_DEPLOY_PREP",
+  "controller_pid": 25880,
+  "completed": [
+    {
+      "index": 0,
+      "round": 0,
+      "arm": "SMOKE",
+      "rows": 3,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\out\\block-00-SMOKE-r0"
+    },
+    {
+      "index": 1,
+      "round": 0,
+      "arm": "CHK",
+      "rows": 10,
+      "status": "OK",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\out\\block-01-CHK-r0"
+    }
+  ],
+  "phase": "DONE",
+  "updated_utc": "2026-10-29T01:20:20.074021+00:00",
+  "current": {
+    "index": 1,
+    "round": 0,
+    "arm": "CHK"
+  },
+  "before_restore_phase": "CHECK_COMPLETE",
+  "restored": true,
+  "verified": true
+}

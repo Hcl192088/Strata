@@ -1,0 +1,138 @@
+{
+  "task_id": "LUNA-20261012-027",
+  "task": "LFUSE_AB",
+  "phase": "FAILED",
+  "controller_pid": 25324,
+  "authorization": "user2026-10-29 好去測看看; LFUSE8 paired rounds, restore existing API; no deployment",
+  "utc": "2026-10-29T11:30:12Z",
+  "current": {
+    "index": 15,
+    "round": 7,
+    "arm": "C"
+  },
+  "completed": [
+    {
+      "index": 0,
+      "round": 0,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-00-C-r0",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "round": 0,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-01-F-r0",
+      "status": "OK"
+    },
+    {
+      "index": 2,
+      "round": 0,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-02-C-r0",
+      "status": "OK"
+    },
+    {
+      "index": 3,
+      "round": 1,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-03-C-r1",
+      "status": "OK"
+    },
+    {
+      "index": 4,
+      "round": 1,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-04-F-r1",
+      "status": "OK"
+    },
+    {
+      "index": 5,
+      "round": 2,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-05-F-r2",
+      "status": "OK"
+    },
+    {
+      "index": 6,
+      "round": 2,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-06-C-r2",
+      "status": "OK"
+    },
+    {
+      "index": 7,
+      "round": 3,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-07-C-r3",
+      "status": "OK"
+    },
+    {
+      "index": 8,
+      "round": 3,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-08-F-r3",
+      "status": "OK"
+    },
+    {
+      "index": 9,
+      "round": 4,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-09-F-r4",
+      "status": "OK"
+    },
+    {
+      "index": 10,
+      "round": 4,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-10-C-r4",
+      "status": "OK"
+    },
+    {
+      "index": 11,
+      "round": 5,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-11-C-r5",
+      "status": "OK"
+    },
+    {
+      "index": 12,
+      "round": 5,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-12-F-r5",
+      "status": "OK"
+    },
+    {
+      "index": 13,
+      "round": 6,
+      "arm": "F",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-13-F-r6",
+      "status": "OK"
+    },
+    {
+      "index": 14,
+      "round": 6,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-14-C-r6",
+      "status": "OK"
+    },
+    {
+      "index": 15,
+      "round": 7,
+      "arm": "C",
+      "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\out\\block-15-C-r7",
+      "status": "PROCESS_GATE"
+    }
+  ],
+  "pair_count": 6,
+  "last_pair": {
+    "round": 6,
+    "C_tok_s": 47.085626545425534,
+    "F_tok_s": 46.26778156088476,
+    "delta_percent": -1.7369312984542473
+  },
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\controller.py\", line 133, in main\n    d,rows=run(i,rnd,arm);blocks[arm]=rows;i+=1\n           ^^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\Strata-Adrian-control\\runs\\lfuse-ab-20261029-attempt2\\controller.py\", line 81, in run\n    assert meta['status']=='OK' and len(rows)==len(points or old),(arm,meta)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('C', {'block': 15, 'round': 7, 'arm': 'C', 'binary': 'C:\\\\Users\\\\User\\\\Strata-Adrian-control\\\\runs\\\\native-pipe-deploy-prep-20261029\\\\build\\\\strata.exe', 'status': 'PROCESS_GATE', 'binary_sha256': 'A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8', 'engine_cmdline': ['C:\\\\Users\\\\User\\\\Strata-Adrian-control\\\\runs\\\\native-pipe-deploy-prep-20261029\\\\build\\\\strata.exe', '--serve', '--pack', 'C:\\\\Users\\\\User\\\\Strata-IQ3-20261008\\\\packs\\\\iq3_xxs', '--native', 'C:\\\\Users\\\\User\\\\Strata-IQ3-20261008\\\\models\\\\IQ3_XXS\\\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf', '--ple-gguf', 'C:\\\\Users\\\\User\\\\Strata-IQ3-20261008\\\\models\\\\IQ3_XXS\\\\Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf', '--mtp', 'C:\\\\Users\\\\User\\\\Strata-v0.1.34-mtp-test-20261002\\\\mtp\\\\rt', '--spec', '6', '--spec-min-p', '0.75', '--max-context', '100000', '--kv', 'q4_0', '--kv-resident', '20480', '--expert-profile', 'C:\\\\Users\\\\User\\\\Strata-v0.1.38-ab-20261003\\\\work-note-transfer-chat-20261005\\\\learned-heart.bin', '--expert-cache', '3604', '--pool-workers', '9', '--prefill', 'auto', '--stats', '--max-new', '1024', '--suffix-draft', '3', '--resident-budget-gib', '20', '--mtp-max-t', '3', '--pool-affinity', 'all', '--adapt-every', '3', '--adapt-swaps', '16', '--adapt-decay', '0.60', '--ple-io', 'direct', '--mtp-hnorm', 'stream'], 'effective_env': {'STRATA_ADAPT_IF_MISS': '1', 'STRATA_DECODE_TIMING': '1', 'STRATA_EXPERT_FILE_CACHE': '1', 'STRATA_FETCH_ADMIT': '0', 'STRATA_IQ3S_MT1': '1', 'STRATA_LOOKAHEAD': '0', 'STRATA_MISS_OVERLAP': '1', 'STRATA_MISS_OVERLAP_SPIN_US': '2000', 'STRATA_NATIVE_PIPE': '1', 'STRATA_PF_FUSED': '1', 'STRATA_RAM_LRU': '1', 'STRATA_RAM_LRU_CHECK': '0', 'STRATA_RESIDENT_HEADROOM_GIB': '0.25'}, 'priority_gate': {'pid': 26404, 'created': 1793273270.2354636, 'priority': <Priority.ABOVE_NORMAL_PRIORITY_CLASS: 32768>, 'verified_at': 1793273290.3956585, 'before_first_request': True}, 'load_s': 20.7, 'startup': {'slots': '3153', 'ram_budget_gib': '20.00', 'locked_mib': '20479', 'resident_gib': '20.00', 'pinned_gib': '0.00', 'pool_line': '9 pool workers on logical processors 2,4,6,8,10,12,13,14,15, the host thread on 0 (draining too) (--host-core first)', 'tail_skip_line': 'STRATA_ROUTE_TAIL_SKIP=7 is ON (default): a missed expert that every token of a verify window routes at rank 7 or lower is skipped (+10..20% decode on 12-16 GB cards that miss experts, answers differ slightly from 0.1.41); STRATA_ROUTE_TAIL_SKIP=0 turns it off', 'engine_version': '0.1.42', 'ram_lru_line': 'RAM_LRU enabled: same-layer fixed arena; byte parity checks=0', 'vram_free_line': \"254 MiB of VRAM free with everything loaded - LOW: requests may stall; add --vram-reserve-mib 958 to the config's args (or lower --max-context)\", 'pcie_line': 'PCIe probe: 24.5 GB/s host->device (best of 23.5 24.2 24.3 24.5) -> pcie_frac 0.55 (default 0.55)', 'registered_gib': None, 'page_lock_refused': 'page-locking refused (out of memory)', 'chunk_line': None, 'async_on_line': None, 'async_off_line': None, 'hybrid_line': None, 'capacity_ok': True, 'capacity_detail': '', 'strict': True}, 'error': 'RuntimeError(\\'live process gate: [{\"cmdline\": [\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\User\\\\\\\\\\\\\\\\AppData\\\\\\\\\\\\\\\\Local\\\\\\\\\\\\\\\\Programs\\\\\\\\\\\\\\\\Python\\\\\\\\\\\\\\\\Python312\\\\\\\\\\\\\\\\python.exe\", \"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\User\\\\\\\\\\\\\\\\Strata-Adrian-control\\\\\\\\\\\\\\\\runs\\\\\\\\\\\\\\\\lfuse-ab-20261029-attempt2\\\\\\\\\\\\\\\\stop.py\"], \"name\": \"python.exe\", \"pid\": 26604}, {\"cmdline\": [\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\User\\\\\\\\\\\\\\\\Strata\\\\\\\\\\\\\\\\archive\\\\\\\\\\\\\\\\legacy\\\\\\\\\\\\\\\\20261009\\\\\\\\\\\\\\\\Strata-lm-run-2026-09-28\\\\\\\\\\\\\\\\.venv\\\\\\\\\\\\\\\\Scripts\\\\\\\\\\\\\\\\python.exe\", \"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\User\\\\\\\\\\\\\\\\Strata-Adrian-control\\\\\\\\\\\\\\\\runs\\\\\\\\\\\\\\\\lfuse-ab-20261029-attempt2\\\\\\\\\\\\\\\\stop.py\"], \"name\": \"python.exe\", \"pid\": 29988}]\\')', 'rows': 6})\n",
+  "before_restore_phase": "ERROR",
+  "restored": true,
+  "verified": true
+}

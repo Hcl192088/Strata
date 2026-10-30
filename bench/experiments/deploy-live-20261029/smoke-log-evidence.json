@@ -1,0 +1,38 @@
+{
+  "lines": [
+    "NATIVE_PIPE ACTIVE workers=10 down_limit=3 exact_row_kernels=1",
+    "strata decode timing: 17 windows, avg T 1.88, 1.88 tokens/window, 53.24 ms/window = verify 44.40 (GPU-reach wait 11.02 + per-layer host 31.04 [plan 0.09 actq 0.11 jobs 0.22 CPU 30.59] + stage 0.01) + commit/emit 0.09 + draft 1.67; per layer-window: CPU experts 7.69 (9.89 entries), VRAM hits 5.33, PCIe 0.00",
+    "strata serve: prompt 61 tokens = 0 reused + 61 read in 2071 ms (29.5 tok/s), 32 generated in 905 ms (35.4 tok/s), drafts accepted 15 of 15, 1 checkpoints"
+  ],
+  "parsed": {
+    "gen_found": true,
+    "tokens": 32,
+    "decode_ms": 905.0,
+    "decode_tok_s_text": 35.4,
+    "decode_tok_s": 35.36,
+    "prompt_tokens": 61,
+    "reused": 0,
+    "read": 61,
+    "prefill_ms": 2071.0,
+    "timing_line": "decode timing: 17 windows, avg T 1.88, 1.88 tokens/window, 53.24 ms/window = verify 44.40 (GPU-reach wait 11.02 + per-layer host 31.04 [plan 0.09 actq 0.11 jobs 0.22 CPU 30.59] + stage 0.01) + commit/emit 0.09 + draft 1.67; per layer-window: CPU experts 7.69 (9.89 entries), VRAM hits 5.33, PCIe 0.00",
+    "windows": 17.0,
+    "tokens_per_window": 1.88,
+    "ms_window": 53.24,
+    "verify_ms": 44.4,
+    "gpu_wait_ms": 11.02,
+    "host_ms": 31.04,
+    "jobs_ms": 0.22,
+    "cpu_ms": 30.59,
+    "draft_ms": 1.67,
+    "cpu_experts_per_layer_window": 7.69,
+    "cpu_entries_per_layer_window": 9.89,
+    "vram_hits_per_layer_window": 5.33,
+    "pcie_per_layer_window": 0.0,
+    "cpu_us_per_expert": 82.9,
+    "cpu_us_per_entry": 64.4,
+    "cache_hit_rate": null,
+    "drafts": "15 of 15",
+    "adapt_lines": []
+  },
+  "scope": "last NATIVE_PIPE activation through rollback; only pipeline and timing lines, no prompts"
+}

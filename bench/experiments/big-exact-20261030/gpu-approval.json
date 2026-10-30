@@ -1,0 +1,6 @@
+{
+  "action": "Temporary stop of verified Strata API; three profiling requests; restore original API",
+  "executed": true,
+  "status": "AUTHORIZED_EXECUTED_AND_RESTORED",
+  "authorization": "2026-10-30 user: 允許暫停並於測後恢復"
+}

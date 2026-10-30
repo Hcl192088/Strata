@@ -1,0 +1,189 @@
+{
+  "repository": "Hcl192088/Strata",
+  "fetched_at_utc": "2026-10-29T16:45:40.392Z",
+  "main": {
+    "name": "main",
+    "commit": {
+      "sha": "e19a73c18ab455ffd02cdafa5ff8cfdd33739fa8",
+      "url": "https://api.github.com/repos/Hcl192088/Strata/commits/e19a73c18ab455ffd02cdafa5ff8cfdd33739fa8"
+    },
+    "protected": false
+  },
+  "branch_heads": [
+    {
+      "name": "coordination/task-010-stage-cache-20261010-b",
+      "commit": {
+        "sha": "f040848326c1d95debc998ff5067e78add4799d1",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/f040848326c1d95debc998ff5067e78add4799d1"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-011-build-recovery-stage-churn-20261010",
+      "commit": {
+        "sha": "4f78d7868fa18fdb288e473021335034d9965eb3",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/4f78d7868fa18fdb288e473021335034d9965eb3"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-012-file-tier-batch-20261010",
+      "commit": {
+        "sha": "c14bb36c0adf172fc58f23b30097dd379e31c72e",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/c14bb36c0adf172fc58f23b30097dd379e31c72e"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-013-prompt-identity-20261010-published",
+      "commit": {
+        "sha": "a78b08a5f370eadc14de3acbbf87cdfe460bec0d",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/a78b08a5f370eadc14de3acbbf87cdfe460bec0d"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-013-prompt-identity-20261010",
+      "commit": {
+        "sha": "79fbb12953ef663c1ba847832c3fa68115a20a5b",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/79fbb12953ef663c1ba847832c3fa68115a20a5b"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-013-ram-adapt-guardfix-20261010-v2",
+      "commit": {
+        "sha": "666fd19b8da91f9b1faa7ed9b3372bdebf9de6fc",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/666fd19b8da91f9b1faa7ed9b3372bdebf9de6fc"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-014-decode-lru-campaign-20261010",
+      "commit": {
+        "sha": "7222246f4107f437b2b1e8e49c4acfcd532bb0bd",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/7222246f4107f437b2b1e8e49c4acfcd532bb0bd"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-015-source-campaign-20261010",
+      "commit": {
+        "sha": "e146b54592fa3c2ac8f8c57121d9f6cee01298ef",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/e146b54592fa3c2ac8f8c57121d9f6cee01298ef"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-016-source-campaign-20261010",
+      "commit": {
+        "sha": "e55ac628f6f3601119c95cf780420fa093cc6db5",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/e55ac628f6f3601119c95cf780420fa093cc6db5"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-017-source-campaign-20261011",
+      "commit": {
+        "sha": "c44a194f6166a570d16782406ef7fc50e326b22c",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/c44a194f6166a570d16782406ef7fc50e326b22c"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-018-source-campaign-20261011",
+      "commit": {
+        "sha": "a1e136d65f82fbab52989ca5bc29c805aeb12b0f",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/a1e136d65f82fbab52989ca5bc29c805aeb12b0f"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-019-ssd-cost-placement-20261011",
+      "commit": {
+        "sha": "342a3a4a9cbfc7157dc941e6f58d4494f0c62518",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/342a3a4a9cbfc7157dc941e6f58d4494f0c62518"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-020-upstream-v0142-20261011",
+      "commit": {
+        "sha": "befb373ea474247aee34b1bf7aa7f400165fe4d8",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/befb373ea474247aee34b1bf7aa7f400165fe4d8"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-021-iq3xxs-nt1-20261011",
+      "commit": {
+        "sha": "652b36d1311c295a00a757fcd928050dc33d2c4b",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/652b36d1311c295a00a757fcd928050dc33d2c4b"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-022-tail-skip-isolated-20261011",
+      "commit": {
+        "sha": "ceec34c41dbf18310afdce5aa368f24d57a42016",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/ceec34c41dbf18310afdce5aa368f24d57a42016"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-023-v0142-overnight-20261012",
+      "commit": {
+        "sha": "9d22fb6424bc98f958b96aa2a6356fad90903429",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/9d22fb6424bc98f958b96aa2a6356fad90903429"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-024-v0142-quality-layer-mask-20261012",
+      "commit": {
+        "sha": "c02382b0170cb8b74a4c119ad7634b2245216b26",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/c02382b0170cb8b74a4c119ad7634b2245216b26"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-025-v0142-speed-first-async-miss-20261012",
+      "commit": {
+        "sha": "1b8c7e49cb80d80eec14330b484a9e95ec35c002",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/1b8c7e49cb80d80eec14330b484a9e95ec35c002"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-026-direct-v0142-async-promote-20261012",
+      "commit": {
+        "sha": "44c8348befdc2d62fe9c679c2cc67da38d863b26",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/44c8348befdc2d62fe9c679c2cc67da38d863b26"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-027-file-tier-reuse-20261012",
+      "commit": {
+        "sha": "da28699a382304ec8afc87a547f9c37123985f77",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/da28699a382304ec8afc87a547f9c37123985f77"
+      },
+      "protected": false
+    },
+    {
+      "name": "coordination/task-028-fate-trace-capture-20261018",
+      "commit": {
+        "sha": "fc622cfdcf048ae05dd25dd765acd842db2fd385",
+        "url": "https://api.github.com/repos/Hcl192088/Strata/commits/fc622cfdcf048ae05dd25dd765acd842db2fd385"
+      },
+      "protected": false
+    }
+  ],
+  "task_id": "LUNA-20261012-027",
+  "source_branch": "coordination/task-027-file-tier-reuse-20261012",
+  "locked_sha": "da28699a382304ec8afc87a547f9c37123985f77",
+  "mode": "DIRECT_USER_CONTINUATION",
+  "authorization": "2026-10-30 user requested a full +10% plan and testing of remaining candidates",
+  "new_claim": false,
+  "notes": "Fresh heads unchanged; main and task branches consumed. Existing guard task028 finalized; do not rewrite. This is discovery evidence, not a guard snapshot."
+}

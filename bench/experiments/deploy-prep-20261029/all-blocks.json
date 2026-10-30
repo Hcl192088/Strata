@@ -1,0 +1,18 @@
+[
+  {
+    "index": 0,
+    "round": 0,
+    "arm": "SMOKE",
+    "rows": 3,
+    "status": "OK",
+    "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\out\\block-00-SMOKE-r0"
+  },
+  {
+    "index": 1,
+    "round": 0,
+    "arm": "CHK",
+    "rows": 10,
+    "status": "OK",
+    "path": "C:\\Users\\User\\Strata-Adrian\\repo\\Strata-Adrian-control\\runs\\native-pipe-deploy-prep-20261029\\out\\block-01-CHK-r0"
+  }
+]

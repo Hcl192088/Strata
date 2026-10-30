@@ -1,0 +1,826 @@
+{
+ "cmp": {
+  "C|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "C|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 246,
+    "len": 589,
+    "reflen": 569,
+    "this": "000 active threads per channel, and archived threads don't count toward the limi",
+    "ref": "000 active threads per channel; archived threads don't count, but there's also a"
+   },
+   "excerpt": "ser_exec — maybe I can operate Discord via the browser? I'm in a Discord group chat. There's no Discord API\n<<CONTENT>>\n"
+  },
+  "C|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 51,
+    "len": 311,
+    "reflen": 170,
+    "this": "se ID structure to understand what the numbers represent—it seems like the forma",
+    "ref": "se ID structure to understand the chat and message references, then I need to qu"
+   },
+   "excerpt": "r chat 211, so I need to query the Beeper API directly to find the actual chat name for those message IDs.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_DF_QB_Q4|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_DF_QB_Q4|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 246,
+    "len": 589,
+    "reflen": 569,
+    "this": "000 active threads per channel, and archived threads don't count toward the limi",
+    "ref": "000 active threads per channel; archived threads don't count, but there's also a"
+   },
+   "excerpt": "ser_exec — maybe I can operate Discord via the browser? I'm in a Discord group chat. There's no Discord API\n<<CONTENT>>\n"
+  },
+  "STRATA_DF_QB_Q4|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 137,
+    "len": 264,
+    "reflen": 311,
+    "this": "t be beeper-line-<chat>-<start_msg>-<end_msg>, so chat 273 would be the channel ",
+    "ref": "t be beeper-line-<chat>-<start>-<end>, but the cron report shows different value"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 51,
+    "len": 264,
+    "reflen": 170,
+    "this": "se ID structure to understand what the numbers represent—it seems like the forma",
+    "ref": "se ID structure to understand the chat and message references, then I need to qu"
+   },
+   "excerpt": "end_msg>, so chat 273 would be the channel I need to query through Beeper MCP to get the actual chat name.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_DF_BRANCH|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_DF_BRANCH|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 246,
+    "len": 513,
+    "reflen": 589,
+    "this": "000 active threads per channel; archived ones don't count, but there's also a li",
+    "ref": "000 active threads per channel, and archived threads don't count toward the limi"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 257,
+    "len": 513,
+    "reflen": 569,
+    "this": "threads per channel; archived ones don't count, but there's also a limit of 1000",
+    "ref": "threads per channel; archived threads don't count, but there's also a 7-day auto"
+   },
+   "excerpt": "s per channel. Threads are automatically archived after a period of inactivity (1 hour, 24 hours, 3 days, 7\n<<CONTENT>>\n"
+  },
+  "STRATA_DF_BRANCH|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 51,
+    "len": 170,
+    "reflen": 311,
+    "this": "se ID structure to understand the chat and message references, then I need to qu",
+    "ref": "se ID structure to understand what the numbers represent—it seems like the forma"
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": " the chat and message references, then I need to query the Beeper API to fetch the chat name for chat 273.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_GDN_SPLIT|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_GDN_SPLIT|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 136,
+    "len": 603,
+    "reflen": 589,
+    "this": "rd thread limits: 1000 active threads per channel (archived threads count toward",
+    "ref": "rd thread limits: 1000 active (non-archived) threads per channel (including arch"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 136,
+    "len": 603,
+    "reflen": 569,
+    "this": "rd thread limits: 1000 active threads per channel (archived threads count toward",
+    "ref": "rd thread limits: 1000 active (non-archived) threads per channel (including arch"
+   },
+   "excerpt": " I don't have a Discord tool in my toolset. I'm running inside Docker, and the Discord bot is on the Hermes\n<<CONTENT>>\n"
+  },
+  "STRATA_GDN_SPLIT|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 51,
+    "len": 170,
+    "reflen": 311,
+    "this": "se ID structure to understand the chat and message references, then I need to qu",
+    "ref": "se ID structure to understand what the numbers represent—it seems like the forma"
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": " the chat and message references, then I need to query the Beeper API to fetch the chat name for chat 273.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_LFUSE|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_LFUSE|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 246,
+    "len": 589,
+    "reflen": 569,
+    "this": "000 active threads per channel, and archived threads don't count toward the limi",
+    "ref": "000 active threads per channel; archived threads don't count, but there's also a"
+   },
+   "excerpt": "ser_exec — maybe I can operate Discord via the browser? I'm in a Discord group chat. There's no Discord API\n<<CONTENT>>\n"
+  },
+  "STRATA_LFUSE|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 51,
+    "len": 311,
+    "reflen": 170,
+    "this": "se ID structure to understand what the numbers represent—it seems like the forma",
+    "ref": "se ID structure to understand the chat and message references, then I need to qu"
+   },
+   "excerpt": "r chat 211, so I need to query the Beeper API directly to find the actual chat name for those message IDs.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_QFUSE|p01": {
+   "have": true,
+   "loop": "\" or",
+   "vsC": {
+    "identical": false,
+    "idx": 10,
+    "len": 508,
+    "reflen": 281,
+    "this": "The user sent \"[轉舵] 測試\" — [R\" — [course material testing ]\" ",
+    "ref": "The user said \"[轉舵] 測試\" — this looks like a test message. \"轉"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 10,
+    "len": 508,
+    "reflen": 281,
+    "this": "The user sent \"[轉舵] 測試\" — [R\" — [course material testing ]\" ",
+    "ref": "The user said \"[轉舵] 測試\" — this looks like a test message. \"轉"
+   },
+   "excerpt": " concisely in Chinese (Ken prefers concise, direct, in Chinese (the user is writing in Chinese (Traditional\n<<CONTENT>>\n"
+  },
+  "STRATA_QFUSE|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 7,
+    "len": 561,
+    "reflen": 589,
+    "this": "Ken is the question about Discord thread limit really cap",
+    "ref": "Ken is asking whether there's an upper limit on threads, "
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 7,
+    "len": 561,
+    "reflen": 569,
+    "this": "Ken is the question about Discord thread limit really cap",
+    "ref": "Ken is asking whether there's an upper limit on threads, "
+   },
+   "excerpt": " Discord tools are no Discord tools. So answer directly and offer to delete manually or check if there's no\n<<CONTENT>>\n"
+  },
+  "STRATA_QFUSE|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 15,
+    "len": 154,
+    "reflen": 311,
+    "this": "I'm looking at a case ID that references a LINE chat 273 with mes",
+    "ref": "I'm looking at the case ID structure to understand what the numbe"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 15,
+    "len": 154,
+    "reflen": 170,
+    "this": "I'm looking at a case ID that references a LINE chat 273 with mes",
+    "ref": "I'm looking at the case ID structure to understand the chat and m"
+   },
+   "excerpt": "rences a LINE chat 273 with messages, so I need to pull up to check the Beeper for the chat name for that.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_TSUM|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_TSUM|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 136,
+    "len": 603,
+    "reflen": 589,
+    "this": "rd thread limits: 1000 active threads per channel (archived threads count toward",
+    "ref": "rd thread limits: 1000 active (non-archived) threads per channel (including arch"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 136,
+    "len": 603,
+    "reflen": 569,
+    "this": "rd thread limits: 1000 active threads per channel (archived threads count toward",
+    "ref": "rd thread limits: 1000 active (non-archived) threads per channel (including arch"
+   },
+   "excerpt": " I don't have a Discord tool in my toolset. I'm running inside Docker, and the Discord bot is on the Hermes\n<<CONTENT>>\n"
+  },
+  "STRATA_TSUM|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 51,
+    "len": 170,
+    "reflen": 311,
+    "this": "se ID structure to understand the chat and message references, then I need to qu",
+    "ref": "se ID structure to understand what the numbers represent—it seems like the forma"
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": " the chat and message references, then I need to query the Beeper API to fetch the chat name for chat 273.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_MMVF_ROWS|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_MMVF_ROWS|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 246,
+    "len": 631,
+    "reflen": 589,
+    "this": "000 active threads per channel; archived threads don't count, but there's also a",
+    "ref": "000 active threads per channel, and archived threads don't count toward the limi"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 297,
+    "len": 631,
+    "reflen": 569,
+    "this": "n't count, but there's also a limit on archived thread retrieval). Deleting thre",
+    "ref": "n't count, but there's also a 7-day auto-archive). Can I delete threads? My tool"
+   },
+   "excerpt": "hreads can be deleted via DELETE /channels/{thread.id} — requires Manage Threads permission, and the thread\n<<CONTENT>>\n"
+  },
+  "STRATA_MMVF_ROWS|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 60,
+    "len": 276,
+    "reflen": 311,
+    "this": "ucture to understand what the chat number represents—it seems like 273 might be ",
+    "ref": "ucture to understand what the numbers represent—it seems like the format might b"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 51,
+    "len": 276,
+    "reflen": 170,
+    "this": "se ID structure to understand what the chat number represents—it seems like 273 ",
+    "ref": "se ID structure to understand the chat and message references, then I need to qu"
+   },
+   "excerpt": "e chat number for the medical department group. Let me query the Beeper API to verify this interpretation.\n\n<<CONTENT>>\n"
+  },
+  "STRATA_ATTN_LANECELL|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "STRATA_ATTN_LANECELL|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 246,
+    "len": 596,
+    "reflen": 589,
+    "this": "000 active threads per channel; archived threads don't count, but there's also a",
+    "ref": "000 active threads per channel, and archived threads don't count toward the limi"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 297,
+    "len": 596,
+    "reflen": 569,
+    "this": "n't count, but there's also a limit on archived thread retrieval). Solution: arc",
+    "ref": "n't count, but there's also a 7-day auto-archive). Can I delete threads? My tool"
+   },
+   "excerpt": "hread is actually archiving it (threads can't be truly deleted except by moderators? Actually, DISCORD does\n<<CONTENT>>\n"
+  },
+  "STRATA_ATTN_LANECELL|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 51,
+    "len": 183,
+    "reflen": 311,
+    "this": "se ID structure to understand the chat and message references, then I need to qu",
+    "ref": "se ID structure to understand what the numbers represent—it seems like the forma"
+   },
+   "vsC2": {
+    "identical": false,
+    "idx": 147,
+    "len": 183,
+    "reflen": 170,
+    "this": "PI to fetch the chat name for that specific chat ID.\n\n<<CONTENT>>\n",
+    "ref": "PI to fetch the chat name for chat 273.\n\n<<CONTENT>>\n"
+   },
+   "excerpt": " message references, then I need to query the Beeper API to fetch the chat name for that specific chat ID.\n\n<<CONTENT>>\n"
+  },
+  "C2|p01": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": true
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "r the agent responds. I should reply concisely in Chinese (the user is communicating in Chinese).\n\n<<CONTENT>>\n收到，測試正常 ✅"
+  },
+  "C2|p05": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 246,
+    "len": 569,
+    "reflen": 589,
+    "this": "000 active threads per channel; archived threads don't count, but there's also a",
+    "ref": "000 active threads per channel, and archived threads don't count toward the limi"
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": "owser_vault_*). If Ken is logged into Discord in the browser, I might be able to archive/delete threads via\n<<CONTENT>>\n"
+  },
+  "C2|p08": {
+   "have": true,
+   "loop": null,
+   "vsC": {
+    "identical": false,
+    "idx": 51,
+    "len": 170,
+    "reflen": 311,
+    "this": "se ID structure to understand the chat and message references, then I need to qu",
+    "ref": "se ID structure to understand what the numbers represent—it seems like the forma"
+   },
+   "vsC2": {
+    "identical": true
+   },
+   "excerpt": " the chat and message references, then I need to query the Beeper API to fetch the chat name for chat 273.\n\n<<CONTENT>>\n"
+  }
+ },
+ "metrics": {
+  "C": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 184.0,
+   "decode_ms": 9006.5,
+   "tok_s": 37.08432798534392,
+   "ms_w": 48.94836956521739,
+   "tok_w": 1.815217391304348,
+   "cpu_ms": 31.445163043478264,
+   "gpu_wait": 11.547608695652174,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 32.7
+    },
+    "p05": {
+     "tok": 128,
+     "win": 74.0,
+     "tok_s": 40.4
+    },
+    "p08": {
+     "tok": 128,
+     "win": 69.0,
+     "tok_s": 37.0
+    }
+   }
+  },
+  "STRATA_DF_QB_Q4": {
+   "n": 3,
+   "tokens": 317,
+   "windows": 173.0,
+   "decode_ms": 8242.6,
+   "tok_s": 38.45873874748259,
+   "ms_w": 47.64508670520232,
+   "tok_w": 1.8323699421965318,
+   "cpu_ms": 30.927861271676303,
+   "gpu_wait": 11.58,
+   "finish": [
+    "stop",
+    "length",
+    "tool_calls"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 35.3
+    },
+    "p05": {
+     "tok": 128,
+     "win": 74.0,
+     "tok_s": 41.9
+    },
+    "p08": {
+     "tok": 111,
+     "win": 58.0,
+     "tok_s": 37.2
+    }
+   }
+  },
+  "STRATA_DF_BRANCH": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 170.0,
+   "decode_ms": 8573.8,
+   "tok_s": 38.95588887074577,
+   "ms_w": 50.43411764705882,
+   "tok_w": 1.964705882352941,
+   "cpu_ms": 33.477529411764706,
+   "gpu_wait": 11.679529411764706,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 36.2
+    },
+    "p05": {
+     "tok": 128,
+     "win": 72.0,
+     "tok_s": 39.3
+    },
+    "p08": {
+     "tok": 128,
+     "win": 57.0,
+     "tok_s": 40.4
+    }
+   }
+  },
+  "STRATA_GDN_SPLIT": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 176.0,
+   "decode_ms": 8706.4,
+   "tok_s": 38.362583846365894,
+   "ms_w": 49.46818181818182,
+   "tok_w": 1.8977272727272727,
+   "cpu_ms": 32.46329545454545,
+   "gpu_wait": 11.623011363636364,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 35.1
+    },
+    "p05": {
+     "tok": 128,
+     "win": 71.0,
+     "tok_s": 41.3
+    },
+    "p08": {
+     "tok": 128,
+     "win": 64.0,
+     "tok_s": 37.8
+    }
+   }
+  },
+  "STRATA_LFUSE": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 184.0,
+   "decode_ms": 8670.8,
+   "tok_s": 38.52009041841583,
+   "ms_w": 47.123913043478254,
+   "tok_w": 1.815217391304348,
+   "cpu_ms": 30.40951086956522,
+   "gpu_wait": 11.55108695652174,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 36.4
+    },
+    "p05": {
+     "tok": 128,
+     "win": 74.0,
+     "tok_s": 41.4
+    },
+    "p08": {
+     "tok": 128,
+     "win": 69.0,
+     "tok_s": 37.2
+    }
+   }
+  },
+  "STRATA_QFUSE": {
+   "n": 3,
+   "tokens": 343,
+   "windows": 232.0,
+   "decode_ms": 10270.2,
+   "tok_s": 33.39759693092637,
+   "ms_w": 44.268103448275866,
+   "tok_w": 1.478448275862069,
+   "cpu_ms": 28.125043103448274,
+   "gpu_wait": 11.080387931034483,
+   "finish": [
+    "length",
+    "length",
+    "tool_calls"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 128,
+     "win": 89.0,
+     "tok_s": 32.9
+    },
+    "p05": {
+     "tok": 128,
+     "win": 99.0,
+     "tok_s": 39.0
+    },
+    "p08": {
+     "tok": 87,
+     "win": 44.0,
+     "tok_s": 28.1
+    }
+   }
+  },
+  "STRATA_TSUM": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 168.0,
+   "decode_ms": 9805.400000000001,
+   "tok_s": 34.06286332021131,
+   "ms_w": 58.3654761904762,
+   "tok_w": 1.9880952380952381,
+   "cpu_ms": 41.36696428571428,
+   "gpu_wait": 11.717678571428571,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 35.3
+    },
+    "p05": {
+     "tok": 128,
+     "win": 71.0,
+     "tok_s": 40.1
+    },
+    "p08": {
+     "tok": 128,
+     "win": 56.0,
+     "tok_s": 29.0
+    }
+   }
+  },
+  "STRATA_MMVF_ROWS": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 182.0,
+   "decode_ms": 9273.3,
+   "tok_s": 36.017383240054784,
+   "ms_w": 50.9521978021978,
+   "tok_w": 1.835164835164835,
+   "cpu_ms": 33.91901098901099,
+   "gpu_wait": 11.737692307692308,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 32.9
+    },
+    "p05": {
+     "tok": 128,
+     "win": 75.0,
+     "tok_s": 36.5
+    },
+    "p08": {
+     "tok": 128,
+     "win": 66.0,
+     "tok_s": 37.7
+    }
+   }
+  },
+  "STRATA_ATTN_LANECELL": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 174.0,
+   "decode_ms": 9810.7,
+   "tok_s": 34.04446165920882,
+   "ms_w": 56.38333333333334,
+   "tok_w": 1.9195402298850575,
+   "cpu_ms": 38.87068965517241,
+   "gpu_wait": 11.859137931034484,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 25.5
+    },
+    "p05": {
+     "tok": 128,
+     "win": 77.0,
+     "tok_s": 37.6
+    },
+    "p08": {
+     "tok": 128,
+     "win": 56.0,
+     "tok_s": 38.3
+    }
+   }
+  },
+  "C2": {
+   "n": 3,
+   "tokens": 334,
+   "windows": 170.0,
+   "decode_ms": 9032.1,
+   "tok_s": 36.979218564896314,
+   "ms_w": 53.13,
+   "tok_w": 1.964705882352941,
+   "cpu_ms": 36.117411764705885,
+   "gpu_wait": 11.733823529411765,
+   "finish": [
+    "stop",
+    "length",
+    "length"
+   ],
+   "per_prompt": {
+    "p01": {
+     "tok": 78,
+     "win": 41.0,
+     "tok_s": 32.3
+    },
+    "p05": {
+     "tok": 128,
+     "win": 73.0,
+     "tok_s": 39.0
+    },
+    "p08": {
+     "tok": 128,
+     "win": 56.0,
+     "tok_s": 38.4
+    }
+   }
+  }
+ }
+}

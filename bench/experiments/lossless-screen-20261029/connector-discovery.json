@@ -1,0 +1,129 @@
+{
+  "kind": "direct-user-continuation-discovery",
+  "task_id": "LUNA-20261012-027",
+  "main": {
+    "name": "main",
+    "commit": {
+      "sha": "e19a73c18ab455ffd02cdafa5ff8cfdd33739fa8",
+      "url": "https://api.github.com/repos/Hcl192088/Strata/commits/e19a73c18ab455ffd02cdafa5ff8cfdd33739fa8"
+    },
+    "protected": false
+  },
+  "inbox_sha": "b0f63a9cd4ad6fb8317d66202086d31bf00fe8c4",
+  "outbox_sha": "a550bfad0ba704b33cfacd22851adb0e578d7fda",
+  "branches": [
+    {
+      "name": "coordination/task-010-stage-cache-20261010-b",
+      "sha": "f040848326c1d95debc998ff5067e78add4799d1"
+    },
+    {
+      "name": "coordination/task-011-build-recovery-stage-churn-20261010",
+      "sha": "4f78d7868fa18fdb288e473021335034d9965eb3"
+    },
+    {
+      "name": "coordination/task-012-file-tier-batch-20261010",
+      "sha": "c14bb36c0adf172fc58f23b30097dd379e31c72e"
+    },
+    {
+      "name": "coordination/task-013-prompt-identity-20261010-published",
+      "sha": "a78b08a5f370eadc14de3acbbf87cdfe460bec0d"
+    },
+    {
+      "name": "coordination/task-013-prompt-identity-20261010",
+      "sha": "79fbb12953ef663c1ba847832c3fa68115a20a5b"
+    },
+    {
+      "name": "coordination/task-013-ram-adapt-guardfix-20261010-v2",
+      "sha": "666fd19b8da91f9b1faa7ed9b3372bdebf9de6fc"
+    },
+    {
+      "name": "coordination/task-014-decode-lru-campaign-20261010",
+      "sha": "7222246f4107f437b2b1e8e49c4acfcd532bb0bd"
+    },
+    {
+      "name": "coordination/task-015-source-campaign-20261010",
+      "sha": "e146b54592fa3c2ac8f8c57121d9f6cee01298ef"
+    },
+    {
+      "name": "coordination/task-016-source-campaign-20261010",
+      "sha": "e55ac628f6f3601119c95cf780420fa093cc6db5"
+    },
+    {
+      "name": "coordination/task-017-source-campaign-20261011",
+      "sha": "c44a194f6166a570d16782406ef7fc50e326b22c"
+    },
+    {
+      "name": "coordination/task-018-source-campaign-20261011",
+      "sha": "a1e136d65f82fbab52989ca5bc29c805aeb12b0f"
+    },
+    {
+      "name": "coordination/task-019-ssd-cost-placement-20261011",
+      "sha": "342a3a4a9cbfc7157dc941e6f58d4494f0c62518"
+    },
+    {
+      "name": "coordination/task-020-upstream-v0142-20261011",
+      "sha": "befb373ea474247aee34b1bf7aa7f400165fe4d8"
+    },
+    {
+      "name": "coordination/task-021-iq3xxs-nt1-20261011",
+      "sha": "652b36d1311c295a00a757fcd928050dc33d2c4b"
+    },
+    {
+      "name": "coordination/task-022-tail-skip-isolated-20261011",
+      "sha": "ceec34c41dbf18310afdce5aa368f24d57a42016"
+    },
+    {
+      "name": "coordination/task-023-v0142-overnight-20261012",
+      "sha": "9d22fb6424bc98f958b96aa2a6356fad90903429"
+    },
+    {
+      "name": "coordination/task-024-v0142-quality-layer-mask-20261012",
+      "sha": "c02382b0170cb8b74a4c119ad7634b2245216b26"
+    },
+    {
+      "name": "coordination/task-025-v0142-speed-first-async-miss-20261012",
+      "sha": "1b8c7e49cb80d80eec14330b484a9e95ec35c002"
+    },
+    {
+      "name": "coordination/task-026-direct-v0142-async-promote-20261012",
+      "sha": "44c8348befdc2d62fe9c679c2cc67da38d863b26"
+    },
+    {
+      "name": "coordination/task-027-file-tier-reuse-20261012",
+      "sha": "da28699a382304ec8afc87a547f9c37123985f77"
+    },
+    {
+      "name": "coordination/task-028-fate-trace-capture-20261018",
+      "sha": "fc622cfdcf048ae05dd25dd765acd842db2fd385"
+    }
+  ],
+  "published_task_ids": [
+    "LUNA-20261009-001",
+    "LUNA-20261009-002",
+    "LUNA-20261009-004",
+    "LUNA-20261009-005",
+    "LUNA-20261009-006",
+    "LUNA-20261009-007",
+    "LUNA-20261010-008",
+    "LUNA-20261010-009",
+    "LUNA-20261010-010",
+    "LUNA-20261010-011",
+    "LUNA-20261010-012",
+    "LUNA-20261010-013",
+    "LUNA-20261010-014",
+    "LUNA-20261010-015",
+    "LUNA-20261010-016",
+    "LUNA-20261010-017",
+    "LUNA-20261010-018",
+    "LUNA-20261011-019",
+    "LUNA-20261011-020",
+    "LUNA-20261011-021",
+    "LUNA-20261011-022",
+    "LUNA-20261011-023",
+    "LUNA-20261012-025",
+    "LUNA-20261012-026",
+    "LUNA-20261012-027",
+    "LUNA-20261018-028"
+  ],
+  "note": "No claim/mutation. Historical024 additionally has local terminal report. Not a guard snapshot or source mirror."
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "point": "p01",
+    "AA_prefix_chars": 377,
+    "F_vs_C_prefix_chars": 377,
+    "F_vs_C2_prefix_chars": 377,
+    "identical_to_C": true
+  },
+  {
+    "point": "p05",
+    "AA_prefix_chars": 605,
+    "F_vs_C_prefix_chars": 605,
+    "F_vs_C2_prefix_chars": 605,
+    "identical_to_C": true
+  },
+  {
+    "point": "p08",
+    "AA_prefix_chars": 179,
+    "F_vs_C_prefix_chars": 179,
+    "F_vs_C2_prefix_chars": 179,
+    "identical_to_C": true
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "gpu-after.json": {
+    "bytes": 2452,
+    "sha256": "ec1f40f969b73391df46e316f28ebd222a9cd15827de1a55fa3d1acce1683790"
+  },
+  "gpu-approval.json": {
+    "bytes": 466,
+    "sha256": "a060fda093d52010cdb7c82c186c77b9650f4365d1821bde324d5ed95013de00"
+  },
+  "gpu-before.json": {
+    "bytes": 2452,
+    "sha256": "e229a7febe532a0b0b2eb0cf33015d669eaefca94453e9e238919101d2cb2c1e"
+  },
+  "gpu-campaign.json": {
+    "bytes": 866,
+    "sha256": "4114c007fa5c667e42f2902fca87b127b4a54e9eb58def8f08da9ffadcad5312"
+  },
+  "gpu-error.json": {
+    "bytes": 802,
+    "sha256": "3ca438862b3af7c3046a874b09aece0df1b59952cb026f430ae6f68525f7c1a2"
+  },
+  "gpu-restore.json": {
+    "bytes": 912,
+    "sha256": "05ea1407436ff6bafdbdd1788c46e91a8022815aaa9b1b8be480e01fc9f17478"
+  },
+  "gpu2-after.json": {
+    "bytes": 2452,
+    "sha256": "7cafd0b3d1b8f62b275c407c947486dbcd7f7515bd78c1c7c4f09bb3a480fb6f"
+  },
+  "gpu2-before.json": {
+    "bytes": 2452,
+    "sha256": "ec1f40f969b73391df46e316f28ebd222a9cd15827de1a55fa3d1acce1683790"
+  },
+  "gpu2-campaign.json": {
+    "bytes": 83,
+    "sha256": "8af159efa2c412def7d06e1d678021da2e009c818d4db74185d51fb97c23824a"
+  },
+  "gpu2-engine.log": {
+    "bytes": 39694,
+    "sha256": "a4898a62fd03c13e90fff226f50c27423d2ff7d2bdccb6d4aa1c76aab637ea12"
+  },
+  "gpu2-inputs.json": {
+    "bytes": 543,
+    "sha256": "5ff3c67bf8551b6d6d9eaafdd474eb2e28b1f0071e6d14bd0c06466801b8de13"
+  },
+  "gpu2-meta.json": {
+    "bytes": 3584,
+    "sha256": "be8d5f4c1d6a8805da4459b2980579b04bae8b99058ff8a15d6997a14c354667"
+  },
+  "gpu2-profile-lines.json": {
+    "bytes": 2061,
+    "sha256": "ccdc6b60a4ad4762ea630898204a3950a842d6eedeaf3f53245f68008e35a09a"
+  },
+  "gpu2-restore.json": {
+    "bytes": 911,
+    "sha256": "df64f4cba9b4718975d5813c565718bf1d15e8c86b7daf919452cffb5532fa2d"
+  },
+  "gpu2-rows.json": {
+    "bytes": 6717,
+    "sha256": "3c73c665efb1ebd3d383d8b4405d5dca06692247c0683ff419ec8e125966cfe3"
+  },
+  "gpu2-source-evidence.txt": {
+    "bytes": 17408,
+    "sha256": "2674bc2e1df74be71a0bd378531960548822040e05011f6a1e594918cdf1381a"
+  }
+}

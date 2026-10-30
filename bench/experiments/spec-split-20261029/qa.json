@@ -1,0 +1,128 @@
+{
+  "manifest_files_verified": 384,
+  "blocks": [
+    {
+      "block": "block-00-SMOKE-r0",
+      "rows": 3,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-01-CHK-r0",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-02-C-r1",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-03-S-r1",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-04-S-r2",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-05-C-r2",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-06-C-r3",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-07-S-r3",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-08-S-r4",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-09-C-r4",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-10-C-r5",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    },
+    {
+      "block": "block-11-S-r5",
+      "rows": 10,
+      "capacity": true,
+      "priority": true,
+      "config_diff_allowed": true,
+      "pipe": true,
+      "nonzero_check_mismatches": 0,
+      "graph_node_lines": 0
+    }
+  ],
+  "formal_rows": 100,
+  "exact_pairs": 50,
+  "identical_pairs": 0
+}

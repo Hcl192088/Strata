@@ -1,0 +1,152 @@
+{
+  "p01": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1001
+  },
+  "p02": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1002
+  },
+  "p03": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1003
+  },
+  "p04": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1004
+  },
+  "p05": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1005
+  },
+  "p06": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1006
+  },
+  "p07": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1007
+  },
+  "p08": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1008
+  },
+  "p09": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1009
+  },
+  "p10": {
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "reasoning_effort": "medium"
+    },
+    "seed": 1010
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "big-exact-20261030\\raw\\binary.json": {
+    "bytes": 84,
+    "sha256": "4df7b08f8f3ef9e0b541ab7c16de44bc12f3246a42d7c0fd62d4be176643e7e0"
+  },
+  "big-exact-20261030\\raw\\campaign.json": {
+    "bytes": 89,
+    "sha256": "766e43e4af16dc2b6a99a862a69d37a1cd9339bcf6545093ae027a5581298083"
+  },
+  "big-exact-20261030\\raw\\extra-lp15.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-exact-20261030\\raw\\extra-lp2.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-exact-20261030\\raw\\extra-postrun.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-exact-20261030\\raw\\extra-prebuild.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-exact-20261030\\raw\\lp15.log": {
+    "bytes": 4501,
+    "sha256": "06bf2c61dddf1e3de8633b7733859dbc17e892479e10a113b8309c1d04c3e0db"
+  },
+  "big-exact-20261030\\raw\\lp2.log": {
+    "bytes": 4327,
+    "sha256": "d00981c96f8bad02dfa27abdc5a3a9a68ba9d64ae4ee88701b40376737580a35"
+  },
+  "big-exact-20261030\\raw\\p2-patterns.json": {
+    "bytes": 2736,
+    "sha256": "47856eed5ab506b992e400c266f86ea6709a8f73eb9cd6ff2b8f6fc2c1d023e4"
+  },
+  "big-exact-20261030\\raw\\processes-lp15.json": {
+    "bytes": 4130,
+    "sha256": "8afd18f45734c28191660548eb57eab648ea5da0f24abca992fca0055285e437"
+  },
+  "big-exact-20261030\\raw\\processes-lp2.json": {
+    "bytes": 4130,
+    "sha256": "8afd18f45734c28191660548eb57eab648ea5da0f24abca992fca0055285e437"
+  },
+  "big-exact-20261030\\raw\\processes-postrun.json": {
+    "bytes": 4130,
+    "sha256": "8afd18f45734c28191660548eb57eab648ea5da0f24abca992fca0055285e437"
+  },
+  "big-exact-20261030\\raw\\processes-prebuild.json": {
+    "bytes": 4130,
+    "sha256": "8afd18f45734c28191660548eb57eab648ea5da0f24abca992fca0055285e437"
+  },
+  "big-exact-20261030\\raw\\source-identity.json": {
+    "bytes": 638,
+    "sha256": "faa27b93f86149c9c6aec7f6b7821c00271db8381f3bf44f7d8c0d2d1f5031e0"
+  },
+  "big-exact-20261030\\raw\\verify-lp15.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-exact-20261030\\raw\\verify-lp2.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-exact-20261030\\raw\\verify-postrun.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-exact-20261030\\raw\\verify-prebuild.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-lut-20261030\\raw\\binary.json": {
+    "bytes": 84,
+    "sha256": "f1b201d118c81be332ce3babac2219a210300a75ad7ec68721729f1c4b47e3c8"
+  },
+  "big-lut-20261030\\raw\\campaign.json": {
+    "bytes": 89,
+    "sha256": "766e43e4af16dc2b6a99a862a69d37a1cd9339bcf6545093ae027a5581298083"
+  },
+  "big-lut-20261030\\raw\\extra-lp15.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-lut-20261030\\raw\\extra-lp2.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-lut-20261030\\raw\\extra-postrun.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-lut-20261030\\raw\\extra-prebuild.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "big-lut-20261030\\raw\\lp15.log": {
+    "bytes": 5279,
+    "sha256": "9fab8f7a066af0deec6382e8140c1b56ebc5fef8874d7f9651819918d5119d2b"
+  },
+  "big-lut-20261030\\raw\\lp2.log": {
+    "bytes": 5104,
+    "sha256": "40a610f65db9de3d357d3c93528a92ac94c4c73bc3eefd738e7d1e10218177f8"
+  },
+  "big-lut-20261030\\raw\\processes-lp15.json": {
+    "bytes": 4130,
+    "sha256": "fce5bd531e1e9652a7c6eed038ca69774cdc5c5cc7d18e754dfd5f9da1da84df"
+  },
+  "big-lut-20261030\\raw\\processes-lp2.json": {
+    "bytes": 4130,
+    "sha256": "fce5bd531e1e9652a7c6eed038ca69774cdc5c5cc7d18e754dfd5f9da1da84df"
+  },
+  "big-lut-20261030\\raw\\processes-postrun.json": {
+    "bytes": 4130,
+    "sha256": "fce5bd531e1e9652a7c6eed038ca69774cdc5c5cc7d18e754dfd5f9da1da84df"
+  },
+  "big-lut-20261030\\raw\\processes-prebuild.json": {
+    "bytes": 4130,
+    "sha256": "fce5bd531e1e9652a7c6eed038ca69774cdc5c5cc7d18e754dfd5f9da1da84df"
+  },
+  "big-lut-20261030\\raw\\source-identity.json": {
+    "bytes": 636,
+    "sha256": "c9d37cb39bc731921108d4124b4f64dd50f643a6b89ec46b3e054b7ec51895b0"
+  },
+  "big-lut-20261030\\raw\\verify-lp15.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-lut-20261030\\raw\\verify-lp2.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-lut-20261030\\raw\\verify-postrun.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  },
+  "big-lut-20261030\\raw\\verify-prebuild.json": {
+    "bytes": 2937,
+    "sha256": "0a8d669452adbbf12288c3a950f5ab5f79c46d7f19424dd62418390a5a5b571b"
+  }
+}

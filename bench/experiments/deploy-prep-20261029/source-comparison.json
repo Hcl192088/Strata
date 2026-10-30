@@ -1,0 +1,50 @@
+{
+  "src/kernels/cpu/pool.cpp": {
+    "expected": "AF976BB39DE0A47F68B559FDF985677CA46B17D7D83D50F92307A94B194E9453",
+    "actual": "AF976BB39DE0A47F68B559FDF985677CA46B17D7D83D50F92307A94B194E9453",
+    "bytes": 48534,
+    "crlf": 983,
+    "lf": 983,
+    "matches": true
+  },
+  "include/strata/kernels/cpu/pool.hpp": {
+    "expected": "8B993048979A551B885313F85853C157FED1C13AA4DE5EBA1E9B15D284216351",
+    "actual": "8B993048979A551B885313F85853C157FED1C13AA4DE5EBA1E9B15D284216351",
+    "bytes": 19328,
+    "crlf": 318,
+    "lf": 318,
+    "matches": true
+  },
+  "src/program/generate.cpp": {
+    "expected": "1F17C2E537DA102F4E4AA1D58F25C4DC083AEEA853369D979E23D5EB50E1B24B",
+    "actual": "1F17C2E537DA102F4E4AA1D58F25C4DC083AEEA853369D979E23D5EB50E1B24B",
+    "bytes": 897739,
+    "crlf": 13123,
+    "lf": 13123,
+    "matches": true
+  },
+  "src/core/expert_source.cpp": {
+    "expected": "2294D6B8F007A3D238EE0D68CAA77B888A4491682156B796C869EC07E6163658",
+    "actual": "2294D6B8F007A3D238EE0D68CAA77B888A4491682156B796C869EC07E6163658",
+    "bytes": 266340,
+    "crlf": 5207,
+    "lf": 5207,
+    "matches": true
+  },
+  "include/strata/core/expert_source.hpp": {
+    "expected": "6A8C92ED77259EB5984C704EC6935D9CCD84A045AE3B294B1B212B03E1029F6E",
+    "actual": "6A8C92ED77259EB5984C704EC6935D9CCD84A045AE3B294B1B212B03E1029F6E",
+    "bytes": 68809,
+    "crlf": 970,
+    "lf": 970,
+    "matches": true
+  },
+  "include/strata/core/cpu_phase_diag.hpp": {
+    "expected": "2343DDE7B1EB918F9F0C1346BA0C9F153AAAF028A702EE5F2B08FC9DCA586AE9",
+    "actual": "2343DDE7B1EB918F9F0C1346BA0C9F153AAAF028A702EE5F2B08FC9DCA586AE9",
+    "bytes": 354,
+    "crlf": 11,
+    "lf": 11,
+    "matches": true
+  }
+}

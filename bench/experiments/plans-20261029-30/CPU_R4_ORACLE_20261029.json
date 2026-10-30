@@ -1,0 +1,37 @@
+{
+  "source": "state/io-arrival-20261029; full53472 dispatches",
+  "model": "optimistic all-compute scaling, fixed observed per-layer IO offsets; ready-prefix scaling includes some noncompute; GPU and other costs fixed; not measured speed",
+  "windows": 1114.0,
+  "rows": [
+    {
+      "all_compute_speedup": 1.1,
+      "saving_ms_window": 1.0938206381589657,
+      "conditional_speedup_percent": 3.040780293815115
+    },
+    {
+      "all_compute_speedup": 1.2,
+      "saving_ms_window": 1.9998079144225172,
+      "conditional_speedup_percent": 5.703027962873697
+    },
+    {
+      "all_compute_speedup": 1.3,
+      "saving_ms_window": 2.764325341803589,
+      "conditional_speedup_percent": 8.058974603759195
+    },
+    {
+      "all_compute_speedup": 1.4,
+      "saving_ms_window": 3.419157578866409,
+      "conditional_speedup_percent": 10.162039385356447
+    },
+    {
+      "all_compute_speedup": 1.5,
+      "saving_ms_window": 3.9863910233393556,
+      "conditional_speedup_percent": 12.05107264607741
+    },
+    {
+      "all_compute_speedup": 2.0,
+      "saving_ms_window": 5.970350628366248,
+      "conditional_speedup_percent": 19.200245251523953
+    }
+  ]
+}

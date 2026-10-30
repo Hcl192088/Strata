@@ -1,0 +1,12 @@
+[
+  {
+    "arm": "SMOKE",
+    "allowed_differences_only": true,
+    "sha256": "14938B4DCD8623FD71E66CC02D11AC972957BAAA6AA0E6421DF393C9E2936EA5"
+  },
+  {
+    "arm": "D",
+    "allowed_differences_only": true,
+    "sha256": "F5A3040E117120AC3B7A1A14665F73091B020E48B1A884795D2CB364319DCA50"
+  }
+]

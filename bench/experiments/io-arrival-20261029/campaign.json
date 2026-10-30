@@ -1,0 +1,12 @@
+{
+  "task_id": "LUNA-20261012-027",
+  "task": "IO_ARRIVAL_BOUND",
+  "phase": "DONE",
+  "controller_pid": 31884,
+  "authorization": "user2026-10-29 去做; one arrival upper-bound diagnostic; no implementation/deployment",
+  "utc": "2026-10-29T12:15:12Z",
+  "build_pid": 11692,
+  "verdict": "CAPTURED_ANALYSIS_PENDING",
+  "restored": true,
+  "verified": true
+}

@@ -1,0 +1,51 @@
+{
+  "started": "2026-10-29 20:14:51",
+  "strata_exe_left_before_start": [],
+  "start_issued": "20:14:51",
+  "health": {
+    "status": "ok",
+    "max_context": 100000,
+    "model": "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS",
+    "images": false,
+    "api_key": false,
+    "loaded": true,
+    "service": "strata"
+  },
+  "loaded_after_s": 20.1,
+  "metrics": {
+    "expert_slots": 3153,
+    "arena_mib": 20479,
+    "pool_workers": 9,
+    "pcie_frac": "0.55"
+  },
+  "live_state": "idle",
+  "api_processes_after": [
+    [
+      0,
+      27640
+    ],
+    [
+      1,
+      7856
+    ],
+    [
+      1,
+      8584
+    ],
+    [
+      1,
+      15232
+    ],
+    [
+      1,
+      16680
+    ],
+    [
+      2,
+      29684
+    ]
+  ],
+  "binary_sha256_after": "A1E6123852A5138A9B3A5DE2F51FC273466B7E349819A5D2FCD49120D9491AD8",
+  "restored": true,
+  "finished": "2026-10-29 20:15:12"
+}
