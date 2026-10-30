@@ -1,0 +1,164 @@
+diff --git a/include/strata/kernels/cpu/pool.hpp b/include/strata/kernels/cpu/pool.hpp
+index 86c02c5c..1e423424 100644
+--- a/include/strata/kernels/cpu/pool.hpp
++++ b/include/strata/kernels/cpu/pool.hpp
+@@ -157,6 +157,8 @@ public:
+     ExpertPool(const ExpertPool&) = delete;
+     ExpertPool& operator=(const ExpertPool&) = delete;
+ 
++    struct PoolDiag { double p_gu=0, p_down=0, p_quant=0, e_gu=0, e_down=0, e_quant=0, wait=0; uint64_t calls=0; int pn=0, en=0; };
++    PoolDiag pool_diag_read_reset();
+     int workers() const { return n_; }
+     /// Whether the host thread also drains.  Reported at startup, because "the engine adapts to the machine it
+     /// is on" is only true if the engine says which adaptation it took.
+@@ -221,6 +223,11 @@ public:
+ 
+ private:
+     int phase_tasks(int64_t rows) const;
++    struct alignas(64) PoolDiagWorker { double gu=0, down=0, quant=0; };
++    std::unique_ptr<PoolDiagWorker[]> pool_diag_workers_;
++    bool pool_diag_on_ = false;
++    double pool_diag_wait_ = 0;
++    uint64_t pool_diag_calls_ = 0;
+     int tasks_ = 0;
+     void worker(int id);
+     void drain(int id, ExpertScratch& scratch, uint32_t epoch);
+diff --git a/src/kernels/cpu/pool.cpp b/src/kernels/cpu/pool.cpp
+index 8afe3522..576a5d3c 100644
+--- a/src/kernels/cpu/pool.cpp
++++ b/src/kernels/cpu/pool.cpp
+@@ -448,6 +448,9 @@ ExpertPool::ExpertPool(int n_workers, bool pin, bool host_works, PoolAffinity af
+         n_ = (int) topo_.worker_cores.size();
+     }
+     if (n_ < 1) n_ = 1;
++    const char* pd = std::getenv("STRATA_POOL_DIAG");
++    pool_diag_on_ = pd && std::strcmp(pd, "1") == 0;
++    if (pool_diag_on_) pool_diag_workers_.reset(new PoolDiagWorker[(size_t)n_]);
+     scratch_.resize((size_t) n_);
+     wstate_.reset(new std::atomic<int32_t>[(size_t) n_]);
+     for (int i = 0; i < n_; ++i) wstate_[(size_t) i].store(kParked);
+@@ -585,14 +588,34 @@ void ExpertPool::wait_parked(const char* what) {
+     }
+ }
+ 
++ExpertPool::PoolDiag ExpertPool::pool_diag_read_reset() {
++    PoolDiag result;
++    if (!pool_diag_on_) return result;
++    wait_parked("for pool diagnostic snapshot");
++    for (int i=0; i<n_; ++i) {
++        const int lp = i < (int)topo_.worker_cores.size() ? topo_.worker_cores[(size_t)i] : -1;
++        auto &v = pool_diag_workers_[(size_t)i];
++        if (lp >= 12 && lp <= 15) { result.e_gu+=v.gu; result.e_down+=v.down; result.e_quant+=v.quant; ++result.en; }
++        else { result.p_gu+=v.gu; result.p_down+=v.down; result.p_quant+=v.quant; ++result.pn; }
++        v = {};
++    }
++    result.wait=pool_diag_wait_; result.calls=pool_diag_calls_;
++    pool_diag_wait_=0; pool_diag_calls_=0;
++    return result;
++}
++
+ void ExpertPool::wait_done(int n) {
+     hstate_.store(kWaitDone, std::memory_order_relaxed);
+     hstate_ms_.store(now_ms(), std::memory_order_relaxed);
++    const auto diag_start = pool_diag_on_ ? std::chrono::steady_clock::now() : std::chrono::steady_clock::time_point{};
+     uint32_t spins = 0, seen = 0;
+     std::chrono::steady_clock::time_point t0{};
+     for (;;) {
+         const uint32_t d = done_.load(std::memory_order_acquire);
+-        if (d >= (uint32_t) n) return;                                // `>=`: never a wait that an overshoot outlives
++        if (d >= (uint32_t) n) {
++            if (pool_diag_on_) pool_diag_wait_ += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now()-diag_start).count();
++            return;
++        }                                // `>=`: never a wait that an overshoot outlives
+         _mm_pause();
+         if ((++spins & 1023u) != 0) continue;
+         const auto now = std::chrono::steady_clock::now();
+@@ -806,7 +829,9 @@ void ExpertPool::drain_native_pipe(int id) {
+                 while(part<pipe_down_parts_ && !state.down_next.compare_exchange_weak(part,part+1,std::memory_order_relaxed)){}
+                 if(part>=pipe_down_parts_)continue;
+                 if(pipe_gu_done_.load(std::memory_order_acquire)<gu_total)pipe_overlap_.fetch_add(1,std::memory_order_relaxed);
++                const auto d0 = pool_diag_on_ && id >= 0 ? std::chrono::steady_clock::now() : std::chrono::steady_clock::time_point{};
+                 native_pipe_rows(false,e,H*part/pipe_down_parts_,H*(part+1)/pipe_down_parts_);
++                if (pool_diag_on_ && id >= 0) pool_diag_workers_[(size_t)id].down += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now()-d0).count();
+                 pipe_down_done_.fetch_add(1,std::memory_order_release);
+                 worked=true;break;
+             }
+@@ -817,12 +842,16 @@ void ExpertPool::drain_native_pipe(int id) {
+         while(task<gu_total && !pipe_gu_next_.compare_exchange_weak(task,task+1,std::memory_order_relaxed)){}
+         if(task<gu_total) {
+             const int e=task/pipe_gu_parts_,part=task%pipe_gu_parts_;
++            const auto g0 = pool_diag_on_ && id >= 0 ? std::chrono::steady_clock::now() : std::chrono::steady_clock::time_point{};
+             native_pipe_rows(true,e,FF*part/pipe_gu_parts_,FF*(part+1)/pipe_gu_parts_);
++            if (pool_diag_on_ && id >= 0) pool_diag_workers_[(size_t)id].gu += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now()-g0).count();
+             pipe_gu_done_.fetch_add(1,std::memory_order_release);
+             if(pipe_expert_[e].gu_left.fetch_sub(1,std::memory_order_acq_rel)==1) {
++                const auto q0 = pool_diag_on_ && id >= 0 ? std::chrono::steady_clock::now() : std::chrono::steady_clock::time_point{};
+                 for(int t=0;t<mjobs_[e].nt;++t)
+                     if(q2_native_kernels(nfmt_->d_type))act_quant_any(split_multi_[(size_t)e].ff[t],FF,split_multi_[(size_t)e].a2[t]);
+                     else native_quant_h(*nfmt_,split_multi_[(size_t)e].ff[t],split_multi_[(size_t)e].hq[t]);
++                if (pool_diag_on_ && id >= 0) pool_diag_workers_[(size_t)id].quant += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now()-q0).count();
+                 pipe_expert_[e].ready.store(true,std::memory_order_release);
+             }
+             continue;
+@@ -841,6 +870,7 @@ void ExpertPool::drain_native_pipe(int id) {
+ 
+ void ExpertPool::run_native_pipe(const NativeFmt& f,ExpertJobMulti* jobs,int n) {
+     const auto begin=std::chrono::steady_clock::now();
++    if (pool_diag_on_) ++pool_diag_calls_;
+     const int threads=n_+(host_works_?1:0);
+     static bool announced=false;
+     if(!announced){std::fprintf(stderr,"NATIVE_PIPE ACTIVE workers=%d down_limit=%d exact_row_kernels=1\n",threads,(std::max)(1,threads/3));announced=true;}
+diff --git a/src/program/generate.cpp b/src/program/generate.cpp
+index 1118459a..4047c260 100644
+--- a/src/program/generate.cpp
++++ b/src/program/generate.cpp
+@@ -10865,6 +10865,9 @@ int main(int argc, char** argv) {
+             const bool cpd_on=strata::core::cpu_phase_diag_enabled();
+             const auto cpd0=cpd_on?strata::core::cpu_phase_diag_snapshot():strata::core::CpuPhaseDiag{};
+             const double cpd_gu0=pool.ms_multi_gu, cpd_q0=pool.ms_multi_q, cpd_down0=pool.ms_multi_down, cpd_pipe0=pool.ms_multi_pipeline;
++            static const bool pool_diag = []{const char* e=std::getenv("STRATA_POOL_DIAG"); return e && std::strcmp(e,"1")==0;}();
++            if (pool_diag) pool.pool_diag_read_reset();
++            double diag_suffix=0, diag_apply=0;
+             double dt_run = 0, dt_commit = 0, dt_draft = 0;
+             int64_t dec_windows = 0, dec_T = 0;
+             const int64_t decode_hits0 = drive.d.cache_hits;
+@@ -11527,6 +11530,7 @@ int main(int argc, char** argv) {
+                 }
+             }
+             while (!pl_ran && !cancelled && produced_n < max_new) {
++                const auto diag_s0 = pool_diag ? Clock::now() : Clock::time_point{};
+                 int T = use_mtp ? S_mtp : 1;   // no --mtp: one token a round unless a lookup draft fires
+                 if (use_mtp && req_spec_min_p > 0.0) {
+                     T = 1;
+@@ -11560,6 +11564,7 @@ int main(int argc, char** argv) {
+                         chain_n = policy.chain(T, p_mtp, chain_n, cm);
+                     }
+                 }
++                if (pool_diag) diag_suffix += std::chrono::duration<double,std::milli>(Clock::now()-diag_s0).count();
+                 const int T_mtp = T;
+                 T += chain_n;
+                 const bool timed_round = !first_window;
+@@ -11574,8 +11579,10 @@ int main(int argc, char** argv) {
+                 // #463: the previous adapt round's copies land first - with a non-blocking query, whether a swapped-in
+                 // expert ran on the GPU or the CPU (they round differently) depended on the copy's timing
+                 // (STRATA_ADAPT_NOWAIT=1: 0.1.37's non-blocking query, the A/B)
++                const auto diag_a0 = pool_diag ? Clock::now() : Clock::time_point{};
+                 if (adapt_nowait()) apply_pending(false);
+                 else if (pending.empty() || ++pending_age >= adapt_lag()) apply_pending(true);
++                if (pool_diag) diag_apply += std::chrono::duration<double,std::milli>(Clock::now()-diag_a0).count();
+                 if (!adapt_tick(false)) {   // --adapt-async: the round in flight moves on a step when it can
+                     std::printf("ERR an adaptive refill failed\n");
+                     return 1;
+@@ -11712,6 +11719,12 @@ int main(int argc, char** argv) {
+                 std::printf("ERR %s\n", err.c_str());
+                 return 1;
+             }
++            if (pool_diag && dec_windows > 0) {
++                const auto pd=pool.pool_diag_read_reset(); const double w=(double)dec_windows;
++                const double residual=decode_ms-dt_run-dt_commit-dt_draft-diag_suffix-diag_apply;
++                std::fprintf(stderr,"POOL_DIAG windows=%lld ms_window=%.6f calls=%.6f p_gu=%.6f p_down=%.6f p_quant=%.6f e_gu=%.6f e_down=%.6f e_quant=%.6f host_wait=%.6f suffix=%.6f apply=%.6f verify=%.6f commit_emit=%.6f draft=%.6f unattributed=%.6f\n",
++                    (long long)dec_windows,decode_ms/w,pd.calls/w,pd.p_gu/(w*pd.pn),pd.p_down/(w*pd.pn),pd.p_quant/(w*pd.pn),pd.e_gu/(w*pd.en),pd.e_down/(w*pd.en),pd.e_quant/(w*pd.en),pd.wait/w,diag_suffix/w,diag_apply/w,dt_run/w,dt_commit/w,dt_draft/w,residual/w);
++            }
+             if (dec_timing && dec_windows > 0) {
+                 const DecSnap d1 = dec_snap();
+                 if(cpd_on) {

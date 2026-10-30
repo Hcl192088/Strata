@@ -1,0 +1,37 @@
+{
+  "rounds": 5,
+  "pairs": [
+    {
+      "round": 1,
+      "delta_percent": -3.1439267383463476,
+      "gpu_wait_ms_window_diff": -0.044387894561873864
+    },
+    {
+      "round": 2,
+      "delta_percent": 5.247568110192047,
+      "gpu_wait_ms_window_diff": -0.21369755929024414
+    },
+    {
+      "round": 3,
+      "delta_percent": 1.0247267258727488,
+      "gpu_wait_ms_window_diff": 0.05847513461309539
+    },
+    {
+      "round": 4,
+      "delta_percent": -1.3183577797677426,
+      "gpu_wait_ms_window_diff": 0.013259016612405361
+    },
+    {
+      "round": 5,
+      "delta_percent": 1.2492671793004062,
+      "gpu_wait_ms_window_diff": 0.16755125601037513
+    }
+  ],
+  "mean_percent": 0.6118554994502223,
+  "ci95_percent": [
+    -3.3096317384813627,
+    4.533342737381807
+  ],
+  "quality": "UNCONFIRMED",
+  "early_stop": false
+}

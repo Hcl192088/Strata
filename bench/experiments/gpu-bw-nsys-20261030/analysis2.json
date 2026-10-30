@@ -1,0 +1,147 @@
+{
+  "segment_s": 11.455138412,
+  "tokens": 512,
+  "ms_per_token": 22.3733172109375,
+  "kernels": 696405,
+  "samples": 114550,
+  "gpu_busy_frac": 0.8616501602163269,
+  "kernel_ms_per_token": 19.277972359375,
+  "busy_GR90": {
+    "n": 98400,
+    "dram_pct_mean": 33.78623983739838,
+    "p10": 0.0,
+    "p50": 27.0,
+    "p90": 78.0,
+    "GBps": 170.35022126016258
+  },
+  "family": {
+    "other": {
+      "ms_per_token": 12.454888962890625,
+      "n_samples": 59866,
+      "dram_pct_mean": 16.233504827447966,
+      "GBps": 81.84933133999264
+    },
+    "dense_mmvq": {
+      "ms_per_token": 3.96604057421875,
+      "n_samples": 19004,
+      "dram_pct_mean": 69.42864660071564,
+      "GBps": 350.0592361608082
+    },
+    "hc_gr": {
+      "ms_per_token": 2.09328231640625,
+      "n_samples": 10667,
+      "dram_pct_mean": 66.19340020624355,
+      "GBps": 333.74712383988003
+    },
+    "gdn": {
+      "ms_per_token": 0.535805173828125,
+      "n_samples": 2627,
+      "dram_pct_mean": 68.31594975256947,
+      "GBps": 344.44901865245527
+    },
+    "router": {
+      "ms_per_token": 0.142400060546875,
+      "n_samples": 718,
+      "dram_pct_mean": 22.926183844011142,
+      "GBps": 115.59381894150417
+    },
+    "attention": {
+      "ms_per_token": 0.7190292890625,
+      "n_samples": 3283,
+      "dram_pct_mean": 39.94578129759366,
+      "GBps": 201.40662930246725
+    }
+  },
+  "top10": [
+    {
+      "kernel": "wait_flag_ge_kernel",
+      "count": 41889,
+      "ms_per_token": 9.28818094921875,
+      "mean_us": 113.52738537563562,
+      "n_samples": 44828,
+      "dram_pct_mean": 7.9012893727134825,
+      "GBps": 39.838301017221376
+    },
+    {
+      "kernel": "native_mmvq_il_kernel",
+      "count": 10091,
+      "ms_per_token": 1.0032331171875,
+      "mean_us": 50.9023244475275,
+      "n_samples": 5191,
+      "dram_pct_mean": 72.30302446542092,
+      "GBps": 364.55184935465223
+    },
+    {
+      "kernel": "gr_down_staged_kernel",
+      "count": 29508,
+      "ms_per_token": 0.980288517578125,
+      "mean_us": 17.009208384167007,
+      "n_samples": 4988,
+      "dram_pct_mean": 68.67963111467522,
+      "GBps": 346.28270008019246
+    },
+    {
+      "kernel": "gr_up_multi_kernel",
+      "count": 29508,
+      "ms_per_token": 0.963508021484375,
+      "mean_us": 16.718046190863493,
+      "n_samples": 4907,
+      "dram_pct_mean": 63.077847972284495,
+      "GBps": 318.0385094762584
+    },
+    {
+      "kernel": "native_gu_multi_kernel",
+      "count": 27926,
+      "ms_per_token": 0.849222119140625,
+      "mean_us": 15.569781744610756,
+      "n_samples": 4082,
+      "dram_pct_mean": 39.25183733463988,
+      "GBps": 197.90776384125428
+    },
+    {
+      "kernel": "native_mmvq_multi_kernel",
+      "count": 27202,
+      "ms_per_token": 0.741357146484375,
+      "mean_us": 13.953932027056833,
+      "n_samples": 3351,
+      "dram_pct_mean": 56.841539838854075,
+      "GBps": 286.5950438675022
+    },
+    {
+      "kernel": "native_q5_k_mmvq_kernel",
+      "count": 2576,
+      "ms_per_token": 0.68685673828125,
+      "mean_us": 136.5181094720497,
+      "n_samples": 3536,
+      "dram_pct_mean": 86.68156108597285,
+      "GBps": 437.0484309954751
+    },
+    {
+      "kernel": "attn_chunk_kernel",
+      "count": 3922,
+      "ms_per_token": 0.58226854296875,
+      "mean_us": 76.012619581846,
+      "n_samples": 2856,
+      "dram_pct_mean": 37.02205882352941,
+      "GBps": 186.6652205882353
+    },
+    {
+      "kernel": "native_down_multi_kernel",
+      "count": 27926,
+      "ms_per_token": 0.56719165625,
+      "mean_us": 10.398987610112439,
+      "n_samples": 2866,
+      "dram_pct_mean": 25.80914166085136,
+      "GBps": 130.12969225401255
+    },
+    {
+      "kernel": "native_q6_k_mmvq_kernel",
+      "count": 10153,
+      "ms_per_token": 0.546072544921875,
+      "mean_us": 27.537589185462423,
+      "n_samples": 2823,
+      "dram_pct_mean": 69.99220687212186,
+      "GBps": 352.9007070492384
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "rounds": 5,
+  "pairs": [
+    {
+      "round": 1,
+      "delta_percent": 5.3934616057360385,
+      "cpu_ms_window_diff": -3.741126613542768
+    },
+    {
+      "round": 2,
+      "delta_percent": -2.296678794314111,
+      "cpu_ms_window_diff": 2.416899273282219
+    },
+    {
+      "round": 3,
+      "delta_percent": -2.4544707742805483,
+      "cpu_ms_window_diff": -2.267422696950252
+    },
+    {
+      "round": 4,
+      "delta_percent": 4.967313559206077,
+      "cpu_ms_window_diff": -2.345669084717297
+    },
+    {
+      "round": 5,
+      "delta_percent": 1.615336694281,
+      "cpu_ms_window_diff": 2.517745494472212
+    }
+  ],
+  "mean_percent": 1.4449924581256912,
+  "ci95_percent": [
+    -3.251719131397559,
+    6.1417040476489415
+  ],
+  "quality": "UNCONFIRMED",
+  "early_stop": false
+}
