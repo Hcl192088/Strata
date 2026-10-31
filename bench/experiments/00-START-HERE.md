@@ -1,6 +1,6 @@
 # Strata（RTX 4070 桌機）優化：提案前必讀
 
-更新：2026-10-31。提任何加速方案前，請先讀完本頁，並對照第 4 節的「已試方向索引」。
+更新：2026-10-31（第 2 版）。提任何加速方案前，請先讀完本頁，並對照第 4 節的「已試方向索引」。
 本頁沒列到的細節，在同目錄的 `EXPERIMENT_LEDGER-20261031.md`（完整實驗紀錄）與各實驗資料夾裡。
 
 ## 1. 名詞定義（請照這個用詞，不要混用）
@@ -126,6 +126,10 @@
 | MTP draft vocab 縮小（V64／V32） | A | −1.1%／−2.5%；省下的 VRAM 沒有變成 slot | NO_GO | `untested5-20261031/s1-vram-vocab/` |
 | MTP experts 只留熱門 N 個在 VRAM | A | 估計淨省約 0.3 ms/w，未達 0.6 門檻 | NO_GO | `untested5-20261031/s3-mtp-experts/` |
 | VRAM 依頻率／成本排序 | A | 約 −2.7～−3.6% CPU 工作，約 +1% | NO_GO | VRAM_MARGINAL_SIM |
+| GPU resident expert 融合／weight-major mega-kernel（MonoMoE 類） | A | 不在關鍵路徑：GPU 每 window 有 16.3 ms 在自旋等 CPU（wait_flag_ge），VRAM 命中的 expert kernel 和 CPU pool 同時進行，CPU 比較慢，所以加速 GPU expert kernel 幾乎不會縮短 window | 不做 | GPU_KERNEL_BW_DIAG B''（10/30） |
+| per-slot vs dedup（每 token 分開算 vs 合併同一 expert） | A | CPU 端就是 `STRATA_IQ_MT_MIN` 這個門檻，已測 MT1（+4.26%，已部署）與 NT1_EXT（雜訊內）；source 註解：多 token kernel 在 3 token 快 2.0～2.4 倍。GPU 端同上，不在關鍵路徑 | 已涵蓋 | IQ3S_MT1_AB、NT1_EXT_TYPES |
+| `--kv-grow`（彈性 KV） | A | 需要拿掉 `--kv-resident 20480` 才能開；KV 每 cell 約 6.7 KB（q4_0），現在 VRAM 裡的 KV 只有約 134 MiB，短對話最多省約 80 MiB（約 +0.3%）；6 萬 token 以上的長對話會長到約 420 MiB，反而讓出 slot | 不做（未實測，source＋log 估算） | 10/31 評估 |
+| 換作業系統（Linux） | — | 使用者決定先不考慮 | 不做 | — |
 
 ### 4.4 Speculative decoding（MTP）
 
@@ -136,6 +140,7 @@
 | MTP PR #1934 | A | 未過 3% | NO_GO | mtp-pr1934-ab-20261015 |
 | tree verification／OPT-Tree 類 | A | Top-2 rescue 0/41，verify 成本陡增 | 不做 | mtp-options、SPEED_PRIOR_ART_SEARCH |
 | suffix／lookup chain | A | +1.59%，不穩 | NO_GO | ledger |
+| 依「預期接受 token ÷ 成本」決定驗證長度（EVICT／SpecFit／EcoSpec 類） | A | 10/14 已實作：用實測 T1/T2/T3 成本 26.4/37.0/53.3 ms，取 (1+q1+q1·q2)/cost 最大的長度，結果 −2.40%（剪掉的窗口損失了本來會被接受的 token）。若改用「每個 window 預測的 expert 增量成本」，需要先預測下一個 token 的路由，而這類預測實測很弱（precision 37%／recall 25%） | NO_GO | mtp-options-20261014（dynamic gate） |
 
 ### 4.5 會改變輸出的路由（B 類，僅供參考）
 
@@ -163,3 +168,4 @@
 - 「pre-attention 預測 72.2% recall」：72.2% 是 10/13 一筆 live 請求的 GPU expert hit rate，不是預測器的 recall。
 - 「fork 仍用 `run_phase(5)` 接 `run_phase(6)`」：那是 GitHub main 的舊碼；實際部署版本已是 per-expert pipeline。
 - 「把 CPU expert 移到 GPU 就省時間」：在這台機器上，PCIe 路徑每個 expert 的 GPU 成本是 CPU 的 2～3 倍。
+- 「加速 GPU 上的 expert kernel」：GPU 大部分時間在等 CPU，這些 kernel 不在關鍵路徑上。關鍵路徑是 CPU expert pool，以及 GPU 每層開頭的 dense 段（attention、router、dense mmvq），那段 CPU 必須等。
