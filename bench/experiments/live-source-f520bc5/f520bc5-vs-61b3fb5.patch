@@ -1,0 +1,798 @@
+From f520bc5e9d31c93caeb296b059e3a3eaa16e493f Mon Sep 17 00:00:00 2001
+From: Ken <chienli384@gmail.com>
+Date: Thu, 29 Oct 2026 09:04:54 +0800
+Subject: [PATCH] TASK LUNA-20261012-027: pin generic native pipeline source
+
+src/kernels/cpu/pool.cpp SHA256 AF976BB39DE0A47F68B559FDF985677CA46B17D7D83D50F92307A94B194E9453
+include/strata/kernels/cpu/pool.hpp SHA256 8B993048979A551B885313F85853C157FED1C13AA4DE5EBA1E9B15D284216351
+src/program/generate.cpp SHA256 1F17C2E537DA102F4E4AA1D58F25C4DC083AEEA853369D979E23D5EB50E1B24B
+src/core/expert_source.cpp SHA256 2294D6B8F007A3D238EE0D68CAA77B888A4491682156B796C869EC07E6163658
+include/strata/core/expert_source.hpp SHA256 6A8C92ED77259EB5984C704EC6935D9CCD84A045AE3B294B1B212B03E1029F6E
+include/strata/core/cpu_phase_diag.hpp SHA256 2343DDE7B1EB918F9F0C1346BA0C9F153AAAF028A702EE5F2B08FC9DCA586AE9
+---
+ include/strata/core/cpu_phase_diag.hpp |  11 +
+ include/strata/core/expert_source.hpp  |  12 +
+ include/strata/kernels/cpu/pool.hpp    |  17 +-
+ src/core/expert_source.cpp             | 343 ++++++++++++++++++++++++-
+ src/kernels/cpu/pool.cpp               | 132 ++++++++++
+ src/program/generate.cpp               |  15 +-
+ 6 files changed, 520 insertions(+), 10 deletions(-)
+ create mode 100644 include/strata/core/cpu_phase_diag.hpp
+
+diff --git a/include/strata/core/cpu_phase_diag.hpp b/include/strata/core/cpu_phase_diag.hpp
+new file mode 100644
+index 00000000..2815b65a
+--- /dev/null
++++ b/include/strata/core/cpu_phase_diag.hpp
+@@ -0,0 +1,11 @@
++#pragma once
++#include <cstdint>
++namespace strata::core {
++struct CpuPhaseDiag {
++    double helper_ms=0, join_ms=0, ready_ms=0, inline_ms=0, lru_ms=0;
++    double direct_ms=0, copy_ms=0, issue_wait_ms=0;
++    uint64_t issued_bytes=0, useful_bytes=0, splits=0, inlines=0;
++};
++bool cpu_phase_diag_enabled();
++CpuPhaseDiag cpu_phase_diag_snapshot();
++}
+diff --git a/include/strata/core/expert_source.hpp b/include/strata/core/expert_source.hpp
+index b51c8f99..e0be499f 100644
+--- a/include/strata/core/expert_source.hpp
++++ b/include/strata/core/expert_source.hpp
+@@ -589,6 +589,8 @@ public:
+     // STRATA_EXCHANGE_ROTATE=1 can instead transfer buffer ownership (uniform, fully pinned/mapped slots).
+     /// Whether the compact copy holds `(layer, expert)`.
+     bool has_resident(int64_t layer, int64_t expert) const;
++    void ram_lru_complete(int64_t layer, const int32_t* ids, const int32_t* kind, int64_t n,
++        const int32_t* host_res, const int16_t* job_of, const strata::kernels::cpu::ExpertJobMulti* jobs);
+     /// Host room for `n` evicted blobs (page-locked when possible).  Idempotent for the same or a smaller `n`.
+     bool reserve_exchanges(int64_t n, std::string& err);
+     int64_t exchange_capacity() const { return xstage_cap_; }
+@@ -682,6 +684,12 @@ public:
+     void begin_layer(int64_t layer, const int32_t* ids, int64_t k) override;
+     /// CS-T: the GGUF in place assembles the missed experts on `fetch_threads_` threads.
+     void prefetch(int64_t layer, const int64_t* experts, int64_t n) override;
++    /// STRATA_MISS_OVERLAP: `prefetch` in two halves (unbuffered reads only).  `prefetch_split_begin` claims the stage buffers of the
++    /// blobs that have to come from the drive and keeps that batch; `pending` receives their expert ids.  False: not applicable
++    /// (nothing was claimed; call `prefetch`).  `prefetch_split_run` reads the kept batch - on any thread, while `blob()` of
++    /// experts that are not pending is called on another.
++    bool prefetch_split_begin(int64_t layer, const int64_t* experts, int64_t n, int32_t* pending, int& npending);
++    void prefetch_split_run();
+     /// CS-T: the GGUF in place asks the OS for the predicted experts' pages (PrefetchVirtualMemory on Windows,
+     /// madvise(WILLNEED) elsewhere), skipping the RAM copy's.
+     void warm(int64_t layer, const int64_t* experts, int64_t n) override;
+@@ -737,6 +745,7 @@ private:
+     struct Fill { size_t v; int64_t layer, e; uint8_t* dst; };
+     /// The claimed buffers' blobs: one overlapped batch when unbuffered, else the fetch threads' mapped copies.
+     void fill_many(const std::vector<Fill>& todo);
++    std::vector<Fill> split_todo_;   ///< prefetch_split_begin's batch
+     /// #286: the blobs from the drive, unbuffered: every role's 4 KiB-aligned window is read at once (overlapped on
+     /// Windows, io_submit on Linux) into this thread's aligned buffer, then copied into place.  False when a read fails.
+     bool read_direct(const Fill* fills, size_t n) const;
+@@ -846,6 +855,9 @@ private:
+     bool complement_registered_ = false;      ///< the arena is ordinary memory registered with cudaHostRegister (not cudaHostAlloc)
+     uint64_t complement_pin_limit_ = 0;
+     uint64_t complement_lock_off_ = 0;        ///< the working-set lock covers [lock_off, lock_off + locked)
++    bool ram_lru_enabled_ = false, ram_lru_check_ = false;
++    std::vector<uint64_t> ram_lru_touch_;
++    uint64_t ram_lru_clock_ = 0, ram_lru_admissions_ = 0, ram_lru_copy_bytes_ = 0, ram_lru_no_victim_ = 0;
+     bool complement_ready_ = false;
+     uint64_t complement_locked_ = 0;          ///< bytes held in the working set (pin refused)
+     int64_t complement_lent_slots_ = 0;
+diff --git a/include/strata/kernels/cpu/pool.hpp b/include/strata/kernels/cpu/pool.hpp
+index 6796e391..86c02c5c 100644
+--- a/include/strata/kernels/cpu/pool.hpp
++++ b/include/strata/kernels/cpu/pool.hpp
+@@ -185,7 +185,8 @@ public:
+     void run_split_multi_native(const NativeFmt& f, ExpertJobMulti* jobs, int n);
+     static constexpr int kMaxSplitMulti = 96;
+     /// run_split_multi's phases, accumulated ms: gate/up rows, the intermediate quantization, down rows.
+-    double ms_multi_gu = 0, ms_multi_q = 0, ms_multi_down = 0;
++    double ms_multi_gu = 0, ms_multi_q = 0, ms_multi_down = 0, ms_multi_pipeline = 0;
++    uint64_t pipeline_calls = 0, pipeline_overlap_tiles = 0, pipeline_down_tiles = 0;
+     int64_t multi_bytes = 0;
+ 
+     /// Total `_mm_pause` iterations spent waiting, over all workers, is no longer counted - see the note on the
+@@ -294,6 +295,20 @@ private:
+         ActQ a2[MAXT];
+         alignas(64) uint8_t hq[MAXT][kNativeHBytes];   // plan v0.3 P6: native down activations
+     };
++    struct alignas(64) NativePipeExpert {
++        std::atomic<int> gu_left{0}, down_next{0};
++        std::atomic<bool> ready{false};
++    };
++    NativePipeExpert pipe_expert_[kMaxSplitMulti];
++    alignas(64) std::atomic<int> pipe_gu_next_{0};
++    alignas(64) std::atomic<int> pipe_gu_done_{0};
++    alignas(64) std::atomic<int> pipe_down_done_{0};
++    alignas(64) std::atomic<int> pipe_down_active_{0};
++    alignas(64) std::atomic<int> pipe_overlap_{0};
++    int pipe_nb_=0, pipe_gu_parts_=1, pipe_down_parts_=1, pipe_down_limit_=1;
++    void native_pipe_rows(bool gu, int e, int r0, int r1);
++    void drain_native_pipe(int id);
++    void run_native_pipe(const NativeFmt& f, ExpertJobMulti* jobs, int n);
+     const NativeFmt* nfmt_ = nullptr;
+     std::vector<SplitBufMulti> split_multi_;
+     PoolAffinity affinity_ = PoolAffinity::All;
+diff --git a/src/core/expert_source.cpp b/src/core/expert_source.cpp
+index 4604eb8d..bf365f67 100644
+--- a/src/core/expert_source.cpp
++++ b/src/core/expert_source.cpp
+@@ -1,5 +1,6 @@
+ // src/core/expert_source.cpp - the adapter.  See the header for the three clauses of the contract.
+ #include "strata/core/expert_source.hpp"
++#include "strata/core/cpu_phase_diag.hpp"
+ #include "strata/core/foresight_swap.hpp"
+ #include "strata/core/on_device.hpp"
+ #include "strata/platform/aux_cpus.hpp"
+@@ -25,7 +26,9 @@
+ #include <cstdio>
+ #include <cstdlib>
+ #include <cstring>
++#include <condition_variable>
+ #include <deque>
++#include <immintrin.h>
+ #include <fstream>
+ #include <filesystem>
+ #include <sstream>
+@@ -65,6 +68,26 @@
+ #endif
+ 
+ namespace strata::core {
++namespace {
++struct PhaseIoCounters {
++    std::atomic<uint64_t> direct_ns{0}, copy_ns{0}, issue_wait_ns{0}, inline_ns{0}, lru_ns{0};
++    std::atomic<uint64_t> issued_bytes{0}, useful_bytes{0};
++};
++PhaseIoCounters phase_io;
++struct PhaseTimer {
++    std::atomic<uint64_t>& dst;
++    bool on;
++    std::chrono::steady_clock::time_point begin{};
++    explicit PhaseTimer(std::atomic<uint64_t>& d):dst(d),on(cpu_phase_diag_enabled()) {
++        if(on) begin=std::chrono::steady_clock::now();
++    }
++    ~PhaseTimer() { if(on) dst.fetch_add((uint64_t)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-begin).count(),std::memory_order_relaxed); }
++};
++}
++bool cpu_phase_diag_enabled() {
++    static const bool on=[] { const char* p=std::getenv("STRATA_CPU_PHASE_DIAG"); return p && std::atoi(p)!=0; }();
++    return on;
++}
+ 
+ namespace detail {
+ 
+@@ -1446,6 +1469,34 @@ void FileExpertSource::prefetch(int64_t layer, const int64_t* experts, int64_t n
+     }
+ }
+ 
++bool FileExpertSource::prefetch_split_begin(int64_t layer, const int64_t* experts, int64_t n, int32_t* pending, int& npending) {
++    npending = 0;
++    split_todo_.clear();
++    if (!staged() || direct_.empty() || io_pf_ || n <= 0 || layer < 0 || layer >= n_layers_) return false;   // the unbuffered path only
++    std::lock_guard<std::mutex> lk(stage_mu_);
++    for (int64_t i = 0; i < n; ++i) {   // the claim half of prefetch(), unchanged
++        const int64_t e = experts[i];
++        if (e < 0 || e >= n_expert_) continue;
++        const size_t index = (size_t) layer * (size_t) n_expert_ + (size_t) e;
++        if (complement_ready_ && resident_blob(index) != nullptr)
++            continue;                                     // in the RAM copy
++        if (!override_.empty() && override_[index] != nullptr) continue;
++        size_t v = 0;
++        bool fill = false;
++        if (!claim_stage(layer * n_expert_ + e, v, fill) && fill) {
++            split_todo_.push_back({v, layer, e, stage_buf_[v].get()});
++            if (warm_stamp_) {
++                const uint32_t st = warm_stamp_[index].load(std::memory_order_relaxed);
++                if (st != 0 && (uint64_t) st + 3 >= epoch_ + 1) warm_hits_.fetch_add(1, std::memory_order_relaxed);
++            }
++        }
++    }
++    for (const Fill& f : split_todo_) pending[npending++] = (int32_t) f.e;
++    return true;
++}
++
++void FileExpertSource::prefetch_split_run() { fill_many(split_todo_); }
++
+ void FileExpertSource::prefetch_pairs(const std::pair<int32_t, int32_t>* pairs, int64_t n) {
+     if (direct_.empty() || pairs == nullptr || n <= 0) return;   // unbuffered only: the mapped fill stays as it was
+     std::vector<Fill> todo;
+@@ -1781,6 +1832,7 @@ bool FileExpertSource::map_view(std::string& why) {
+ }
+ 
+ bool FileExpertSource::read_direct(const Fill* fills, size_t n) const {
++    PhaseTimer phase_direct(phase_io.direct_ns);
+ #if defined(_WIN32)
+     // NTFS runs the unbuffered reads of a file one at a time while the file is mapped or cached anywhere (the engine
+     // maps the GGUF shards for the token embedding and the PLE table): measured on a PCIe 5 drive, 512 KiB reads at
+@@ -1868,9 +1920,17 @@ bool FileExpertSource::read_direct(const Fill* fills, size_t n) const {
+         sc.ev.push_back(e);
+     }
+     sc.ov.assign(sc.req.size(), OVERLAPPED{});
++    if(cpu_phase_diag_enabled()) {
++        uint64_t useful=0; for(const auto& x:sc.win) useful+=x.n;
++        phase_io.issued_bytes.fetch_add(total,std::memory_order_relaxed);
++        phase_io.useful_bytes.fetch_add(useful,std::memory_order_relaxed);
++    }
+     // every request in flight before the first wait: the drive sees the whole batch as one queue
+     size_t issued = 0;
+     bool ok = true;
++    std::vector<DWORD>& got = sc.got;
++    {
++    PhaseTimer phase_wait(phase_io.issue_wait_ns);
+     for (size_t q = 0; q < sc.req.size(); ++q) {
+         const Req& r = sc.req[q];
+         OVERLAPPED& o = sc.ov[q];
+@@ -1883,11 +1943,12 @@ bool FileExpertSource::read_direct(const Fill* fills, size_t n) const {
+         }
+         ++issued;
+     }
+-    std::vector<DWORD>& got = sc.got;
+     got.assign(sc.req.size(), 0);
+     for (size_t q = 0; q < issued; ++q)
+         if (!GetOverlappedResult(sc.req[q].h, &sc.ov[q], &got[q], TRUE)) ok = false;
++    }
+     if (!ok || issued < sc.req.size()) return false;
++    PhaseTimer phase_copy(phase_io.copy_ns);
+     for (const Window& x : sc.win) {
+         // a request may run past the end of the file: only the role's own bytes have to arrive
+         if ((uint64_t) got[x.req] < x.in_req + x.skip + x.n) return false;
+@@ -3096,6 +3157,14 @@ bool FileExpertSource::pin_cache_complement(
+     complement_lock_off_ = lock_off;
+     complement_lent_slots_ = lend ? n_slots - keep_from : 0;
+     complement_lent_slots_ += stage_lent;   // and the split stages' regions: pairs the copy kept of them
++    const char* lru = std::getenv("STRATA_RAM_LRU");
++    ram_lru_enabled_ = lru && std::strcmp(lru, "1") == 0;
++    if (ram_lru_enabled_) {
++        ram_lru_touch_.assign(complement_offsets_.size(), 0);
++        const char* check = std::getenv("STRATA_RAM_LRU_CHECK");
++        ram_lru_check_ = check && std::strcmp(check, "1") == 0;
++        std::fprintf(stderr, "RAM_LRU enabled: same-layer fixed arena; byte parity checks=%d\n", ram_lru_check_ ? 1 : 0);
++    }
+     complement_ready_ = true;
+     std::fprintf(stderr, "FileExpertSource: %s cache complement ready: resident %.2f GiB, pinned %.2f GiB in %.0f s%s%s\n",
+                  complement_pinned_ ? "mapped pinned" : pin ? "locked resident" : "pageable resident",
+@@ -3167,6 +3236,7 @@ bool FileExpertSource::reserve_exchanges(int64_t n, std::string& err) {
+     }
+     const char* rotate_env = std::getenv("STRATA_EXCHANGE_ROTATE");
+     const bool requested = rotate_env && std::strcmp(rotate_env, "1") == 0;
++    if (ram_lru_enabled_ && requested) { err = "RAM LRU excludes exchange rotation"; return false; }
+     const bool uniform = std::all_of(layer_blob_bytes_.begin(), layer_blob_bytes_.end(),
+                                     [blob](uint64_t b) { return b == blob; });
+     const bool eligible = requested && uniform && complement_pinned_ && !complement_partial_ &&
+@@ -3296,6 +3366,60 @@ const uint8_t* FileExpertSource::resident_blob(int64_t layer, int64_t expert) co
+     return resident_blob(index);   // through the rotation's ownership table when STRATA_EXCHANGE_ROTATE is on
+ }
+ 
++
++void FileExpertSource::ram_lru_complete(int64_t layer, const int32_t* ids, const int32_t* kind,
++    int64_t n, const int32_t* host_res, const int16_t* job_of, const strata::kernels::cpu::ExpertJobMulti* jobs) {
++    if (!ram_lru_enabled_) return;
++    // Called after synchronous CPU jobs. Current GPU/PCIe routes and pending adaptive copies
++    // are never victims. Same-layer slots have identical byte sizes; no arena reallocation.
++    if (layer < 0 || layer >= n_layers_ || !host_res || n <= 0) std::abort();
++    ++ram_lru_clock_;
++    const size_t base = (size_t)layer * (size_t)n_expert_;
++    for (int64_t i = 0; i < n; ++i) {
++        const int32_t e = ids[i];
++        if (e >= 0 && e < n_expert_ && kind[i] != -2 && resident_blob(base + e))
++            ram_lru_touch_[base + e] = ram_lru_clock_;
++    }
++    auto protected_pair = [&](size_t pair) {
++        if (host_res[pair] >= 0 || (!override_.empty() && override_[pair])) return true;
++        for (const Exchange& x : staged_) if (x.in == pair || x.out == pair) return true;
++        return false;
++    };
++    for (int64_t i = 0; i < n; ++i) {
++        const int32_t e = ids[i];
++        if (e < 0 || e >= n_expert_ || kind[i] != -1) continue;
++        const size_t incoming = base + e;
++        if (resident_blob(incoming) || protected_pair(incoming)) continue;
++        const int16_t job = job_of[e];
++        if (job < 0 || jobs[job].blob == nullptr) std::abort();
++        size_t victim = complement_offsets_.size();
++        uint64_t oldest = ~0ull;
++        for (int64_t candidate = 0; candidate < n_expert_; ++candidate) {
++            const size_t pair = base + (size_t)candidate;
++            if (complement_offsets_[pair] == kNoComplement || protected_pair(pair)) continue;
++            bool routed = false;
++            for (int64_t q = 0; q < n; ++q) if (ids[q] == candidate) { routed = true; break; }
++            if (routed) continue;
++            if (ram_lru_touch_[pair] < oldest) { oldest = ram_lru_touch_[pair]; victim = pair; }
++        }
++        if (victim == complement_offsets_.size()) { ++ram_lru_no_victim_; continue; }
++        const uint64_t at = complement_offsets_[victim], bytes = layer_blob_bytes_[(size_t)layer];
++        if (at > complement_bytes_ || bytes > complement_bytes_ - at) std::abort();
++        uint8_t* destination = (uint8_t*)complement_host_ + (size_t)at;
++        std::memcpy(destination, jobs[job].blob, (size_t)bytes);
++        if (ram_lru_check_ && std::memcmp(destination, jobs[job].blob, (size_t)bytes) != 0) std::abort();
++        complement_offsets_[victim] = kNoComplement;
++        complement_offsets_[incoming] = at;
++        ram_lru_touch_[incoming] = ram_lru_clock_;
++        ++ram_lru_admissions_;
++        ram_lru_copy_bytes_ += bytes;
++    }
++    if (layer == n_layers_ - 1 && ram_lru_clock_ % (48 * 128) == 0)
++        std::fprintf(stderr, "RAM_LRU admissions=%llu copy_MB=%.3f no_victim=%llu checked=%d\n",
++            (unsigned long long)ram_lru_admissions_, (double)ram_lru_copy_bytes_ / 1e6,
++            (unsigned long long)ram_lru_no_victim_, ram_lru_check_ ? 1 : 0);
++}
++
+ const uint8_t* FileExpertSource::blob_stable(int64_t layer, int64_t expert) {
+     if (io_pf_ && role_ptr_.empty() && direct_.empty()) {
+         if (complement_ready_ && layer >= 0 && expert >= 0 && layer < n_layers_ && expert < n_expert_) {
+@@ -3522,6 +3646,101 @@ int tail_skip_rank() {
+ }
+ void set_tail_skip_rank(int r) { g_tail_skip_rank.store(r > 0 && r < 10 ? r : 0, std::memory_order_relaxed); }
+ 
++namespace {
++// STRATA_MISS_OVERLAP: one helper thread that reads a layer's missing experts from the drive (prefetch_split_run) while the pool
++// computes the experts that need no read.  After a job it spins (like the pool's parked workers, whose condition-variable wake-ups
++// were measured to be late) and sleeps once idle for STRATA_MISS_OVERLAP_SPIN_US (default 20 ms).
++class MissIo {
++public:
++    static MissIo& get() { static MissIo* m = new MissIo(); return *m; }   // never destroyed: the thread is detached
++    void start(FileExpertSource* fs) {
++        done_.store(false, std::memory_order_relaxed);
++        req_.store(fs, std::memory_order_seq_cst);
++        if (sleeping_.load(std::memory_order_seq_cst)) {
++            std::lock_guard<std::mutex> lk(mu_);
++            cv_.notify_one();
++        }
++    }
++    void wait() {
++        uint32_t spins = 0;
++        std::chrono::steady_clock::time_point t0{};
++        while (!done_.load(std::memory_order_acquire)) {
++            _mm_pause();
++            if ((++spins & 0xffffu) != 0) continue;
++            const auto now = std::chrono::steady_clock::now();
++            if (spins == 0x10000u) t0 = now;
++            else if (now - t0 > std::chrono::seconds(120)) {
++                std::fprintf(stderr, "strata: MISS_OVERLAP: the read helper did not finish in 120 s\n");
++                std::fflush(stderr);
++                std::abort();
++            }
++        }
++    }
++    double read_ms() const { return (double) read_us_.load(std::memory_order_relaxed) / 1000.0; }
++private:
++    MissIo() {
++        const char* v = std::getenv("STRATA_MISS_OVERLAP_SPIN_US");
++        spin_ = std::chrono::microseconds(v != nullptr ? std::atoll(v) : 20000);
++        std::thread([this] { loop(); }).detach();
++    }
++    void loop() {
++        for (;;) {
++            FileExpertSource* fs = nullptr;
++            const auto idle = std::chrono::steady_clock::now();
++            uint32_t spins = 0;
++            while ((fs = req_.load(std::memory_order_acquire)) == nullptr) {
++                _mm_pause();
++                if ((++spins & 1023u) != 0) continue;
++                if (std::chrono::steady_clock::now() - idle < spin_) continue;
++                std::unique_lock<std::mutex> lk(mu_);
++                sleeping_.store(true, std::memory_order_seq_cst);
++                cv_.wait(lk, [&] { return req_.load(std::memory_order_seq_cst) != nullptr; });
++                sleeping_.store(false, std::memory_order_relaxed);
++            }
++            const auto t0 = std::chrono::steady_clock::now();
++            fs->prefetch_split_run();
++            read_us_.fetch_add((uint64_t) std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count(),
++                               std::memory_order_relaxed);
++            req_.store(nullptr, std::memory_order_release);
++            done_.store(true, std::memory_order_release);
++        }
++    }
++    std::atomic<FileExpertSource*> req_{nullptr};
++    std::atomic<bool> done_{true};
++    std::atomic<bool> sleeping_{false};
++    std::atomic<uint64_t> read_us_{0};
++    std::mutex mu_;
++    std::condition_variable cv_;
++    std::chrono::microseconds spin_{20000};
++};
++// waits for the helper on every way out of the dispatch
++struct MissIoJoin {
++    bool armed = false;
++    void join() { if (armed) { MissIo::get().wait(); armed = false; } }
++    ~MissIoJoin() { join(); }
++};
++struct MissStats {
++    unsigned long long split = 0, inline_reads = 0, chk_rows = 0, chk_bad = 0;
++    double join_ms = 0, over_ms = 0;
++    void print(const char* why) const {
++        std::fprintf(stderr, "MISS_OVERLAP %s: split_calls=%llu inline_reads=%llu helper_read_ms=%.1f compute_while_read_ms=%.1f join_wait_ms=%.1f "
++                     "check_rows=%llu check_mismatch_rows=%llu\n", why, split, inline_reads, MissIo::get().read_ms(), over_ms, join_ms, chk_rows, chk_bad);
++        std::fflush(stderr);
++    }
++};
++MissStats g_miss_stats;
++}  // namespace
++CpuPhaseDiag cpu_phase_diag_snapshot() {
++    CpuPhaseDiag p;
++    p.helper_ms=MissIo::get().read_ms(); p.join_ms=g_miss_stats.join_ms; p.ready_ms=g_miss_stats.over_ms;
++    p.inline_ms=(double)phase_io.inline_ns.load()/1e6; p.lru_ms=(double)phase_io.lru_ns.load()/1e6;
++    p.direct_ms=(double)phase_io.direct_ns.load()/1e6; p.copy_ms=(double)phase_io.copy_ns.load()/1e6;
++    p.issue_wait_ms=(double)phase_io.issue_wait_ns.load()/1e6;
++    p.issued_bytes=phase_io.issued_bytes.load(); p.useful_bytes=phase_io.useful_bytes.load();
++    p.splits=g_miss_stats.split; p.inlines=g_miss_stats.inline_reads;
++    return p;
++}
++
+ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32_t* ids, int64_t n_tok, int64_t k,
+                                 float* out) {
+     using namespace strata::kernels::cpu;
+@@ -3741,6 +3960,19 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+         }
+     }
+     const auto c2 = std::chrono::steady_clock::now();
++    // STRATA_MISS_OVERLAP=1: the CPU experts that need no read run while the missing ones are read (output unchanged: only when each
++    // expert's job starts differs).  STRATA_MISS_OVERLAP_CHECK=1: the same, and every split call is recomputed the original way and compared.
++    static const int mo_mode = [] {
++        const char* c = std::getenv("STRATA_MISS_OVERLAP_CHECK");
++        if (c != nullptr && std::atoi(c) != 0) return 2;
++        const char* v = std::getenv("STRATA_MISS_OVERLAP");
++        return (v != nullptr && std::atoi(v) != 0) ? 1 : 0;
++    }();
++    FileExpertSource* mo_fs = nullptr;
++    int32_t mo_pending[kMaxWindowEntries];
++    int mo_npend = 0;
++    bool mo_split = false;
++    MissIoJoin mo_join;
+     if (any_cpu) {   // CS-T: the experts the CPU computes, fetched together (the GGUF in place reads them on several threads)
+         static thread_local std::vector<int64_t> miss;
+         miss.clear();
+@@ -3748,13 +3980,58 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+             if (kind[i] == -1 && ids[i] >= 0 && ids[i] < d.n_expert &&
+                 std::find(miss.begin(), miss.end(), (int64_t) ids[i]) == miss.end())
+                 miss.push_back(ids[i]);
+-        d.src->prefetch(d.layers, miss.data(), (int64_t) miss.size());
++        if (mo_mode != 0 && (mo_fs = dynamic_cast<FileExpertSource*>(d.src)) != nullptr &&
++            mo_fs->prefetch_split_begin(d.layers, miss.data(), (int64_t) miss.size(), mo_pending, mo_npend)) {
++            if (mo_npend > 0) {
++                bool ready = false;   // is there a CPU expert that needs no read?
++                for (int64_t i = 0; i < n_tok * k && !ready; ++i)
++                    if (kind[i] == -1 && ids[i] >= 0 && ids[i] < d.n_expert) {
++                        bool pend = false;
++                        for (int q = 0; q < mo_npend; ++q)
++                            if (mo_pending[q] == ids[i]) { pend = true; break; }
++                        ready = !pend;
++                    }
++                if (ready) {
++                    mo_split = true;
++                    mo_join.armed = true;
++                    MissIo::get().start(mo_fs);
++                } else {
++                    PhaseTimer phase_inline(phase_io.inline_ns);
++                    mo_fs->prefetch_split_run();   // nothing to overlap with: read here, as prefetch() does
++                    ++g_miss_stats.inline_reads;
++                }
++            }
++        } else {
++            d.src->prefetch(d.layers, miss.data(), (int64_t) miss.size());
++        }
+     }
+-    int njobs = 0;
++    auto mo_is_pending = [&](int64_t e) {
++        for (int q = 0; q < mo_npend; ++q)
++            if (mo_pending[q] == e) return true;
++        return false;
++    };
++    int njobs = 0, njobs1 = 0;
++    double mo_ms = 0.0;
++    for (int pass = 0; pass < (mo_split ? 2 : 1); ++pass) {
++      if (pass == 1) {   // the experts that needed no read are done first, while the helper reads the rest
++        const auto ra = std::chrono::steady_clock::now();
++        if (njobs > 0) {
++            if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], d.jobs_multi.data(), njobs);
++            else d.pool->run_split_multi(d.jobs_multi.data(), njobs);
++        }
++        const auto rb = std::chrono::steady_clock::now();
++        mo_join.join();
++        const auto rc = std::chrono::steady_clock::now();
++        njobs1 = njobs;
++        g_miss_stats.over_ms += std::chrono::duration<double, std::milli>(rb - ra).count();
++        g_miss_stats.join_ms += std::chrono::duration<double, std::milli>(rc - rb).count();
++        mo_ms = std::chrono::duration<double, std::milli>(rc - ra).count();
++      }
+     for (int64_t t = 0; t < n_tok; ++t)
+         for (int64_t j = 0; j < k; ++j) {
+             const int64_t i = t * k + j;
+             const int64_t e = ids[i];
++            if (mo_split && ((kind[i] == -1 && mo_is_pending(e)) != (pass == 1))) continue;   // pass 0: no read needed; pass 1: read
+             float* row = out + (size_t) i * H;
+             if (e < 0 || e >= d.n_expert) {
+                 d.failed = true;
+@@ -3803,12 +4080,14 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+             ++jb.nt;
+             ++d.multi_entries;
+         }
++    }
+     const auto c3 = std::chrono::steady_clock::now();
+     pt("run", njobs);
+-    if (njobs > 0) {
+-        if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], d.jobs_multi.data(), njobs);
+-        else d.pool->run_split_multi(d.jobs_multi.data(), njobs);
++    if (njobs > njobs1) {   // njobs1 is 0 unless the overlap split the batch: then these are the experts that were read
++        if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], d.jobs_multi.data() + njobs1, njobs - njobs1);
++        else d.pool->run_split_multi(d.jobs_multi.data() + njobs1, njobs - njobs1);
+     }
++    mo_join.join();
+     if (d.remote_count > 0) {
+         static thread_local std::string remote_error;
+         for (int r = 0; r < d.remote_count; ++r)
+@@ -3826,13 +4105,61 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+             return;
+         }
+     }
++    if (mo_split) {
++        ++g_miss_stats.split;
++        if (mo_mode == 2) {   // STRATA_MISS_OVERLAP_CHECK: the CPU rows again, in ONE batch in the original job order, into scratch rows
++            static thread_local std::vector<float> chk;
++            static thread_local std::vector<ExpertJobMulti> cj;
++            static thread_local std::vector<int> cmap;
++            chk.assign((size_t) n * (size_t) H, 0.0f);
++            cj.clear();
++            cmap.assign((size_t) njobs, -1);
++            for (int64_t t = 0; t < n_tok; ++t)
++                for (int64_t j = 0; j < k; ++j) {
++                    const int64_t i = t * k + j;
++                    if (kind[i] != -1) continue;
++                    const int jo = d.job_of[(size_t) ids[i]];
++                    if (cmap[(size_t) jo] < 0) {
++                        cmap[(size_t) jo] = (int) cj.size();
++                        cj.emplace_back();
++                        cj.back().blob = d.jobs_multi[(size_t) jo].blob;
++                        cj.back().nt = 0;
++                    }
++                    ExpertJobMulti& cb = cj[(size_t) cmap[(size_t) jo]];
++                    cb.act[cb.nt] = &d.act_multi[(size_t) t];
++                    cb.nact[cb.nt] = native ? d.nact_multi.data() + (size_t) t * kNativeActBytes : nullptr;
++                    cb.out[cb.nt] = chk.data() + (size_t) i * (size_t) H;
++                    ++cb.nt;
++                }
++            if (!cj.empty()) {
++                if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], cj.data(), (int) cj.size());
++                else d.pool->run_split_multi(cj.data(), (int) cj.size());
++            }
++            unsigned long long bad = 0;
++            for (int64_t i = 0; i < n; ++i) {
++                if (kind[i] != -1) continue;
++                ++g_miss_stats.chk_rows;
++                if (std::memcmp(chk.data() + (size_t) i * (size_t) H, out + (size_t) i * H, (size_t) H * sizeof(float)) != 0) {
++                    ++g_miss_stats.chk_bad;
++                    ++bad;
++                }
++            }
++            if (bad != 0 && g_miss_stats.chk_bad <= 20)
++                std::fprintf(stderr, "MISS_OVERLAP_CHECK MISMATCH layer %lld: %llu of the CPU rows differ\n", (long long) d.layers, bad);
++        }
++        if ((g_miss_stats.split & 63u) == 1) g_miss_stats.print("progress");
++    }
++    if (auto* file_source = dynamic_cast<FileExpertSource*>(d.src)) {
++        PhaseTimer phase_lru(phase_io.lru_ns);
++        file_source->ram_lru_complete(d.layers, ids, kind, n_tok * k, d.host_res, d.job_of.data(), d.jobs_multi.data());
++    }
+     const auto c4 = std::chrono::steady_clock::now();
+     pt("ran");
+     auto ms = [](auto a, auto b) { return std::chrono::duration<double, std::milli>(b - a).count(); };
+     d.ms_plan += ms(c0, c1);
+     d.ms_actq += ms(c1, c2);
+-    d.ms_jobs += ms(c2, c3);
+-    d.ms_run += ms(c3, c4);
++    d.ms_jobs += ms(c2, c3) - mo_ms;
++    d.ms_run += ms(c3, c4) + mo_ms;
+     for (int64_t i = 0; i < n_tok * k; ++i) {
+         const int64_t e = ids[i];
+         if (e >= 0 && e < d.n_expert) d.job_of[(size_t) e] = -1;
+diff --git a/src/kernels/cpu/pool.cpp b/src/kernels/cpu/pool.cpp
+index af1eb5a5..8afe3522 100644
+--- a/src/kernels/cpu/pool.cpp
++++ b/src/kernels/cpu/pool.cpp
+@@ -12,6 +12,7 @@
+ 
+ #include <cstdio>
+ #include <cstdlib>
++#include <cstring>
+ #include <stdexcept>
+ 
+ #if defined(_WIN32)
+@@ -626,6 +627,8 @@ void ExpertPool::drain(int id, ExpertScratch& scratch, uint32_t epoch) {
+             const int e = (int) i / parts_b_, part = (int) i % parts_b_;
+             const int r0 = H * part / parts_b_, r1 = H * (part + 1) / parts_b_;
+             s2_expert_down_rows(jobs_[e].blob, split_[(size_t) e].a2, jobs_[e].out, r0, r1);
++        } else if (mode_ == 7) {
++            drain_native_pipe(id);
+         } else if (mode_ >= 5) {
+             // plan v0.3 P6: native layers, 5 = gate/up rows, 6 = down rows
+             const int per = mode_ == 5 ? FF : H;
+@@ -758,8 +761,137 @@ void ExpertPool::run_split_multi(ExpertJobMulti* jobs, int n) {
+     ms_drain_ += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count();
+ }
+ 
++
++// The same row kernels as phases 5/6. No arithmetic is fused or requantized differently.
++void ExpertPool::native_pipe_rows(bool gu, int e, int r0, int r1) {
++    SplitBufMulti& sb=split_multi_[(size_t)e];
++    if (gu && q2_native_kernels(nfmt_->gu_type)) {
++        thread_local float gbuf[MAXT][FF],ubuf[MAXT][FF];
++        float* gp[MAXT];float* up[MAXT];
++        for(int t=0;t<mjobs_[e].nt;++t){gp[t]=gbuf[t];up[t]=ubuf[t];}
++        const int nbk=(int)(nfmt_->n_embd/64);
++        q2_rows_any(mjobs_[e].blob,nfmt_->gu_row,nbk,mjobs_[e].act,mjobs_[e].nt,gp,r0,r1);
++        q2_rows_any(mjobs_[e].blob+nfmt_->up_off,nfmt_->gu_row,nbk,mjobs_[e].act,mjobs_[e].nt,up,r0,r1);
++        for(int t=0;t<mjobs_[e].nt;++t)for(int r=r0;r<r1;++r)
++            sb.ff[t][r]=(gbuf[t][r]/(1.f+std::exp(-gbuf[t][r])))*ubuf[t][r];
++    } else if(gu) {
++        float* ff[MAXT];for(int t=0;t<mjobs_[e].nt;++t)ff[t]=sb.ff[t];
++        native_gu_rows(*nfmt_,mjobs_[e].blob,mjobs_[e].nact,mjobs_[e].nt,ff,r0,r1);
++    } else if(q2_native_kernels(nfmt_->d_type)) {
++        const ActQ* a2[MAXT];for(int t=0;t<mjobs_[e].nt;++t)a2[t]=&sb.a2[t];
++        q2_rows_any(mjobs_[e].blob+nfmt_->down_off,nfmt_->d_row,(int)(nfmt_->n_ff/64),a2,mjobs_[e].nt,mjobs_[e].out,r0,r1);
++    } else {
++        const void* hq[MAXT];for(int t=0;t<mjobs_[e].nt;++t)hq[t]=sb.hq[t];
++        native_down_rows(*nfmt_,mjobs_[e].blob,hq,mjobs_[e].nt,mjobs_[e].out,r0,r1);
++    }
++}
++
++void ExpertPool::drain_native_pipe(int id) {
++    const int gu_total=pipe_nb_*pipe_gu_parts_,down_total=pipe_nb_*pipe_down_parts_;
++    const int threads=n_+(host_works_?1:0);
++    const int start=(id+1)%pipe_nb_;
++    uint32_t idle=0;int last_done=-1;
++    auto last_progress=std::chrono::steady_clock::now();
++    while(pipe_down_done_.load(std::memory_order_acquire)<down_total) {
++        bool worked=false;
++        // Keep GU workers progressing while down uses only a bounded bandwidth share.
++        const int limit=pipe_gu_next_.load(std::memory_order_relaxed)<gu_total?pipe_down_limit_:threads;
++        int active=pipe_down_active_.load(std::memory_order_relaxed);
++        if(active<limit && pipe_down_active_.compare_exchange_strong(active,active+1,std::memory_order_acq_rel)) {
++            for(int scan=0;scan<pipe_nb_;++scan) {
++                const int e=(start+scan)%pipe_nb_;
++                auto& state=pipe_expert_[e];
++                if(!state.ready.load(std::memory_order_acquire))continue;
++                int part=state.down_next.load(std::memory_order_relaxed);
++                while(part<pipe_down_parts_ && !state.down_next.compare_exchange_weak(part,part+1,std::memory_order_relaxed)){}
++                if(part>=pipe_down_parts_)continue;
++                if(pipe_gu_done_.load(std::memory_order_acquire)<gu_total)pipe_overlap_.fetch_add(1,std::memory_order_relaxed);
++                native_pipe_rows(false,e,H*part/pipe_down_parts_,H*(part+1)/pipe_down_parts_);
++                pipe_down_done_.fetch_add(1,std::memory_order_release);
++                worked=true;break;
++            }
++            pipe_down_active_.fetch_sub(1,std::memory_order_release);
++        }
++        if(worked)continue;
++        int task=pipe_gu_next_.load(std::memory_order_relaxed);
++        while(task<gu_total && !pipe_gu_next_.compare_exchange_weak(task,task+1,std::memory_order_relaxed)){}
++        if(task<gu_total) {
++            const int e=task/pipe_gu_parts_,part=task%pipe_gu_parts_;
++            native_pipe_rows(true,e,FF*part/pipe_gu_parts_,FF*(part+1)/pipe_gu_parts_);
++            pipe_gu_done_.fetch_add(1,std::memory_order_release);
++            if(pipe_expert_[e].gu_left.fetch_sub(1,std::memory_order_acq_rel)==1) {
++                for(int t=0;t<mjobs_[e].nt;++t)
++                    if(q2_native_kernels(nfmt_->d_type))act_quant_any(split_multi_[(size_t)e].ff[t],FF,split_multi_[(size_t)e].a2[t]);
++                    else native_quant_h(*nfmt_,split_multi_[(size_t)e].ff[t],split_multi_[(size_t)e].hq[t]);
++                pipe_expert_[e].ready.store(true,std::memory_order_release);
++            }
++            continue;
++        }
++        _mm_pause();
++        if((++idle&4095u)==0) {
++            const int done=pipe_down_done_.load(std::memory_order_acquire);
++            const auto now=std::chrono::steady_clock::now();
++            if(done!=last_done){last_done=done;last_progress=now;}
++            else if(now-last_progress>std::chrono::seconds(5)) {
++                std::fprintf(stderr,"NATIVE_PIPE FATAL stalled down=%d/%d gu=%d/%d\n",done,down_total,pipe_gu_done_.load(),gu_total);std::abort();
++            }
++        }
++    }
++}
++
++void ExpertPool::run_native_pipe(const NativeFmt& f,ExpertJobMulti* jobs,int n) {
++    const auto begin=std::chrono::steady_clock::now();
++    const int threads=n_+(host_works_?1:0);
++    static bool announced=false;
++    if(!announced){std::fprintf(stderr,"NATIVE_PIPE ACTIVE workers=%d down_limit=%d exact_row_kernels=1\n",threads,(std::max)(1,threads/3));announced=true;}
++    for(int b0=0;b0<n;b0+=kMaxSplitMulti) {
++        wait_parked("before pipeline setup");
++        const int nb=(std::min)(kMaxSplitMulti,n-b0);
++        mjobs_=jobs+b0;nfmt_=&f;pipe_nb_=nb;
++        pipe_gu_parts_=(std::min)((int)FF,(std::max)(1,(phase_tasks((int64_t)nb*FF)+nb-1)/nb));
++        pipe_down_parts_=(std::min)((int)H,(std::max)(1,(phase_tasks((int64_t)nb*H)+nb-1)/nb));
++        pipe_down_limit_=(std::max)(1,threads/3);
++        pipe_gu_next_.store(0);pipe_gu_done_.store(0);pipe_down_done_.store(0);pipe_down_active_.store(0);pipe_overlap_.store(0);
++        for(int e=0;e<nb;++e){pipe_expert_[e].gu_left.store(pipe_gu_parts_);pipe_expert_[e].down_next.store(0);pipe_expert_[e].ready.store(false);}
++        run_phase(7,threads);
++        if(pipe_gu_done_.load()!=nb*pipe_gu_parts_ || pipe_down_done_.load()!=nb*pipe_down_parts_ || pipe_down_active_.load()!=0) {
++            std::fprintf(stderr,"NATIVE_PIPE FATAL completion accounting\n");std::abort();
++        }
++        pipeline_overlap_tiles+=(uint64_t)pipe_overlap_.load();pipeline_down_tiles+=(uint64_t)(nb*pipe_down_parts_);++pipeline_calls;
++    }
++    const double elapsed=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-begin).count();
++    ms_multi_pipeline+=elapsed;ms_drain_+=elapsed;multi_bytes+=(int64_t)n*(int64_t)f.bytes;mode_=0;
++    if((pipeline_calls&127u)<2u)std::fprintf(stderr,"NATIVE_PIPE progress calls=%llu overlap_down_tiles=%llu down_tiles=%llu pool_ms=%.6f\n",
++        (unsigned long long)pipeline_calls,(unsigned long long)pipeline_overlap_tiles,(unsigned long long)pipeline_down_tiles,ms_multi_pipeline);
++}
++
+ void ExpertPool::run_split_multi_native(const NativeFmt& f, ExpertJobMulti* jobs, int n) {
+     if (n <= 0) return;
++    static const bool pipe=[] {const char* p=std::getenv("STRATA_NATIVE_PIPE");return p&&std::atoi(p)!=0;}();
++    static const bool check=[] {const char* p=std::getenv("STRATA_NATIVE_PIPE_CHECK");return p&&std::atoi(p)!=0;}();
++    static thread_local bool reference=false;
++    if(check&&!pipe){std::fprintf(stderr,"NATIVE_PIPE FATAL check requires pipe\n");std::abort();}
++    if(pipe&&!reference) {
++        run_native_pipe(f,jobs,n);
++        if(check) {
++            std::vector<float> expected;
++            for(int e=0;e<n;++e)for(int t=0;t<jobs[e].nt;++t)expected.insert(expected.end(),jobs[e].out[t],jobs[e].out[t]+H);
++            reference=true;run_split_multi_native(f,jobs,n);reference=false;
++            size_t at=0;
++            for(int e=0;e<n;++e)for(int t=0;t<jobs[e].nt;++t) {
++                if(std::memcmp(expected.data()+at,jobs[e].out[t],(size_t)H*sizeof(float))!=0) {
++                    for(int r=0;r<H;++r)if(std::memcmp(expected.data()+at+r,jobs[e].out[t]+r,sizeof(float))!=0){
++                        std::fprintf(stderr,"NATIVE_PIPE_CHECK MISMATCH gu=%d down=%d expert=%d token=%d row=%d pipe=%.9g reference=%.9g\n",f.gu_type,f.d_type,e,t,r,expected[at+r],jobs[e].out[t][r]);break;}
++                    std::abort();
++                }
++                at+=H;
++            }
++            static uint64_t checked=0,values=0;++checked;values+=expected.size();
++            if(checked<=48 || (checked&127u)==1)std::fprintf(stderr,"NATIVE_PIPE_CHECK batches=%llu values=%llu gu_type=%d down_type=%d mismatch=0\n",
++                (unsigned long long)checked,(unsigned long long)values,f.gu_type,f.d_type);
++        }
++        return;
++    }
+     const auto t0 = std::chrono::steady_clock::now();
+     // more distinct experts than buffers: run them in batches
+     for (int b0 = 0; b0 < n; b0 += kMaxSplitMulti) {
+diff --git a/src/program/generate.cpp b/src/program/generate.cpp
+index ff3f2e1a..1118459a 100644
+--- a/src/program/generate.cpp
++++ b/src/program/generate.cpp
+@@ -27,6 +27,7 @@
+ #include "strata/core/conversation_memory.hpp"
+ #include "strata/core/coupled_draft.hpp"
+ #include "strata/core/expert_source.hpp"
++#include "strata/core/cpu_phase_diag.hpp"
+ #include "strata/core/foresight_swap.hpp"
+ #include "strata/core/pinned.hpp"
+ #include "strata/core/remote_experts.hpp"
+@@ -10861,6 +10862,9 @@ int main(int argc, char** argv) {
+                                drive.d.pcie_experts};
+             };
+             const DecSnap ds0 = dec_snap();
++            const bool cpd_on=strata::core::cpu_phase_diag_enabled();
++            const auto cpd0=cpd_on?strata::core::cpu_phase_diag_snapshot():strata::core::CpuPhaseDiag{};
++            const double cpd_gu0=pool.ms_multi_gu, cpd_q0=pool.ms_multi_q, cpd_down0=pool.ms_multi_down, cpd_pipe0=pool.ms_multi_pipeline;
+             double dt_run = 0, dt_commit = 0, dt_draft = 0;
+             int64_t dec_windows = 0, dec_T = 0;
+             const int64_t decode_hits0 = drive.d.cache_hits;
+@@ -11710,6 +11714,15 @@ int main(int argc, char** argv) {
+             }
+             if (dec_timing && dec_windows > 0) {
+                 const DecSnap d1 = dec_snap();
++                if(cpd_on) {
++                    const auto z=strata::core::cpu_phase_diag_snapshot();
++                    std::fprintf(stderr,"CPU_PHASE_DECODE windows=%lld cpu_ms=%.6f jobs_ms=%.6f gu_ms=%.6f quant_ms=%.6f down_ms=%.6f pipeline_ms=%.6f join_ms=%.6f ready_ms=%.6f inline_ms=%.6f lru_ms=%.6f helper_ms=%.6f direct_ms=%.6f copy_ms=%.6f issue_wait_ms=%.6f issued_bytes=%llu useful_bytes=%llu splits=%llu inlines=%llu\n",
++                        (long long)dec_windows,d1.run-ds0.run,d1.jobs-ds0.jobs,pool.ms_multi_gu-cpd_gu0,pool.ms_multi_q-cpd_q0,pool.ms_multi_down-cpd_down0,pool.ms_multi_pipeline-cpd_pipe0,
++                        z.join_ms-cpd0.join_ms,z.ready_ms-cpd0.ready_ms,z.inline_ms-cpd0.inline_ms,z.lru_ms-cpd0.lru_ms,z.helper_ms-cpd0.helper_ms,
++                        z.direct_ms-cpd0.direct_ms,z.copy_ms-cpd0.copy_ms,z.issue_wait_ms-cpd0.issue_wait_ms,
++                        (unsigned long long)(z.issued_bytes-cpd0.issued_bytes),(unsigned long long)(z.useful_bytes-cpd0.useful_bytes),
++                        (unsigned long long)(z.splits-cpd0.splits),(unsigned long long)(z.inlines-cpd0.inlines));
++                }
+                 const double w = (double) dec_windows, L = (double) g.n_layers;
+                 std::fprintf(stderr, "strata decode timing: %lld windows, avg T %.2f, %.2f tokens/window, %.2f ms/window = "
+                                      "verify %.2f (GPU-reach wait %.2f + per-layer host %.2f [plan %.2f actq %.2f jobs %.2f "
+@@ -12870,7 +12883,7 @@ int main(int argc, char** argv) {
+             std::printf("%-24s gate/up %.3f  quantize %.3f  down %.3f ms/round; %.1f GB/s over the rows phases; "
+                         "CPU pool call %.3f ms/round\n", "pool multi", pool.ms_multi_gu / rounds,
+                         pool.ms_multi_q / rounds, pool.ms_multi_down / rounds,
+-                        (double) pool.multi_bytes / 1e6 / std::max(1e-9, pool.ms_multi_gu + pool.ms_multi_down),
++                        (double) pool.multi_bytes / 1e6 / std::max(1e-9, pool.ms_multi_gu + pool.ms_multi_down + pool.ms_multi_pipeline),
+                         (drive.cpu_ms - pool_ms0) / rounds);
+         if (rounds > 0)
+             std::printf("%-24s plan %.3f  activation quantize %.3f  jobs %.3f  run %.3f ms/round\n", "dispatch",
+-- 
+2.52.0.windows.1
+

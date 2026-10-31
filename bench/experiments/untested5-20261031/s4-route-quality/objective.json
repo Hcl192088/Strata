@@ -1,0 +1,26 @@
+{
+  "note": "20 objective questions with reference answers (written by Claude 2026-10-31). Score: extract the last line starting with 答案 / Answer; numeric compare with tolerance 1e-6 relative, or exact string match after trimming. Each prompt asks for a final line '答案：<value>'.",
+  "suffix": "\n\n請在最後一行只寫「答案：」加上最終答案。",
+  "items": [
+    {"id": "m01", "cat": "math", "q": "一個水池有甲、乙兩根進水管。甲管單獨注滿需要 6 小時，乙管單獨注滿需要 9 小時。兩管同時開，需要幾小時注滿？", "answer": "3.6"},
+    {"id": "m02", "cat": "math", "q": "某商品先漲價 20%，再打 75 折出售，售價是 450 元。原價是多少元？", "answer": "500"},
+    {"id": "m03", "cat": "math", "q": "從 1 到 200 的整數中，有幾個數能被 3 或 5 整除？", "answer": "93"},
+    {"id": "m04", "cat": "math", "q": "擲兩顆公正的六面骰子，點數和為 8 的機率是多少？請用最簡分數表示（例如 1/6）。", "answer": "5/36"},
+    {"id": "m05", "cat": "math", "q": "等差數列首項為 7，公差為 4，前 20 項的總和是多少？", "answer": "900"},
+    {"id": "m06", "cat": "logic", "q": "甲、乙、丙三人中只有一人說真話。甲說：「乙在說謊。」乙說：「丙在說謊。」丙說：「甲和乙都在說謊。」請問誰說真話？只回答一個名字（甲、乙或丙）。", "answer": "乙"},
+    {"id": "m07", "cat": "math", "q": "一列火車長 180 公尺，以每秒 20 公尺的速度完全通過一座長 620 公尺的橋（從車頭上橋到車尾離橋），需要幾秒？", "answer": "40"},
+    {"id": "m08", "cat": "math", "q": "求 2 的 100 次方除以 7 的餘數。", "answer": "2"},
+    {"id": "c01", "cat": "code", "q": "以下 Python 程式輸出什麼？\n\nx = [1, 2, 3]\ny = x\ny.append(4)\nprint(len(x))", "answer": "4"},
+    {"id": "c02", "cat": "code", "q": "以下 Python 程式輸出什麼？\n\nprint(sum(i * i for i in range(1, 11) if i % 2 == 0))", "answer": "220"},
+    {"id": "c03", "cat": "code", "q": "以下 Python 程式輸出什麼？\n\ns = 'strata'\nprint(s[::-1][1:4])", "answer": "tar"},
+    {"id": "c04", "cat": "code", "q": "以下 Python 程式輸出什麼？\n\nd = {}\nfor w in 'a b a c b a'.split():\n    d[w] = d.get(w, 0) + 1\nprint(max(d, key=d.get), d['b'])\n\n請把整行輸出原樣寫在答案後面。", "answer": "a 2"},
+    {"id": "c05", "cat": "code", "q": "以下 C 程式輸出什麼？\n\n#include <stdio.h>\nint main(void) {\n    int a = 7, b = 2;\n    printf(\"%d\\n\", a / b * b + a % b);\n    return 0;\n}", "answer": "7"},
+    {"id": "c06", "cat": "code", "q": "以下 JavaScript 程式輸出什麼？\n\nconsole.log([10, 1, 3].sort().join(','));", "answer": "1,10,3"},
+    {"id": "f01", "cat": "fact", "q": "1 英里約等於幾公里？請四捨五入到小數點後兩位。", "answer": "1.61"},
+    {"id": "f02", "cat": "fact", "q": "攝氏 37 度等於華氏幾度？請寫到小數點後一位。", "answer": "98.6"},
+    {"id": "f03", "cat": "fact", "q": "水的化學式中，一個分子有幾個原子？", "answer": "3"},
+    {"id": "f04", "cat": "fact", "q": "一天有多少秒？", "answer": "86400"},
+    {"id": "f05", "cat": "fact", "q": "1 GiB 等於多少位元組（byte）？請寫出完整整數。", "answer": "1073741824"},
+    {"id": "f06", "cat": "fact", "q": "光在真空中的速度約為每秒多少公里？請寫到整數（取 299792）。只寫數字。", "answer": "299792"}
+  ]
+}

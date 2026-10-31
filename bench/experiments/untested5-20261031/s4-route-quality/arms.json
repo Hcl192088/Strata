@@ -1,0 +1,8 @@
+{"arms":[
+ {"name":"C","gate_slots":true},
+ {"name":"RP05","env":{"STRATA_ROUTE_PRIOR":"0.5"}},
+ {"name":"RP10","env":{"STRATA_ROUTE_PRIOR":"1.0"}},
+ {"name":"RP15","env":{"STRATA_ROUTE_PRIOR":"1.5"}},
+ {"name":"RR10","env":{"STRATA_ROUTE_RESIDENT":"1.0"}},
+ {"name":"RR20","env":{"STRATA_ROUTE_RESIDENT":"2.0"}}
+]}
